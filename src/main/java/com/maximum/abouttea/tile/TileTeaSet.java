@@ -1,6 +1,7 @@
 package com.maximum.abouttea.tile;
 
 import com.maximum.abouttea.init.ModBlock;
+import com.maximum.abouttea.init.ModTiles;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +20,7 @@ import javax.annotation.Nullable;
 public class TileTeaSet extends TileEntity implements ITickableTileEntity {
     private LazyOptional<IItemHandler> cupHandler=LazyOptional.of(()->new ItemStackHandler(2));
     public TileTeaSet() {
-        super(ModBlock.TEA_SET_TILE.get());
+        super(ModTiles.TEA_SET_TILE.get());
     }
     @Override
     @Nonnull
