@@ -1,5 +1,6 @@
 package com.maximum.abouttea.block;
 
+import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileTeaSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -21,6 +22,6 @@ public class BlockTeaSet extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileTeaSet();
+        return ModTiles.TEA_SET_TILE.get().create();
     }
 }

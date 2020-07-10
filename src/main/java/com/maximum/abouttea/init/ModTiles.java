@@ -13,6 +13,7 @@ import static com.maximum.abouttea.AboutTea.MODID;
 public class ModTiles {
     private static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
     public static final RegistryObject<TileEntityType<TileTeaSet>> TEA_SET_TILE = TILES.register("teaset",()->TileEntityType.Builder.create(TileTeaSet::new,ModBlock.blockTeaSet.get()).build(null));
+    //public static final RegistryObject<TileEntityType<>>
     public static void register(){
         TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
