@@ -4,6 +4,7 @@ import com.maximum.abouttea.init.ModBlock;
 import com.maximum.abouttea.init.ModContainer;
 import com.maximum.abouttea.init.ModItems;
 import com.maximum.abouttea.init.ModTiles;
+import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,8 +16,8 @@ public class AboutTea {
     public static final String MODID="abouttea";
     public AboutTea(){
         instance=this;
+        RegistryUtil.register();
         ModItems.register();
-        ModBlock.register();
         ModContainer.register();
         ModTiles.register();
     }

@@ -3,6 +3,7 @@ package com.maximum.abouttea.init;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.block.*;
 import com.maximum.abouttea.tile.TileTeaSet;
+import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -27,11 +28,11 @@ import static com.maximum.abouttea.AboutTea.MODID;
 public class ModBlock {
     private static final DeferredRegister<Block> BLOCKS=new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
     private static final DeferredRegister<Item> BLOCK_ITEMS=new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
-    public static RegistryObject<BlockTeaSet> blockTeaSet=registryBlock("teaset",BlockTeaSet::new);
-    public static RegistryObject<BlockTeaTreeLeave> blockTeaTreeLeave=registryBlock("teatreeleave",()->new BlockTeaTreeLeave(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f),"greentea"));
-    public static RegistryObject<BlockTeaWood> blockTeaWood=registryBlock("teawood",BlockTeaWood::new);
-    public static RegistryObject<BlockTeaStoneOre> blockTeaStoneOre=registryBlock("teastone_ore",BlockTeaStoneOre::new);
-    public static RegistryObject<BlockTeaGenerator> blockTeaGenerator=registryBlock("tea_generator",BlockTeaGenerator::new);
+    public static RegistryObject<BlockTeaSet> blockTeaSet= RegistryUtil.registryBlockWithItem("teaset",BlockTeaSet::new);
+    public static RegistryObject<BlockTeaTreeLeave> blockTeaTreeLeave=RegistryUtil.registryBlockWithItem("teatreeleave",()->new BlockTeaTreeLeave(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f),"greentea"));
+    public static RegistryObject<BlockTeaWood> blockTeaWood=RegistryUtil.registryBlockWithItem("teawood",BlockTeaWood::new);
+    public static RegistryObject<BlockTeaStoneOre> blockTeaStoneOre=RegistryUtil.registryBlockWithItem("teastone_ore",BlockTeaStoneOre::new);
+    public static RegistryObject<BlockTeaGenerator> blockTeaGenerator=RegistryUtil.registryBlockWithItem("tea_generator",BlockTeaGenerator::new);
     public static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block){
 
         RegistryObject<T> registryObject=BLOCKS.register(name,block);
