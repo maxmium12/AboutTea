@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModContainer {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS=new DeferredRegister<>(ForgeRegistries.CONTAINERS, AboutTea.MODID);
     public static final RegistryObject<ContainerType<ContainerTeaSet>> containerteaset=CONTAINERS.register("teaset_container",
-            ()->IForgeContainerType.create((int windowid,PlayerInventory inv,PacketBuffer buffer)->new ContainerTeaSet(windowid,inv,buffer,buffer.readBlockPos(), Minecraft.getInstance().world)));
+            ()->IForgeContainerType.create((int windowid,PlayerInventory inv,PacketBuffer buffer)->new ContainerTeaSet(windowid,inv,buffer.readBlockPos(), Minecraft.getInstance().world)));
     public static void register(){
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }

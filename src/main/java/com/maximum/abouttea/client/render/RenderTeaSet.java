@@ -46,6 +46,7 @@ public class RenderTeaSet extends TileEntityRenderer<TileTeaSet> {
             TextureAtlasSprite sprite= RenderUtil.getSpite(water);
             IVertexBuilder builder=bufferIn.getBuffer(RenderType.getWaterMask());
             matrixStackIn.translate(0,1.3,0);
+            //染色
             float red = (float)(color >> 16 & 255) / 255.0F;
             float blue = (float)(color >> 8 & 255) / 255.0F;
             float green = (float)(color & 255) / 255.0F;

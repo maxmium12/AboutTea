@@ -15,7 +15,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nullable;
 
 public class ContainerTeaSet extends Container {
-    public ContainerTeaSet(int id, PlayerInventory inv, PacketBuffer buffer, BlockPos pos, World world) {
+    public ContainerTeaSet(int id, PlayerInventory inv, BlockPos pos, World world) {
         super(ModContainer.containerteaset.get(), id);
         TileTeaSet teaSet = (TileTeaSet) world.getTileEntity(pos);
         if (teaSet != null) {
