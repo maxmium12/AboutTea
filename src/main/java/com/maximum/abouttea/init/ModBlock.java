@@ -26,21 +26,12 @@ import static com.maximum.abouttea.AboutTea.MODID;
 
 @Mod.EventBusSubscriber
 public class ModBlock {
-    private static final DeferredRegister<Block> BLOCKS=new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
-    private static final DeferredRegister<Item> BLOCK_ITEMS=new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
     public static RegistryObject<BlockTeaSet> blockTeaSet= RegistryUtil.registryBlockWithItem("teaset",BlockTeaSet::new);
     public static RegistryObject<BlockTeaTreeLeave> blockTeaTreeLeave=RegistryUtil.registryBlockWithItem("teatreeleave",()->new BlockTeaTreeLeave(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f),"greentea"));
     public static RegistryObject<BlockTeaWood> blockTeaWood=RegistryUtil.registryBlockWithItem("teawood",BlockTeaWood::new);
     public static RegistryObject<BlockTeaStoneOre> blockTeaStoneOre=RegistryUtil.registryBlockWithItem("teastone_ore",BlockTeaStoneOre::new);
     public static RegistryObject<BlockTeaGenerator> blockTeaGenerator=RegistryUtil.registryBlockWithItem("tea_generator",BlockTeaGenerator::new);
-    public static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block){
-
-        RegistryObject<T> registryObject=BLOCKS.register(name,block);
-        BLOCK_ITEMS.register(name,()->new BlockItem(registryObject.get(),new Item.Properties().group(ModGroup.GROUP)));
-        return registryObject;
-    }
-    public static void register(){
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        BLOCK_ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
+    public static RegistryObject<BlockTeaBookConverter> blockTeaBookConverter=RegistryUtil.registryBlockWithItem("tea_book_converter",BlockTeaBookConverter::new);
+    public static RegistryObject<BlockTeaBlock> blockTeaBlock=RegistryUtil.registryBlockWithItem("tea_block",()->new BlockTeaBlock("green_tea"));
+    public static RegistryObject<BlockTest> blockTest=RegistryUtil.registryBlockWithItem("test",BlockTest::new);
 }

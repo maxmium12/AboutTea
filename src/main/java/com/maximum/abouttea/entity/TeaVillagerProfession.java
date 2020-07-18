@@ -49,7 +49,7 @@ public class TeaVillagerProfession {
             int count=tea.getTier()*teacount+rand.nextInt(3);
             return new MerchantOffer(new ItemStack(ModItems.itemTeaStone.get(),count),new ItemStack(tea,teacount),rand.nextInt(20),1,0.05f);
             }
-            return new MerchantOffer(new ItemStack(ModItems.itemTeaBook.get()),new ItemStack(ModItems.itemTeaStone.get(),3),2,1,0.5f);
+            return new MerchantOffer(new ItemStack(ModItems.itemTechBook.get()),new ItemStack(ModItems.itemTeaStone.get(),3),2,1,0.5f);
         }
     }
 }

@@ -1,6 +1,6 @@
 # Blender v2.83.0 OBJ File: 'untitled2.blend'
 # www.blender.org
-mtllib untitled2.mtl
+mtllib models/item/cup.mtl
 o 球体
 v 0.500000 1.195102 -1.080020
 v 0.500000 1.000000 -1.008296

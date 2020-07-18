@@ -22,6 +22,6 @@ public class BlockTeaSet extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTiles.TEA_SET_TILE.get().create();
+        return new TileTeaSet();
     }
 }

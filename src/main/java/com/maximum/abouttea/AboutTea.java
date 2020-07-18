@@ -1,21 +1,22 @@
 package com.maximum.abouttea;
 
-import com.maximum.abouttea.init.ModBlock;
-import com.maximum.abouttea.init.ModContainer;
-import com.maximum.abouttea.init.ModItems;
-import com.maximum.abouttea.init.ModTiles;
+import com.maximum.abouttea.client.ClientProxy;
+import com.maximum.abouttea.init.*;
 import com.maximum.abouttea.util.RegistryUtil;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod("abouttea")
 public class AboutTea {
-    private static final Logger LOGGER = LogManager.getLogger();
-    public AboutTea instance;
+    public static final Logger LOGGER = LogManager.getLogger();
+    public static AboutTea instance;
     public static final String MODID="abouttea";
     public AboutTea(){
         instance=this;
+        new ModTea();
+        MinecraftForge.EVENT_BUS.register(new ClientProxy());
         RegistryUtil.register();
         ModItems.register();
         ModContainer.register();

@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -39,6 +40,8 @@ public class RenderTeaSet extends TileEntityRenderer<TileTeaSet> {
         tileEntityIn.getCupHandler().ifPresent(iItemHandler -> {
             tea.set((ItemTea) ItemTeaCup.getTea(iItemHandler.getStackInSlot(0)).getItem());
         });
+        PlayerModel model=new PlayerModel(0.0625f,false);
+        model.render(matrixStackIn,bufferIn.getBuffer(RenderType.getEntityGlint()),1,1,1,1,1,1);
         int color= tea.get().getColor();
         if(tea.get()!= Items.AIR){
             //TODO 渲染杯子本身

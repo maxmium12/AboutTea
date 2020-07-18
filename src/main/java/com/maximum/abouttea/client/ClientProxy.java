@@ -1,5 +1,6 @@
 package com.maximum.abouttea.client;
 
+import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.client.render.RenderTeaSet;
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileTeaSet;
@@ -11,10 +12,11 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = AboutTea.MODID)
 public class ClientProxy {
     @SubscribeEvent
     public static void onClientEvent(FMLClientSetupEvent event){
-        ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),(tileEntityRendererDispatcher -> new RenderTeaSet(tileEntityRendererDispatcher)));
+        ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),(RenderTeaSet::new));
+        AboutTea.LOGGER.info("bind special render");
     }
 }
