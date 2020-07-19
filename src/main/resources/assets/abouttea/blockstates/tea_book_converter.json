@@ -1,6 +1,6 @@
 {
   "variants": {
     "can_convert=false": {"model": "abouttea:block/tea_book_converter"},
-    "can_convert=true": {"model": "abouttea:block/tea_book_converter"}
+    "can_convert=true": {"model": "abouttea:block/tea_book_converter_powered"}
   }
 }

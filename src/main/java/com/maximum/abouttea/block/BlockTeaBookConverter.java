@@ -23,6 +23,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 import java.util.List;
 
 public class BlockTeaBookConverter extends Block {
@@ -30,6 +31,7 @@ public class BlockTeaBookConverter extends Block {
     public VoxelShape SHAPE=Block.makeCuboidShape(0,0,0,16,3,16) ;
     public BlockTeaBookConverter() {
         super(Properties.create(Material.IRON).hardnessAndResistance(2f).notSolid());
+        this.setDefaultState(getDefaultState().with(CONVERT,false));
     }
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
@@ -46,14 +48,18 @@ public class BlockTeaBookConverter extends Block {
             TileBookConverter tile= (TileBookConverter) worldIn.getTileEntity(pos);
             ItemStack stack=ItemStack.EMPTY;
             List<ItemEntity> items=tile.getItems();
-            for(ItemEntity item:items){
+            Iterator<ItemEntity> iterator=items.iterator();
+            while (iterator.hasNext()){
+                ItemEntity item=iterator.next();
                 if(item.getItem().getItem() instanceof ItemTeaBook){
                     stack=item.getItem();
                 }else {
-                    items.remove(item);
+                    item.remove();
+                    iterator.remove();
                 }
             }
             ItemTeaBook.setUnlockTech(stack,true);
+            state.cycle(CONVERT);
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.FAIL;

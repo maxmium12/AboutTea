@@ -1,5 +1,6 @@
 package com.maximum.abouttea.tile;
 
+import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.block.BlockTeaBookConverter;
 import com.maximum.abouttea.init.ModBlock;
 import com.maximum.abouttea.init.ModItems;
@@ -32,12 +33,13 @@ public class TileBookConverter extends TileEntity implements ITickableTileEntity
             },
             {
                     "GLG",
-                    "LGL",
+                    "L0L",
                     "GLG"
             }
-    },'P', ModBlock.blockTeaBookConverter,
+    },'P', ModBlock.blockTeaBookConverter.get(),
             'G', Blocks.LAPIS_BLOCK,
-            'L',ModBlock.blockTeaBlock));
+            'L',ModBlock.blockTeaBlock.get(),
+            '0',Blocks.LAPIS_BLOCK));
     public TileBookConverter() {
         super(ModTiles.TEA_BOOK_CONVERTER_TILE.get());
     }

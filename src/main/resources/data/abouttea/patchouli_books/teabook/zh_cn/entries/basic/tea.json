@@ -1,0 +1,16 @@
+{
+  "name": "茶叶",
+  "category": "abouttea:basic",
+  "icon": "abouttea:green_tea",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "茶叶是此mod的基础，你在自然中能找到的唯一一种茶叶就是绿茶"
+    },
+    {
+      "type": "text",
+      "text": "abouttea.page.tea1"
+    }
+  ]
+}

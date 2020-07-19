@@ -1,0 +1,16 @@
+{
+  "name": "abouttea.entry.tea",
+  "category": "abouttea:basic",
+  "icon": "abouttea:green_tea",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "abouttea.page.tea0"
+    },
+    {
+      "type": "text",
+      "text": "abouttea.page.tea1"
+    }
+  ]
+}

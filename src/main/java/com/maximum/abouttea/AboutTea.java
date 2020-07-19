@@ -15,11 +15,12 @@ public class AboutTea {
     public static final String MODID="abouttea";
     public AboutTea(){
         instance=this;
+        new ModBlock();
+        new ModTiles();
+        new ModFeature();
+        new ModItems();
         new ModTea();
-        MinecraftForge.EVENT_BUS.register(new ClientProxy());
+        new ModContainer();
         RegistryUtil.register();
-        ModItems.register();
-        ModContainer.register();
-        ModTiles.register();
     }
 }

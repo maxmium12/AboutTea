@@ -5,6 +5,7 @@ import com.maximum.abouttea.block.*;
 import com.maximum.abouttea.tile.TileTeaSet;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -34,4 +35,5 @@ public class ModBlock {
     public static RegistryObject<BlockTeaBookConverter> blockTeaBookConverter=RegistryUtil.registryBlockWithItem("tea_book_converter",BlockTeaBookConverter::new);
     public static RegistryObject<BlockTeaBlock> blockTeaBlock=RegistryUtil.registryBlockWithItem("tea_block",()->new BlockTeaBlock("green_tea"));
     public static RegistryObject<BlockTest> blockTest=RegistryUtil.registryBlockWithItem("test",BlockTest::new);
+    public static RegistryObject<SaplingBlock> blockTeaTreeSapling=RegistryUtil.registryBlockWithItem("tea_tree_sapling",BlockTeaTreeSapling::new);
 }
