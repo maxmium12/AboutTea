@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.registries.ObjectHolder;
 
-public abstract class TileMachineBase extends TileEntity implements ITickableTileEntity {
+public abstract class TileMachineBase extends TileBase implements ITickableTileEntity {
     private int maxEnergy;
     private int energyReceive;
     protected int energy=0;

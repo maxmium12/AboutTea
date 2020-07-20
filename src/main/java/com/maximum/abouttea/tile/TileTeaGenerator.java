@@ -22,4 +22,9 @@ public class TileTeaGenerator extends TileMachineBase{
     public void stop() {
 
     }
+
+    @Override
+    public int getInvSize() {
+        return 1;
+    }
 }

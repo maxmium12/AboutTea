@@ -105,9 +105,11 @@ dependencies {
     //JEI
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-    //Pachouli
+    //Patchouli
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${pachouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${pachouli_version}")
+    //CraftTweaker
+    runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.1:${crafttweaker_version}")
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"

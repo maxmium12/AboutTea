@@ -3,6 +3,7 @@ package com.maximum.abouttea;
 import com.maximum.abouttea.client.ClientProxy;
 import com.maximum.abouttea.init.*;
 import com.maximum.abouttea.util.RegistryUtil;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
@@ -22,5 +23,8 @@ public class AboutTea {
         new ModTea();
         new ModContainer();
         RegistryUtil.register();
+    }
+    public static ResourceLocation prefix(String name){
+        return new ResourceLocation(MODID,name);
     }
 }

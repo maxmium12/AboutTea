@@ -5,5 +5,5 @@
   "book_texture": "abouttea:textures/gui/tea_book.png",
   "creative_tab": "abouttea",
   "dont_generate_book": true,
-  "custom_book_item": "abouttea:teabook"
+  "custom_book_item": "abouttea:tea_book"
 }

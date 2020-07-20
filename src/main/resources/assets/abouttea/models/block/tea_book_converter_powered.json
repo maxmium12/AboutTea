@@ -1,8 +1,8 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "abouttea:blocks/tea_book_converter_powered",
-    "1": "abouttea:blocks/tea_book_converter_down",
+    "0": "abouttea:block/tea_book_converter_powered",
+    "1": "abouttea:block/tea_book_converter_down",
     "particle": "abouttea:blocks/tea_book_converter"
   },
   "elements": [
