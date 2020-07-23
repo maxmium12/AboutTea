@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "abouttea:tea_book"
+    ]
+  },
+  "criteria": {
+    "has_tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "abouttea:green_tea"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "abouttea:tea_book"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tea",
+      "has_the_recipe"
+    ]
+  ]
+}

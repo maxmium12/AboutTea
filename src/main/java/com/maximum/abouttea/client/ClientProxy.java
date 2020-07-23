@@ -31,6 +31,6 @@ public class ClientProxy {
     }
     @SubscribeEvent
     public static void onBlockColorInit(ColorHandlerEvent.Block event){
-        event.getBlockColors().register(((p_getColor_1_, p_getColor_2_, p_getColor_3_, p_getColor_4_) -> 0x800064), ModBlock.blockTeaTreeLeave.get());
+        event.getBlockColors().register(((p_getColor_1_, p_getColor_2_, p_getColor_3_, p_getColor_4_) -> 0x00aa70), ModBlock.blockTeaTreeLeave.get());
     }
 }

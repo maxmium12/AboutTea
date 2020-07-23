@@ -53,7 +53,6 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 examplemod {
                     source sourceSets.main
@@ -71,9 +70,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
-                    source sourceSets.main
-                }
+
             }
         }
 
@@ -85,18 +82,22 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            workingDirectory project.file('run')
+            args '--mod', 'abouttea', '--all', '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources/') + '"'
 
             mods {
-                examplemod {
+                abouttea {
                     source sourceSets.main
                 }
             }
         }
     }
 }
-
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
@@ -109,7 +110,7 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${pachouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${pachouli_version}")
     //CraftTweaker
-    runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.1:${crafttweaker_version}")
+    compile fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.15.2:${crafttweaker_version}")
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"

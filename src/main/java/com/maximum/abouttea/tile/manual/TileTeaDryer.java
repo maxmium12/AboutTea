@@ -1,14 +1,17 @@
 package com.maximum.abouttea.tile.manual;
 
-import com.maximum.abouttea.api.DryerRecipes;
+import com.maximum.abouttea.api.recipes.IDryerRecipe;
+import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
+import com.maximum.abouttea.init.ModRecipeType;
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TileTeaDryer extends TileBase implements ITickableTileEntity {
     private final int[] ticks=new int[4];
@@ -29,16 +32,27 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
     public int getInvSize() {
         return 4;
     }
-
+    private IDryerRecipe findRecipe(ItemStack input){
+       List<IDryerRecipe> recipes = world.getRecipeManager().getRecipes(ModRecipeType.DRYER_RECIPE).values().stream()
+                                                                    .filter(r -> r instanceof IDryerRecipe)
+                                                                    .map(r -> (IDryerRecipe) r)
+                                                                    .collect(Collectors.toList());
+       for(IDryerRecipe recipe:recipes){
+           if(recipe.matches(input)){
+               return recipe;
+           }
+       }
+       return null;
+    }
     @Override
     public void tick() {
         for(int i = 0;i<inv.getSlots();i++){
-            if(DryerRecipes.findRecipe(inv.getStackInSlot(i))!=null){
-                DryerRecipes.Recipe recipe=DryerRecipes.findRecipe(inv.getStackInSlot(i));
-                if (!(ticks[i]>=recipe.ticks)){
+            if(findRecipe(inv.getStackInSlot(i))!=null){
+                IDryerRecipe recipe=findRecipe(inv.getStackInSlot(i));
+                if (!(ticks[i]>=recipe.getTicks())){
                     ticks[i]++;
                 }else {
-                    inv.setStackInSlot(i,recipe.output);
+                    inv.setStackInSlot(i,recipe.getOutput());
                     ticks[i]=0;
                 }
             }

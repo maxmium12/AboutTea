@@ -19,6 +19,7 @@ import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -29,9 +30,11 @@ import java.util.Random;
 @Mod.EventBusSubscriber
 public class TeaVillagerProfession {
     static VillagerProfession profession;
+    @SubscribeEvent
     public static void onVillagerRegistry(RegistryEvent.Register<VillagerProfession> event){
         profession=new VillagerProfession("teatrader",PointOfInterestType.HOME,ImmutableSet.of(),ImmutableSet.of(),null);
     }
+    @SubscribeEvent
     public static void onVillagerTradeRegistry(VillagerTradesEvent event){
         if(event.getType().equals(profession)){
             event.getTrades().get(1).add(new TeastoneTrade());
@@ -43,11 +46,11 @@ public class TeaVillagerProfession {
         public MerchantOffer getOffer(Entity trader, Random rand) {
             MerchantOffer merchantOffer;
             if(rand.nextInt(5)<=3){
-            Collection<ItemTea> teas=ModTea.getTeas().values();
-            ItemTea tea=Lists.newArrayList(teas).get(rand.nextInt(teas.size()));
-            int teacount=rand.nextInt(3);
-            int count=tea.getTier()*teacount+rand.nextInt(3);
-            return new MerchantOffer(new ItemStack(ModItems.itemTeaStone.get(),count),new ItemStack(tea,teacount),rand.nextInt(20),1,0.05f);
+                Collection<ItemTea> teas=ModTea.getTeas().values();
+                ItemTea tea=Lists.newArrayList(teas).get(rand.nextInt(teas.size()));
+                int teacount=rand.nextInt(3);
+                int count=tea.getTier()*teacount+rand.nextInt(3);
+                return new MerchantOffer(new ItemStack(ModItems.itemTeaStone.get(),count),new ItemStack(tea,teacount),rand.nextInt(20),1,0.05f);
             }
             return new MerchantOffer(new ItemStack(ModItems.itemTechBook.get()),new ItemStack(ModItems.itemTeaStone.get(),3),2,1,0.5f);
         }

@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
@@ -25,11 +27,11 @@ public class RegistryUtil{
     private static final DeferredRegister<Feature<?>> FEATURES=new DeferredRegister<>(ForgeRegistries.FEATURES, AboutTea.MODID);
     private static final DeferredRegister<ContainerType<?>> CONTAINERS=new DeferredRegister<>(ForgeRegistries.CONTAINERS, AboutTea.MODID);
     private static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
+    private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_TYPEs = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS,MODID);
     public static <T extends Block> RegistryObject<T> registryBlockWithItem(String name, Supplier<T> block){
         RegistryObject<T> object=registryBlock(name,block);
         registryItem(name,()->new BlockItem(object.get(),new Item.Properties().group(ModGroup.GROUP)));
         return object;
-        //TODO return registryBlock(name,block,()-> BLOCKS.register(name,block));
     }
     public static <T extends Block> RegistryObject<T> registryBlock(String name,Supplier<T> block){
         return BLOCKS.register(name,block);

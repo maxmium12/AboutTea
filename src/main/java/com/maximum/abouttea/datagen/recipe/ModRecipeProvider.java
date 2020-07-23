@@ -22,6 +22,6 @@ public class ModRecipeProvider extends RecipeProvider {
     }
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer){
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.itemTeaBook.get(),1).addIngredient(ModTea.getTea("green_tea")).addIngredient(Items.BOOK).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.itemTeaBook.get(),1).addIngredient(ModTea.getTea("green_tea")).addIngredient(Items.BOOK).addCriterion("has_tea",this.hasItem(ModTea.getTea("green_tea"))).build(consumer);
     }
 }

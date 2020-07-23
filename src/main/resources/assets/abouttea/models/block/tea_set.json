@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "abouttea:cup.obj",
+  "flip-v": true
+}

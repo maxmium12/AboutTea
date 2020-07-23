@@ -1,21 +1,27 @@
-package com.maximum.abouttea.api;
+package com.maximum.abouttea.api.recipes.impl;
 
 import net.minecraft.item.ItemStack;
 
 import java.util.LinkedList;
 
 public class MixerRecipes {
-    private static final LinkedList<DryerRecipes.Recipe> recipes=new LinkedList<>();
-    public static DryerRecipes.Recipe findRecipe(ItemStack input){
-        for(DryerRecipes.Recipe recipe:recipes){
-            if(ItemStack.areItemStacksEqual(input,recipe.input)){
+    private static final LinkedList<MixerRecipes.Recipe> recipes=new LinkedList<>();
+    public static MixerRecipes.Recipe findRecipe(ItemStack output){
+        for(MixerRecipes.Recipe recipe:recipes){
+            if(ItemStack.areItemStacksEqual(output,recipe.output)){
                 return recipe;
             }
         }
         return null;
     }
-    public static void registry(DryerRecipes.Recipe recipe){
+    public static void registry(MixerRecipes.Recipe recipe){
         recipes.add(recipe);
+    }
+    public static void removeRecipe(ItemStack output){
+        Recipe recipe=findRecipe(output);
+        if(recipe!=null){
+            recipes.remove(recipe);
+        }
     }
     public static class Recipe{
         public int ticks;
