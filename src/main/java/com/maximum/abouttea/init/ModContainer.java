@@ -1,6 +1,7 @@
 package com.maximum.abouttea.init;
 
 import com.maximum.abouttea.AboutTea;
+import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.gui.ContainerTeaSet;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModContainer {
-    public static final RegistryObject<ContainerType<ContainerTeaSet>> containerteaset= RegistryUtil.registryContainer("tea_set_container",
-            ()->IForgeContainerType.create((int windowid,PlayerInventory inv,PacketBuffer buffer)->new ContainerTeaSet(windowid,inv,buffer.readBlockPos(), Minecraft.getInstance().world)));
+    public static final RegistryObject<ContainerType<ContainerTeaSet>> containerteaset = RegistryUtil.registryContainer("tea_set_container",
+            () -> IForgeContainerType.create((windowid, inv, buffer) -> new ContainerTeaSet(windowid, inv, buffer.readBlockPos(), Minecraft.getInstance().world)));
+    public static final RegistryObject<ContainerType<ContainerMixer>> MIXER_CONTAINER = RegistryUtil.registryContainer("mixer_container",
+            () -> IForgeContainerType.create((ContainerMixer::new)));
 }

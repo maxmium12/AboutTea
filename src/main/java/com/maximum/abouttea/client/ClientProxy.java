@@ -1,13 +1,18 @@
 package com.maximum.abouttea.client;
 
 import com.maximum.abouttea.AboutTea;
+import com.maximum.abouttea.client.gui.GuiMixer;
 import com.maximum.abouttea.client.render.RenderTeaSet;
+import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.init.ModBlock;
+import com.maximum.abouttea.init.ModContainer;
 import com.maximum.abouttea.init.ModTea;
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.item.ItemTea;
 import com.maximum.abouttea.tile.TileTeaSet;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -22,6 +27,7 @@ public class ClientProxy {
     public static void onClientEvent(FMLClientSetupEvent event){
         ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),(RenderTeaSet::new));
         AboutTea.LOGGER.info("bind special render");
+        ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
     }
     @SubscribeEvent
     public static void onItemColorInit(ColorHandlerEvent.Item event){

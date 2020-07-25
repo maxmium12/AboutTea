@@ -51,10 +51,6 @@ public class DryerRecipes implements IDryerRecipe {
         return ticks;
     }
 
-    public ItemStack getOutput() {
-        return output;
-    }
-
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return new Serializer();

@@ -52,7 +52,7 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
                 if (!(ticks[i]>=recipe.getTicks())){
                     ticks[i]++;
                 }else {
-                    inv.setStackInSlot(i,recipe.getOutput());
+                    inv.setStackInSlot(i,recipe.getRecipeOutput());
                     ticks[i]=0;
                 }
             }

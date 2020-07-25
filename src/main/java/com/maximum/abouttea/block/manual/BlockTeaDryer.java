@@ -16,7 +16,7 @@ public class BlockTeaDryer extends Block {
     public BlockTeaDryer() {
         super(Properties.create(Material.WOOD).notSolid().hardnessAndResistance(2.0f));
     }
-    private static VoxelShape shape;
+    private static final VoxelShape shape;
 
     static {
         VoxelShape base = Block.makeCuboidShape(0, 0, 0, 16, 1, 16);

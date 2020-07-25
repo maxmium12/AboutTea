@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class BlockTeaTreeLeave extends LeavesBlock {
     private static final IntegerProperty GROW= IntegerProperty.create("grow",0,3);
-    private String tea;
+    private final String tea;
     public BlockTeaTreeLeave(Properties properties, String tea) {
         super(properties.notSolid());
         this.tea=tea;

@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
 public class ItemTea extends Item implements IItemTea {
-    private int color;
-    private int tier;
+    private final int color;
+    private final int tier;
     public ItemTea(int color,int tier) {
         super(new Properties().group(ModGroup.GROUP));
         this.color=color;

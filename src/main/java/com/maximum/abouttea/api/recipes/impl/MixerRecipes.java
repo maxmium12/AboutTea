@@ -1,41 +1,108 @@
 package com.maximum.abouttea.api.recipes.impl;
 
+import com.google.common.collect.Lists;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.maximum.abouttea.AboutTea;
+import com.maximum.abouttea.api.recipes.IMixerRecipe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.util.JsonUtils;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public class MixerRecipes {
-    private static final LinkedList<MixerRecipes.Recipe> recipes=new LinkedList<>();
-    public static MixerRecipes.Recipe findRecipe(ItemStack output){
-        for(MixerRecipes.Recipe recipe:recipes){
-            if(ItemStack.areItemStacksEqual(output,recipe.output)){
-                return recipe;
+import static com.maximum.abouttea.AboutTea.prefix;
+
+public class MixerRecipes implements IMixerRecipe {
+    List<Ingredient> inputs;
+    ItemStack output;
+    int ticks;
+    public MixerRecipes(ItemStack output,int ticks,Ingredient[] inputs){
+        if(inputs.length>4){
+            throw new IllegalArgumentException("Input must lower than 4");
+        }
+        this.inputs= Lists.newArrayList(inputs);
+        this.ticks=ticks;
+        this.output=output;
+    }
+    @Override
+    public boolean matches(ItemStack[] inputs) {
+        int i=0;
+        for(ItemStack input:inputs){
+            for(Ingredient ingredient:this.inputs){
+                if(ingredient.test(input)) i++;
             }
         }
-        return null;
+        return i==inputs.length;
     }
-    public static void registry(MixerRecipes.Recipe recipe){
-        recipes.add(recipe);
+
+    @Override
+    public List<Ingredient> getInputs() {
+        return inputs;
     }
-    public static void removeRecipe(ItemStack output){
-        Recipe recipe=findRecipe(output);
-        if(recipe!=null){
-            recipes.remove(recipe);
-        }
+
+    @Override
+    public int getTicks() {
+        return ticks;
     }
-    public static class Recipe{
-        public int ticks;
-        public ItemStack[] inputs=new ItemStack[]{ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY};
-        public ItemStack output;
-        public Recipe(int ticks,ItemStack[] inputs,ItemStack output){
-            this.ticks=ticks;
-            if(inputs.length>4){
-               throw new IllegalArgumentException("inputs length should smaller than 4!!!");
+
+    @Override
+    public ItemStack getRecipeOutput() {
+        return output;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return prefix("mixer_recipe");
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+        return new Serializer();
+    }
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<MixerRecipes>{
+
+        @Override
+        public MixerRecipes read(ResourceLocation recipeId, JsonObject json) {
+            ItemStack output=CraftingHelper.getItemStack(JSONUtils.getJsonObject(json,"output"),true);
+            List<Ingredient> inputs=new ArrayList<>();
+            for(JsonElement in:JSONUtils.getJsonArray(json,"inputs")){
+                inputs.add(Ingredient.deserialize(in));
             }
+            int ticks=JSONUtils.getInt(json,"ticks");
+            return new MixerRecipes(output,ticks,inputs.toArray(new Ingredient[0]));
+        }
+
+        @Nullable
+        @Override
+        public MixerRecipes read(ResourceLocation recipeId, PacketBuffer buffer) {
+            ItemStack output=buffer.readItemStack();
+            Ingredient[] inputs=new Ingredient[buffer.readVarInt()];
             for(int i=0;i<inputs.length;i++){
-                this.inputs[i]=inputs[i];
+                inputs[i]=Ingredient.read(buffer);
             }
-            this.output=output;
+            int ticks=buffer.readVarInt();
+            return new MixerRecipes(output,ticks,inputs);
+        }
+
+        @Override
+        public void write(PacketBuffer buffer, MixerRecipes recipe) {
+            buffer.writeVarInt(recipe.getInputs().size());
+            for(Ingredient input:recipe.getInputs()){
+                input.write(buffer);
+            }
+            buffer.writeItemStack(recipe.getRecipeOutput());
+            buffer.writeVarInt(recipe.getTicks());
         }
     }
 }

@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileTeaSet extends TileEntity implements ITickableTileEntity , INamedContainerProvider {
-    private Inventory inv=new Inventory(1);
-    private LazyOptional<IItemHandler> cupHandler=LazyOptional.of(()->new ItemStackHandler(2));
+    private final Inventory inv=new Inventory(1);
+    private final LazyOptional<IItemHandler> cupHandler=LazyOptional.of(()->new ItemStackHandler(2));
     public TileTeaSet() {
         super(ModTiles.TEA_SET_TILE.get());
     }

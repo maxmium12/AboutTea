@@ -61,7 +61,7 @@ public class DryerCategory implements IRecipeCategory<IDryerRecipe> {
     @Override
     public void setIngredients(IDryerRecipe recipe, IIngredients iIngredients) {
         iIngredients.setInput(VanillaTypes.ITEM,recipe.getInput().getMatchingStacks()[0]);
-        iIngredients.setOutput(VanillaTypes.ITEM,recipe.getOutput());
+        iIngredients.setOutput(VanillaTypes.ITEM,recipe.getRecipeOutput());
     }
 
     @Override

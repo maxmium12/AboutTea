@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 public class BlockTeaBlock extends Block {
-    private String name;
+    private final String name;
     public BlockTeaBlock(String name) {
         super(Properties.create(Material.LEAVES));
         this.name=name;

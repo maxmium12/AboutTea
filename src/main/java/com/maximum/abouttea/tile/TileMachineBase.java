@@ -9,12 +9,12 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.registries.ObjectHolder;
 
 public abstract class TileMachineBase extends TileBase implements ITickableTileEntity {
-    private int maxEnergy;
-    private int energyReceive;
+    private final int maxEnergy;
+    private final int energyReceive;
     protected int energy=0;
-    private int energyExtract;
-    private boolean canReceive;
-    private boolean canExtract;
+    private final int energyExtract;
+    private final boolean canReceive;
+    private final boolean canExtract;
     private final LazyOptional<IEnergyStorage> lazyOptional = LazyOptional.of(() -> new IEnergyStorage() {
 
         @Override

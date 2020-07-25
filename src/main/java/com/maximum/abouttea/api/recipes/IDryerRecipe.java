@@ -23,8 +23,6 @@ public interface IDryerRecipe extends IRecipe<IInventory> {
 
     Ingredient getInput();
 
-    ItemStack getOutput();
-
     int getTicks();
     //忽略下面的方法
     @Nonnull

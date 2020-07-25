@@ -41,8 +41,8 @@ public class AboutTeaCap{
         }
     }
     public static class ProviderPlayer implements ICapabilitySerializable<CompoundNBT>{
-        private IAboutTeaCap aboutTeaCap=new Impl();
-        private Capability.IStorage<IAboutTeaCap> storage = CapabilityHandler.ABOUTTEACAP.getStorage();
+        private final IAboutTeaCap aboutTeaCap=new Impl();
+        private final Capability.IStorage<IAboutTeaCap> storage = CapabilityHandler.ABOUTTEACAP.getStorage();
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
