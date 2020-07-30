@@ -1,0 +1,13 @@
+{
+  "type": "abouttea:mixer",
+  "input": [
+    {
+      "item": "abouttea:green_tea"
+    }
+  ],
+  "output": {
+    "id": "abouttea:dry_green_tea",
+    "Count": 1
+  },
+  "time": 300
+}

@@ -14,6 +14,7 @@ import com.maximum.abouttea.item.ItemTea;
 import com.maximum.abouttea.network.MsgCapabilitySync;
 import com.maximum.abouttea.network.NetworkHandler;
 import com.maximum.abouttea.world.FeatureConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -22,6 +23,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
@@ -39,6 +41,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.fml.loading.FMLCommonLaunchHandler;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -47,7 +51,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber()
 public class EventHandler {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class GenEvents {
+    public static class ModBusEvents {
         @SubscribeEvent
         public static void onOreGen(FMLCommonSetupEvent event) {
             for (Biome biome : ForgeRegistries.BIOMES) {

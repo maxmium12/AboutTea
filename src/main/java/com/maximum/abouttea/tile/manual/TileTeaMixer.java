@@ -3,6 +3,7 @@ package com.maximum.abouttea.tile.manual;
 import com.maximum.abouttea.api.recipes.IMixerRecipe;
 import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.init.ModRecipeType;
+import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.item.ItemTea;
 import com.maximum.abouttea.tile.TileBase;
 import net.minecraft.block.FireBlock;
@@ -52,8 +53,8 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
             return 2;
         }
     };
-    public TileTeaMixer(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public TileTeaMixer() {
+        super(ModTiles.MANUAL_TEA_MIXER_TILE.get());
     }
     @Override
     public int getInvSize() {
@@ -77,7 +78,7 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
                     }
                 }else tick++;
             }
-        }
+        }else hasFire=0;
     }
     private IMixerRecipe findRecipe(){
         List<ItemStack> items=new ArrayList<>();

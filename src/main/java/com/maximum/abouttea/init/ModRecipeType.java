@@ -1,5 +1,6 @@
 package com.maximum.abouttea.init;
 
+import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.api.recipes.IDryerRecipe;
 import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
 import com.maximum.abouttea.api.recipes.impl.MixerRecipes;
@@ -22,6 +23,7 @@ public class ModRecipeType {
     public static IRecipeSerializer<MixerRecipes> MIXER_SERIALIZER=new MixerRecipes.Serializer();
     @SubscribeEvent
     public static void register(RegistryEvent.Register<IRecipeSerializer<?>> event){
+        AboutTea.LOGGER.info("register recipe types");
         ResourceLocation id=prefix("dryer");
         Registry.register(Registry.RECIPE_TYPE,id,DRYER_RECIPE);
         event.getRegistry().register(DRYER_SERIALIZER.setRegistryName(id));

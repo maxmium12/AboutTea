@@ -3,6 +3,7 @@ package com.maximum.abouttea.init;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.block.*;
 import com.maximum.abouttea.block.manual.BlockTeaDryer;
+import com.maximum.abouttea.block.manual.BlockTeaMixer;
 import com.maximum.abouttea.tile.TileTeaSet;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.block.Block;
@@ -38,4 +39,5 @@ public class ModBlock {
     public static RegistryObject<BlockTest> blockTest=RegistryUtil.registryBlockWithItem("test",BlockTest::new);
     public static RegistryObject<SaplingBlock> blockTeaTreeSapling=RegistryUtil.registryBlockWithItem("tea_tree_sapling",BlockTeaTreeSapling::new);
     public static RegistryObject<BlockTeaDryer> blockManualTeaDryer=RegistryUtil.registryBlockWithItem("manual_tea_dryer",BlockTeaDryer::new);
+    public static RegistryObject<BlockTeaMixer> blockManualTeaMixer=RegistryUtil.registryBlockWithItem("manual_tea_mixer",BlockTeaMixer::new);
 }

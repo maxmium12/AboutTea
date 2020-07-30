@@ -16,5 +16,4 @@ public class TeaTreeGenConfig extends BaseTreeFeatureConfig {
         super.setSapling(sapling);
         return this;
     }
-
 }

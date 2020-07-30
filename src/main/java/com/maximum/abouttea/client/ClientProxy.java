@@ -2,6 +2,7 @@ package com.maximum.abouttea.client;
 
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.client.gui.GuiMixer;
+import com.maximum.abouttea.client.render.LayerCustomArmor;
 import com.maximum.abouttea.client.render.RenderTeaSet;
 import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.init.ModBlock;
@@ -14,12 +15,22 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+
+import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = AboutTea.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientProxy {
@@ -38,5 +49,23 @@ public class ClientProxy {
     @SubscribeEvent
     public static void onBlockColorInit(ColorHandlerEvent.Block event){
         event.getBlockColors().register(((p_getColor_1_, p_getColor_2_, p_getColor_3_, p_getColor_4_) -> 0x00aa70), ModBlock.blockTeaTreeLeave.get());
+    }
+    @SubscribeEvent
+    public static void loadComplete(FMLLoadCompleteEvent evt) {
+        EntityRendererManager manager=Minecraft.getInstance().getRenderManager();
+        for(PlayerRenderer renderer:manager.getSkinMap().values()){
+            addCustomArmorLayer(renderer);
+        }
+    }
+    //来自Mekanism
+    private static <T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> void addCustomArmorLayer(LivingRenderer<T, M> renderer) {
+        for (LayerRenderer<T, M> layerRenderer : new ArrayList<>(renderer.layerRenderers)) {
+            //Only allow an exact match, so we don't add to modded entities that only have a modded extended armor layer
+            if (layerRenderer.getClass() == BipedArmorLayer.class) {
+                BipedArmorLayer<T, M, A> bipedArmorLayer = (BipedArmorLayer<T, M, A>) layerRenderer;
+                renderer.addLayer(new LayerCustomArmor<>(renderer, bipedArmorLayer.modelLeggings, bipedArmorLayer.modelArmor));
+                break;
+            }
+        }
     }
 }

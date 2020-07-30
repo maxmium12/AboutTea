@@ -11,8 +11,8 @@ import static com.maximum.abouttea.AboutTea.prefix;
 
 public class GuiMixer extends ContainerScreen<ContainerMixer> {
     private final ResourceLocation MIXER=prefix("textures/gui/mixer.png");
-    private final int textureWidth=176;
-    private final int textureHeight=166;
+    private final int textureWidth=256;
+    private final int textureHeight=256;
     public GuiMixer(ContainerMixer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
@@ -28,6 +28,7 @@ public class GuiMixer extends ContainerScreen<ContainerMixer> {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         blit(i, j, 0, 0, xSize, ySize, this.textureWidth, textureHeight);
-        blit(i+79,j+67,0,0,179,0,13,13,13,13);
+        int isburn=container.getData().get(1);
+        this.blit(i + 80, j + 67 + 14 - isburn*14, 176, 12 - isburn*14, 14, isburn*14);
     }
 }

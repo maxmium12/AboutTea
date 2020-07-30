@@ -27,6 +27,7 @@ public class ContainerMixer extends Container {
     public ContainerMixer(int id, PlayerInventory playerInv, TileTeaMixer tile, IIntArray data) {
         super(ModContainer.MIXER_CONTAINER.get(), id);
         this.tile = tile;
+        trackIntArray(tile.getData());
         createTileInv();
         createPlayerInv(playerInv);
     }
@@ -73,5 +74,8 @@ public class ContainerMixer extends Container {
 
         }
         return slot.getStack();
+    }
+    public IIntArray getData(){
+        return tile.getData();
     }
 }

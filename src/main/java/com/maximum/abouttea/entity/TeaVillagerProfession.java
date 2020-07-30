@@ -33,6 +33,7 @@ public class TeaVillagerProfession {
     @SubscribeEvent
     public static void onVillagerRegistry(RegistryEvent.Register<VillagerProfession> event){
         profession=new VillagerProfession("teatrader",PointOfInterestType.HOME,ImmutableSet.of(),ImmutableSet.of(),null);
+        event.getRegistry().register(profession);
     }
     @SubscribeEvent
     public static void onVillagerTradeRegistry(VillagerTradesEvent event){
