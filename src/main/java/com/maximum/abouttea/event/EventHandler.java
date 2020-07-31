@@ -64,10 +64,14 @@ public class EventHandler {
         @SubscribeEvent
         public static void onTreeGen(FMLCommonSetupEvent event) {
             for (Biome biome : ForgeRegistries.BIOMES) {
-                if (biome == Biomes.JUNGLE_HILLS) {
+                if (biome == Biomes.JUNGLE) {
                     biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList.of(ModFeature.TEA_TREE_GEN.get().withConfiguration(FeatureConfig.TEA_TREE_CONFIG).withChance(0.05f)),Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.field_230129_h_))));
                 }
             }
+        }
+        @SubscribeEvent
+        public static void commonSetup(FMLCommonSetupEvent event){
+            new CapabilityHandler();
         }
     }
     @SubscribeEvent
@@ -77,7 +81,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event){
         Capability<IAboutTeaCap> capability=CapabilityHandler.ABOUTTEACAP;
-        Capability.IStorage<IAboutTeaCap> storage=CapabilityHandler.ABOUTTEACAP.getStorage();
+        Capability.IStorage<IAboutTeaCap> storage=capability.getStorage();
         event.getOriginal().getCapability(capability).ifPresent(iAboutTeaCap -> {
             INBT nbt = storage.writeNBT(capability,iAboutTeaCap,null);
             storage.readNBT(capability,iAboutTeaCap,null,nbt);

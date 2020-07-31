@@ -56,6 +56,7 @@ public class ClientProxy {
         for(PlayerRenderer renderer:manager.getSkinMap().values()){
             addCustomArmorLayer(renderer);
         }
+
     }
     //来自Mekanism
     private static <T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> void addCustomArmorLayer(LivingRenderer<T, M> renderer) {

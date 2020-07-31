@@ -1,6 +1,6 @@
 {
   "name": "茶叶手记",
-  "landing_text": "这是茶叶手记，有关于这mod的一切",
+  "landing_text": "这是茶叶手记，有关于这mod的一切,这mod内含神秘要素，所以你看到的一切不科学的情景，其实都是mc世界的魔法",
   "version": 1,
   "book_texture": "abouttea:textures/gui/tea_book.png",
   "creative_tab": "abouttea",

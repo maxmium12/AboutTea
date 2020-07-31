@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public interface IMixerRecipe extends IRecipe<IInventory> {
-    ResourceLocation TYPE_ID=new ResourceLocation(AboutTea.MODID,"mixer_recipe");
+    ResourceLocation TYPE_ID=new ResourceLocation(AboutTea.MODID,"mixer");
 
     boolean matches(ItemStack[] input);
 

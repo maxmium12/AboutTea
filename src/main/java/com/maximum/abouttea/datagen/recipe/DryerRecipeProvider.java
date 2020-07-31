@@ -1,60 +1,47 @@
 package com.maximum.abouttea.datagen.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.maximum.abouttea.api.recipes.impl.MixerRecipes;
+import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
 import com.maximum.abouttea.init.ModItems;
 import com.maximum.abouttea.init.ModRecipeType;
 import com.maximum.abouttea.init.ModTea;
 import com.maximum.abouttea.util.SerializeUtil;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.JsonOps;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.maximum.abouttea.AboutTea.prefix;
 
-public class MixerRecipeProvider extends RecipeProvider {
-    public MixerRecipeProvider(DataGenerator generatorIn) {
+public class DryerRecipeProvider extends RecipeProvider {
+    public DryerRecipeProvider(DataGenerator generatorIn) {
         super(generatorIn);
     }
-    @Override
-    public void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        consumer.accept(new FinishRecipe(prefix("dry_green_tea"), 300, new ItemStack(ModItems.itemDryGreenTea.get()), Ingredient.fromItems(ModTea.getTea("green_tea"))));
+    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        consumer.accept(new FinishRecipe(prefix("dry_green_tea_recipe"),Ingredient.fromItems(ModTea.getTea("green_tea")), new ItemStack(ModItems.itemDryGreenTea.get()),200));
     }
     private static class FinishRecipe implements IFinishedRecipe{
-        private final ResourceLocation id;
-        private final int time;
+        private final Ingredient input;
         private final ItemStack output;
-        private final List<Ingredient> inputs;
-        public FinishRecipe(ResourceLocation id, int time, ItemStack output, Ingredient... inputs){
-            this.id=id;
-            this.time=time;
-            this.output=output;
-            this.inputs= Arrays.asList(inputs);
+        private final int time;
+        private final ResourceLocation id;
+        public FinishRecipe(ResourceLocation id, Ingredient input, ItemStack output, int time){
+            this.input = input;
+            this.output = output;
+            this.time = time;
+            this.id = id;
         }
         @Override
         public void serialize(JsonObject json) {
-            JsonArray in=new JsonArray();
-            for(Ingredient input:inputs){
-                in.add(input.serialize());
-            }
-            json.add("inputs",in);
+            json.add("input", input.serialize());
             json.add("output", SerializeUtil.serializeStack(output));
             json.add("time",new JsonPrimitive(time));
         }
@@ -66,7 +53,7 @@ public class MixerRecipeProvider extends RecipeProvider {
 
         @Override
         public IRecipeSerializer<?> getSerializer() {
-            return ModRecipeType.MIXER_SERIALIZER;
+            return ModRecipeType.DRYER_SERIALIZER;
         }
 
         @Nullable

@@ -1,0 +1,10 @@
+{
+  "type": "abouttea:dryer",
+  "input": {
+    "item": "abouttea:green_tea"
+  },
+  "output": {
+    "item": "abouttea:dry_green_tea"
+  },
+  "time": 200
+}

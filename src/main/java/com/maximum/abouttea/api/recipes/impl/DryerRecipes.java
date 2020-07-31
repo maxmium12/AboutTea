@@ -61,7 +61,7 @@ public class DryerRecipes implements IDryerRecipe {
         public DryerRecipes read(ResourceLocation recipeId, JsonObject json) {
             Ingredient input=Ingredient.deserialize(json.get("input"));
             ItemStack output= CraftingHelper.getItemStack(json.get("output").getAsJsonObject(),true);
-            int ticks=JSONUtils.getInt(json,"ticks");
+            int ticks=JSONUtils.getInt(json,"time");
             return new DryerRecipes(ticks,input,output);
         }
 

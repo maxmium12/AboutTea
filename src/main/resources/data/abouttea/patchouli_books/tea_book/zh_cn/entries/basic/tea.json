@@ -6,11 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "茶叶是此mod的基础，你在自然中能找到的唯一一种茶叶就是绿茶"
+      "text": "茶叶是此mod的基础，你在自然中能找到的唯一一种茶叶就是绿茶,茶叶分3级，绿茶是最菜的t0级茶叶(没错，这里的tier越小越差)，你可以在丛林里找到绿茶树"
+    },
+    {
+      "type": "image",
+      "images":[ "abouttea:textures/book/tea1.png"],
+      "text": "         $(o)野生的茶树     "
     },
     {
       "type": "text",
-      "text": "abouttea.page.tea1"
+      "text": "当然，只有绿茶是不行的，你还需要对茶叶进行处理，你可以通过晾干架来晒干茶叶"
+    },
+    {
+      "type": "crafting",
+      "recipe": "abouttea:manual_tea_dryer",
+      "title": "  ",
+      "text": "        $(o)晾干架     "
     }
   ]
 }

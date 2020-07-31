@@ -48,7 +48,7 @@ public class TileBookConverter extends TileEntity implements ITickableTileEntity
     public void tick() {
         if(multiBlock.getValue().validate(world,pos.down())!=null){
             List<ItemEntity> items=getItems();
-            if(areItemValid(items)){
+            if(areItemValid(items) && world.getBlockState(pos).propagatesSkylightDown(world,pos)){
                 if(ticks>=40){
                     canConvert=true;
                     if(!world.getBlockState(pos).get(BlockTeaBookConverter.CONVERT)){

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public interface IDryerRecipe extends IRecipe<IInventory> {
-    ResourceLocation TYPE_ID=new ResourceLocation(AboutTea.MODID,"dryer_recipe");
+    ResourceLocation TYPE_ID=new ResourceLocation(AboutTea.MODID,"dryer");
     boolean matches(ItemStack stack);
     @Nonnull
     @Override

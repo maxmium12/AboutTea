@@ -79,7 +79,7 @@ public class MixerRecipes implements IMixerRecipe {
             for(JsonElement in:JSONUtils.getJsonArray(json,"inputs")){
                 inputs.add(Ingredient.deserialize(in));
             }
-            int ticks=JSONUtils.getInt(json,"ticks");
+            int ticks=JSONUtils.getInt(json,"time");
             return new MixerRecipes(output,ticks,inputs.toArray(new Ingredient[0]));
         }
 
