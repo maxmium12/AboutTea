@@ -3,6 +3,7 @@ package com.maximum.abouttea.client;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.client.gui.GuiMixer;
 import com.maximum.abouttea.client.render.LayerCustomArmor;
+import com.maximum.abouttea.client.render.RenderManualTeaDryer;
 import com.maximum.abouttea.client.render.RenderTeaSet;
 import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.init.ModBlock;
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -32,11 +34,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 import java.util.ArrayList;
 
-@Mod.EventBusSubscriber(modid = AboutTea.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = AboutTea.MODID,bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientProxy {
     @SubscribeEvent
     public static void onClientEvent(FMLClientSetupEvent event){
-        ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),(RenderTeaSet::new));
+        ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),RenderTeaSet::new);
+        ClientRegistry.bindTileEntityRenderer(ModTiles.MANUAL_TEA_DRYER_TILE.get(), RenderManualTeaDryer::new);
         AboutTea.LOGGER.info("bind special render");
         ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
     }
@@ -56,7 +59,7 @@ public class ClientProxy {
         for(PlayerRenderer renderer:manager.getSkinMap().values()){
             addCustomArmorLayer(renderer);
         }
-
+        AboutTea.LOGGER.info("loaded custom layer");
     }
     //来自Mekanism
     private static <T extends LivingEntity, M extends BipedModel<T>, A extends BipedModel<T>> void addCustomArmorLayer(LivingRenderer<T, M> renderer) {

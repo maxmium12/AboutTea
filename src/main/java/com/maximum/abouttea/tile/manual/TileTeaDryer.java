@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Hand;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +22,25 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
     public boolean addItem(ItemStack stack, PlayerEntity player, Hand hand){
         for(int i = 0;i< inv.getSlots();i++){
             if(inv.getStackInSlot(i).isEmpty()){
-                inv.setStackInSlot(i,player.getHeldItem(hand));
-                player.setHeldItem(hand,ItemStack.EMPTY);
+                ItemStack stack1=stack.copy();
+                stack1.setCount(1);
+                inv.setStackInSlot(i,stack1);
+                stack.setCount(stack.getCount()-1);
+                player.setHeldItem(hand,stack);
                 return true;
+            }
+        }
+        return false;
+    }
+    public boolean extractItem(ItemStack stack, PlayerEntity player, Hand hand){
+        for(int i = inv.getSlots()-1;i >= 0;--i){
+            if(!inv.getStackInSlot(i).isEmpty()){
+                ItemStack stack1=inv.getStackInSlot(i);
+                if(stack.isEmpty()||(stack.getItem() == stack1.getItem() && stack.getMaxStackSize() > stack.getCount())){
+                    player.inventory.storeItemStack(stack1);
+                    inv.setStackInSlot(i,ItemStack.EMPTY);
+                    return true;
+                }
             }
         }
         return false;

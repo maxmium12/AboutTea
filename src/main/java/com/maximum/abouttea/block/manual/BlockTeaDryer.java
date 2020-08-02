@@ -6,10 +6,18 @@ import com.maximum.abouttea.tile.manual.TileTeaDryer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -37,5 +45,30 @@ public class BlockTeaDryer extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileTeaDryer();
+    }
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(!worldIn.isRemote){
+            TileTeaDryer dryer = (TileTeaDryer) worldIn.getTileEntity(pos);
+            if(dryer != null){
+                player.sendStatusMessage(new StringTextComponent(dryer.getInv().getStackInSlot(0).toString()),false); //DEBUG
+                if(!player.isSneaking()){
+                    if(dryer.addItem(player.getHeldItem(handIn),player,handIn)) {
+                        return ActionResultType.SUCCESS;
+                    }
+                    return ActionResultType.FAIL;
+                }else {
+                    if(dryer.extractItem(player.getHeldItem(handIn),player,handIn)){
+                        return ActionResultType.SUCCESS;
+                    }
+                    return ActionResultType.FAIL;
+                }
+            }
+        }
+        return ActionResultType.PASS;
+    }
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return shape;
     }
 }

@@ -7,5 +7,5 @@
   "abouttea.page.tea0": "",
   "abouttea.page.tea1": "",
   "abouttea.jei.dryer": "Dryer",
-  "abouttea.jei.dryer.ticks": "Time:"
+  "abouttea.jei.dryer.ticks": "Time: %d"
 }
