@@ -1,11 +1,8 @@
-package com.maximum.abouttea.api.recipes.impl;
+package com.maximum.abouttea.impl;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.api.recipes.IDryerRecipe;
-import com.maximum.abouttea.init.ModItems;
-import com.maximum.abouttea.init.ModTea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -16,7 +13,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
-import java.util.LinkedList;
 
 public class DryerRecipes implements IDryerRecipe {
     private final Ingredient input;

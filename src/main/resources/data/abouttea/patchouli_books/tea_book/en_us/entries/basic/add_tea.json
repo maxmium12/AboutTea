@@ -1,0 +1,16 @@
+{
+  "name": "添加新茶叶",
+  "category": "abouttea:basic",
+  "icon": "abouttea:green_tea",
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "添加茶叶仅是为了整合包作者和服主的功能，正常玩家可以忽略$(br2) 添加茶叶，你需要在.minecraft/teas文件夹下找到teas.json,在里面填茶叶的格式"
+    },
+    {
+      "type": "text",
+      "text": "格式:$(br) {$(br) tier: $(#490)//茶叶的等级（分3级） $(br) $()color: $(#490)//茶叶颜色（需要16转10） $()$(br) effects: {$()$(br)效果名: {$()$(br) duration: \\持续时间 $()$(br) ampliefier: \\效果等级$()$(br)}$()$(br)}$()$(br)} $(br2)注意：效果可以有多个"
+    }
+  ]
+}

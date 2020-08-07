@@ -2,7 +2,7 @@ package com.maximum.abouttea.compat.jei;
 
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.api.recipes.IDryerRecipe;
-import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
+import com.maximum.abouttea.impl.DryerRecipes;
 import com.maximum.abouttea.init.ModBlock;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;

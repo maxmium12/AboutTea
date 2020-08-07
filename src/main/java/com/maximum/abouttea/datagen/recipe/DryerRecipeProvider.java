@@ -2,7 +2,7 @@ package com.maximum.abouttea.datagen.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
+import com.maximum.abouttea.impl.DryerRecipes;
 import com.maximum.abouttea.init.ModItems;
 import com.maximum.abouttea.init.ModRecipeType;
 import com.maximum.abouttea.init.ModTea;
@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;

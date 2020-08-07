@@ -6,7 +6,7 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveOutputRecipe;
-import com.maximum.abouttea.api.recipes.impl.DryerRecipes;
+import com.maximum.abouttea.impl.DryerRecipes;
 import com.maximum.abouttea.init.ModRecipeType;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;

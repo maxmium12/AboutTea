@@ -3,6 +3,7 @@ package com.maximum.abouttea.init;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.gui.ContainerMixer;
 import com.maximum.abouttea.gui.ContainerTeaSet;
+import com.maximum.abouttea.gui.ContainerTeaStoneWorkStaion;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,4 +20,6 @@ public class ModContainer {
             () -> IForgeContainerType.create((windowid, inv, buffer) -> new ContainerTeaSet(windowid, inv, buffer.readBlockPos(), Minecraft.getInstance().world)));
     public static final RegistryObject<ContainerType<ContainerMixer>> MIXER_CONTAINER = RegistryUtil.registryContainer("mixer_container",
             () -> IForgeContainerType.create((ContainerMixer::new)));
+    public static final RegistryObject<ContainerType<ContainerTeaStoneWorkStaion>> TEA_STONE_WORKSTATION = RegistryUtil.registryContainer("tea_stone_workstation",
+            () -> IForgeContainerType.create(ContainerTeaStoneWorkStaion::new));
 }
