@@ -7,8 +7,11 @@ import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Hand;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,9 +38,9 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
     public boolean extractItem(ItemStack stack, PlayerEntity player, Hand hand){
         for(int i = inv.getSlots()-1;i >= 0;--i){
             if(!inv.getStackInSlot(i).isEmpty()){
-                ItemStack stack1=inv.getStackInSlot(i);
+                ItemStack stack1=inv.getStackInSlot(i).copy();
                 if(stack.isEmpty()||(stack.getItem() == stack1.getItem() && stack.getMaxStackSize() > stack.getCount())){
-                    player.inventory.storeItemStack(stack1);
+                    ItemHandlerHelper.giveItemToPlayer(player, stack1);
                     inv.setStackInSlot(i,ItemStack.EMPTY);
                     player.getServer().getPlayerList().sendPacketToAllPlayers(this.getUpdatePacket());
                     return true;
@@ -51,16 +54,20 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
         return 4;
     }
     protected IDryerRecipe findRecipe(ItemStack input){
-       List<IDryerRecipe> recipes = world.getRecipeManager().getRecipes(ModRecipeType.DRYER_RECIPE).values().stream()
-                                                                    .filter(r -> r instanceof IDryerRecipe)
-                                                                    .map(r -> (IDryerRecipe) r)
-                                                                    .collect(Collectors.toList());
+       List<IDryerRecipe> recipes = getRecipes(world.getRecipeManager());
        for(IDryerRecipe recipe:recipes){
            if(recipe.matches(input)){
                return recipe;
            }
        }
        return null;
+    }
+    public static List<IDryerRecipe> getRecipes(RecipeManager manager){
+        List<IDryerRecipe> recipes = manager.getRecipes(ModRecipeType.DRYER_RECIPE).values().stream()
+                .filter(r -> r instanceof IDryerRecipe)
+                .map(r -> (IDryerRecipe) r)
+                .collect(Collectors.toList());
+        return recipes;
     }
     @Override
     public void tick() {

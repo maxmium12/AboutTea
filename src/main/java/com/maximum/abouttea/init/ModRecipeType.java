@@ -34,7 +34,7 @@ public class ModRecipeType {
         event.getRegistry().register(MIXER_SERIALIZER.setRegistryName(id));
         id = prefix("teastone_workstation");
         Registry.register(Registry.RECIPE_TYPE, id, TEA_STONE_WORKSTATION_RECIPE);
-        event.getRegistry().register(TEA_STONE_SERIALIZER);
+        event.getRegistry().register(TEA_STONE_SERIALIZER.setRegistryName(id));
     }
     private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T>{
         @Override

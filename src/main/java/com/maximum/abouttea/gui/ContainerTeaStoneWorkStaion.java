@@ -1,6 +1,7 @@
 package com.maximum.abouttea.gui;
 
 import com.maximum.abouttea.init.ModContainer;
+import com.maximum.abouttea.tile.machine.TileTeaStoneWorkstation;
 import com.maximum.abouttea.tile.manual.TileTeaMixer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,12 +14,12 @@ import net.minecraft.util.IIntArray;
 import javax.annotation.Nullable;
 
 public class ContainerTeaStoneWorkStaion extends Container {
-    private final TileTeaMixer tile;
+    private final TileTeaStoneWorkstation tile;
     public ContainerTeaStoneWorkStaion(int id, PlayerInventory playerInv, PacketBuffer buffer){
-        this(id, playerInv, (TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
+        this(id, playerInv, (TileTeaStoneWorkstation) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
     }
 
-    protected ContainerTeaStoneWorkStaion(int id, PlayerInventory playerInv, TileTeaMixer tile, IIntArray data) {
+    public ContainerTeaStoneWorkStaion(int id, PlayerInventory playerInv, TileTeaStoneWorkstation tile, IIntArray data) {
         super(ModContainer.TEA_STONE_WORKSTATION.get(), id);
         this.tile = tile;
         createPlayerInv(playerInv);

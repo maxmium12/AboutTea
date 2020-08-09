@@ -1,6 +1,8 @@
 package com.maximum.abouttea.tile;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -12,6 +14,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class TileBase extends TileEntity {
     protected ItemStackHandler inv = new ItemStackHandler(getInvSize());
@@ -23,12 +26,19 @@ public abstract class TileBase extends TileEntity {
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
-        inv.deserializeNBT(compound);
+        readPacketNBT(compound);
     }
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        compound.merge(inv.serializeNBT());
+        writePacketNBT(compound);
         return super.write(compound);
+    }
+    public void writePacketNBT(CompoundNBT compound) {
+        compound.merge(inv.serializeNBT());
+    }
+
+    public void readPacketNBT(CompoundNBT compound) {
+        inv.deserializeNBT(compound);
     }
     @Nonnull
     @Override
@@ -37,5 +47,24 @@ public abstract class TileBase extends TileEntity {
     }
     public ItemStackHandler getInv(){
         return inv;
+    }
+
+    @Override
+    @Nullable
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT compound = new CompoundNBT();
+        writePacketNBT(compound);
+        return new SUpdateTileEntityPacket(pos,999,compound);
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag() {
+        return write(new CompoundNBT());
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        super.onDataPacket(net, pkt);
+        readPacketNBT(pkt.getNbtCompound());
     }
 }

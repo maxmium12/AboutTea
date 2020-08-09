@@ -19,4 +19,5 @@ public interface ITeaStoneCraftingTableRecipe extends IRecipe<IInventory> {
     default IRecipeType<?> getType() {
         return Registry.RECIPE_TYPE.getValue(TYPE_ID).get();
     }
+    int getTicks();
 }

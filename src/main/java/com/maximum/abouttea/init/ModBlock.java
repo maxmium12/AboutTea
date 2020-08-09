@@ -2,6 +2,7 @@ package com.maximum.abouttea.init;
 
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.block.*;
+import com.maximum.abouttea.block.machine.BlockTeaStoneWorkStation;
 import com.maximum.abouttea.block.manual.BlockTeaDryer;
 import com.maximum.abouttea.block.manual.BlockTeaMixer;
 import com.maximum.abouttea.tile.TileTeaSet;
@@ -27,7 +28,6 @@ import java.util.function.Supplier;
 
 import static com.maximum.abouttea.AboutTea.MODID;
 
-@Mod.EventBusSubscriber
 public class ModBlock {
     public static RegistryObject<BlockTeaSet> blockTeaSet= RegistryUtil.registryBlockWithItem("tea_set",BlockTeaSet::new);
     public static RegistryObject<BlockTeaTreeLeave> blockTeaTreeLeave=RegistryUtil.registryBlockWithItem("tea_leaves",()->new BlockTeaTreeLeave(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2f),"greentea"));
@@ -40,4 +40,5 @@ public class ModBlock {
     public static RegistryObject<SaplingBlock> blockTeaTreeSapling=RegistryUtil.registryBlockWithItem("tea_tree_sapling",BlockTeaTreeSapling::new);
     public static RegistryObject<BlockTeaDryer> blockManualTeaDryer=RegistryUtil.registryBlockWithItem("manual_tea_dryer",BlockTeaDryer::new);
     public static RegistryObject<BlockTeaMixer> blockManualTeaMixer=RegistryUtil.registryBlockWithItem("manual_tea_mixer",BlockTeaMixer::new);
+    public static RegistryObject<BlockTeaStoneWorkStation> blockTeaStoneWorkStation = RegistryUtil.registryBlockWithItem("tea_stone_workstation", BlockTeaStoneWorkStation::new);
 }

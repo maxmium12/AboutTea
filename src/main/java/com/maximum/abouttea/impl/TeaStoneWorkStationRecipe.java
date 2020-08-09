@@ -35,7 +35,7 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
     public boolean matches(IInventory inv, World worldIn) {
         for(int i = 0;i < inputs.length;i++){
             for(int j = 0;j < inputs[i].length;j++){
-                if(!inputs[i][j].test(inv.getStackInSlot(i*3-4+j))) return false;
+                if(!inputs[i][j].test(inv.getStackInSlot(i * 3 + j))) return false;
             }
         }
         return true;

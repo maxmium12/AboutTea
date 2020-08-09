@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 public class AboutTeaCap{
     public static class Impl implements IAboutTeaCap{
-        private boolean unlock;
+        private boolean unlock = false;
         @Override
         public boolean isUnlock() {
             return unlock;
