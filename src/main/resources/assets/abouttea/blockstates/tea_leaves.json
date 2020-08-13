@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": "abouttea:block/tea_leave"
+    "": {
+      "model": "minecraft:block/birch_leaves"
+    }
   }
 }

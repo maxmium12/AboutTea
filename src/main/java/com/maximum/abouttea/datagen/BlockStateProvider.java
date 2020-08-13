@@ -26,7 +26,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlock.blockTeaTreeLeave.get(),models().getExistingFile(new ResourceLocation("block/birch_leaves")));
-        simpleBlock(ModBlock.blockTeaBlock.get());
+        simpleBlock(ModBlock.blockTeaStone.get());
         axisBlock(ModBlock.blockTeaWood.get());
     }
 }

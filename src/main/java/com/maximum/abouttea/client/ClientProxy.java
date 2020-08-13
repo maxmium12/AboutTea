@@ -44,7 +44,8 @@ public class ClientProxy {
         ClientRegistry.bindTileEntityRenderer(ModTiles.TEA_SET_TILE.get(),RenderTeaSet::new);
         ClientRegistry.bindTileEntityRenderer(ModTiles.MANUAL_TEA_DRYER_TILE.get(), RenderManualTeaDryer::new);
         //添加RenderLayer
-        RenderTypeLookup.setRenderLayer(ModBlock.blockTeaBlock.get(), RenderType.getTranslucent());
+        AboutTea.LOGGER.info("Add render layer");
+        RenderTypeLookup.setRenderLayer(ModBlock.blockTeaStone.get(), RenderType.getTranslucent());
         //添加Gui
         ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
     }

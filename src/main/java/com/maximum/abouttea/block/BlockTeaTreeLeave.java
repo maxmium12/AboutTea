@@ -27,7 +27,7 @@ public class BlockTeaTreeLeave extends LeavesBlock {
     private static final IntegerProperty GROW= IntegerProperty.create("grow",0,3);
     private final String tea;
     public BlockTeaTreeLeave(Properties properties, String tea) {
-        super(properties.notSolid());
+        super(properties.notSolid().tickRandomly());
         this.tea=tea;
         this.setDefaultState(this.getStateContainer().getBaseState().with(GROW,0));
     }

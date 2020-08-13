@@ -33,8 +33,23 @@ public class TeaStoneWorkstationRecipeBuilder extends ShapedRecipeBuilder {
     @Override
     public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
         super.validate(id);
-        this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(id)).withRewards(net.minecraft.advancements.AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
-        consumerIn.accept(new TeaStoneWorkstationRecipeBuilder.FinishRecipe(id, super.result, super.count, super.group == null ? "" : super.group, super.pattern, super.key, super.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + super.result.getGroup().getPath() + "/" + id.getPath()),ticks));
+        super.advancementBuilder.withParentId(
+                new ResourceLocation("recipes/root"))
+                .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(id))
+                .withRewards(net.minecraft.advancements.AdvancementRewards.Builder.recipe(id))
+                .withRequirementsStrategy(IRequirementsStrategy.OR);
+        assert super.result !=null;
+        assert super.pattern !=null;
+        assert super.key !=null;
+        assert super.advancementBuilder !=null;
+        assert id != null;
+        assert consumerIn != null;
+        assert super.result.getGroup() != null;
+        ResourceLocation advancementID = new ResourceLocation(id.getNamespace(), "recipes/" + super.result.getGroup().getPath() + "/" + id.getPath());
+        consumerIn.accept(new TeaStoneWorkstationRecipeBuilder.FinishRecipe(
+                id, super.result, super.count, super.group == null ? "" : super.group,
+                super.pattern, super.key, super.advancementBuilder,
+                advancementID,ticks));
     }
 
     public class FinishRecipe extends Result {
