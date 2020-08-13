@@ -1,14 +1,17 @@
 package com.maximum.abouttea.block;
 
+import com.maximum.abouttea.init.ModTrigger;
 import com.maximum.abouttea.item.ItemTeaBook;
 import com.maximum.abouttea.tile.TileBookConverter;
 import com.maximum.abouttea.tile.TileTeaSet;
+import com.maximum.abouttea.util.UnlockTechTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -59,6 +62,7 @@ public class BlockTeaBookConverter extends Block {
                 }
             }
             ItemTeaBook.setUnlockTech(stack,true);
+            if(!worldIn.isRemote) ModTrigger.UnlockTechTrigger.trigger((ServerPlayerEntity) player, state);
             state.cycle(CONVERT);
             return ActionResultType.SUCCESS;
         }

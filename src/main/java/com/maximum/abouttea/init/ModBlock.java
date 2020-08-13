@@ -41,4 +41,5 @@ public class ModBlock {
     public static RegistryObject<BlockTeaDryer> blockManualTeaDryer=RegistryUtil.registryBlockWithItem("manual_tea_dryer",BlockTeaDryer::new);
     public static RegistryObject<BlockTeaMixer> blockManualTeaMixer=RegistryUtil.registryBlockWithItem("manual_tea_mixer",BlockTeaMixer::new);
     public static RegistryObject<BlockTeaStoneWorkStation> blockTeaStoneWorkStation = RegistryUtil.registryBlockWithItem("tea_stone_workstation", BlockTeaStoneWorkStation::new);
+    public static RegistryObject<BlockTeaStone> blockTeaStone = RegistryUtil.registryBlockWithItem("tea_stone_block",BlockTeaStone::new);
 }

@@ -11,6 +11,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
@@ -25,6 +26,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlock.blockTeaTreeLeave.get(),models().getExistingFile(new ResourceLocation("block/birch_leaves")));
+        simpleBlock(ModBlock.blockTeaBlock.get());
         axisBlock(ModBlock.blockTeaWood.get());
     }
 }

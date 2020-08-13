@@ -16,7 +16,9 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.util.JsonUtils;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.system.CallbackI;
 
@@ -30,7 +32,7 @@ public class ModTea {
     public ModTea(){
         registry("green_tea",0x30cbba,1);
         registry("golden_tea",0xffd700,1, new EffectInstanceWrapper(Effects.HASTE.getRegistryName(),800,2));
-        File teadir=new File(Minecraft.getInstance().gameDir,"teas");
+        File teadir=new File(".","teas");
         if(!teadir.exists()){
             teadir.mkdir();
         }

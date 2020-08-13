@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TileTeaDryer extends TileBase implements ITickableTileEntity {
-    private final int[] ticks=new int[4];
+    protected final int[] ticks=new int[4];
     public TileTeaDryer() {
         super(ModTiles.MANUAL_TEA_DRYER_TILE.get());
     }
@@ -53,8 +53,11 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
     public int getInvSize() {
         return 4;
     }
-    protected IDryerRecipe findRecipe(ItemStack input){
-       List<IDryerRecipe> recipes = getRecipes(world.getRecipeManager());
+    public static IDryerRecipe findRecipe(RecipeManager manager, ItemStack input){
+        List<IDryerRecipe> recipes = manager.getRecipes(ModRecipeType.DRYER_RECIPE).values().stream()
+                .filter(r -> r instanceof IDryerRecipe)
+                .map(r -> (IDryerRecipe) r)
+                .collect(Collectors.toList());
        for(IDryerRecipe recipe:recipes){
            if(recipe.matches(input)){
                return recipe;
@@ -62,12 +65,8 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
        }
        return null;
     }
-    public static List<IDryerRecipe> getRecipes(RecipeManager manager){
-        List<IDryerRecipe> recipes = manager.getRecipes(ModRecipeType.DRYER_RECIPE).values().stream()
-                .filter(r -> r instanceof IDryerRecipe)
-                .map(r -> (IDryerRecipe) r)
-                .collect(Collectors.toList());
-        return recipes;
+    protected IDryerRecipe findRecipe(ItemStack input){
+        return findRecipe(world.getRecipeManager(), input);
     }
     @Override
     public void tick() {

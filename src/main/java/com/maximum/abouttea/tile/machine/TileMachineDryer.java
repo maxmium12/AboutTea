@@ -1,20 +1,17 @@
-package com.maximum.abouttea.tile;
+package com.maximum.abouttea.tile.machine;
 
+import com.maximum.abouttea.api.recipes.IDryerRecipe;
+import com.maximum.abouttea.tile.TileBase;
+import com.maximum.abouttea.tile.TileMachineBase;
+import com.maximum.abouttea.tile.manual.TileTeaDryer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.registries.ObjectHolder;
 
-public abstract class TileMachineBase extends TileBase implements ITickableTileEntity {
-    private final int maxEnergy;
-    private final int energyReceive;
+public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntity {
     protected int energy=0;
-    private final int energyExtract;
-    private final boolean canReceive;
-    private final boolean canExtract;
     private final LazyOptional<IEnergyStorage> lazyOptional = LazyOptional.of(() -> new IEnergyStorage() {
 
         @Override
@@ -22,7 +19,7 @@ public abstract class TileMachineBase extends TileBase implements ITickableTileE
             int energy=this.getEnergyStored();
             int diff=Math.min(getMaxEnergyStored()-energy,maxReceive);
             if(!simulate){
-                TileMachineBase.this.energy+=diff;
+                TileMachineDryer.this.energy+=diff;
                 if(diff!=0){
                     markDirty();
                 }
@@ -35,7 +32,7 @@ public abstract class TileMachineBase extends TileBase implements ITickableTileE
             int energy=this.getEnergyStored();
             int diff=Math.min(energy,maxExtract);
             if(!simulate){
-                TileMachineBase.this.energy-=diff;
+                TileMachineDryer.this.energy-=diff;
                 if(diff!=0){
                     markDirty();
                 }
@@ -50,43 +47,35 @@ public abstract class TileMachineBase extends TileBase implements ITickableTileE
 
         @Override
         public int getMaxEnergyStored() {
-            return maxEnergy;
+            return 120000;
         }
 
         @Override
         public boolean canExtract() {
-            return canExtract;
+            return false;
         }
 
         @Override
         public boolean canReceive() {
-            return canReceive;
+            return true;
         }
     });
-    public TileMachineBase(TileEntityType<?> type,int maxEnergy,int energyReceive,int energyExtract,boolean canExtract,boolean canReceive) {
-        super(type);
-        this.maxEnergy=maxEnergy;
-        this.energyReceive=energyReceive;
-        this.energyExtract=energyExtract;
-        this.canExtract=canExtract;
-        this.canReceive=canReceive;
-    }
-    public abstract void doWork();
-    public boolean isWork=false;
-    public abstract boolean canWork();
-    public abstract void stop();
-    public void tick(){
-        if(canWork()) {
-            isWork = true;
-            doWork();
-            return;
-        }
-        if(isWork){
-            isWork = false;
-            stop();
+    @Override
+    public void tick() {
+        for(int i = 0;i<inv.getSlots();i++){
+            IDryerRecipe recipe;
+            if((recipe = findRecipe(inv.getStackInSlot(i)))!=null){
+                if (!(ticks[i]>=recipe.getTicks()) && energy >= 40){
+                    ticks[i]++;
+                    energy -= 40;
+                }else {
+                    inv.setStackInSlot(i,recipe.getRecipeOutput());
+                    ticks[i]=0;
+                    markDirty();
+                }
+            }
         }
     }
-
     @Override
     public void readPacketNBT(CompoundNBT compound) {
         super.readPacketNBT(compound);
