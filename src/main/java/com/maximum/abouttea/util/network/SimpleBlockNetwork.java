@@ -1,16 +1,11 @@
 package com.maximum.abouttea.util.network;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimaps;
-import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.EnumSet;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
+//来自4z大佬教程
 public class SimpleBlockNetwork implements IBlockNetwork{
     private final Map<BlockPos, Set<BlockPos>> components;
     private final SetMultimap<BlockPos, Direction> connections;
@@ -31,7 +26,50 @@ public class SimpleBlockNetwork implements IBlockNetwork{
 
     @Override
     public void cut(BlockPos node, Direction direction, ConnectivityListener afterSplit) {
-
+        if (this.connections.remove(node, direction))
+        {
+            BlockPos another = node.offset(direction);
+            this.connections.remove(another, direction.getOpposite());
+            BFSIterator nodeIterator = new BFSIterator(node), anotherIterator = new BFSIterator(another);
+            while (nodeIterator.hasNext())
+            {
+                BlockPos next = nodeIterator.next();
+                if (!anotherIterator.getSearched().contains(next))
+                {
+                    BFSIterator iterator = anotherIterator;
+                    anotherIterator = nodeIterator;
+                    nodeIterator = iterator;
+                    continue;
+                }
+                return;
+            }
+            Set<BlockPos> primaryComponent = this.components.get(node), secondaryComponent;
+            BlockPos primaryNode = primaryComponent.iterator().next();
+            Set<BlockPos> searched = nodeIterator.getSearched();
+            if (searched.contains(primaryNode))
+            {
+                secondaryComponent = Sets.newLinkedHashSet(Sets.difference(primaryComponent, searched));
+                primaryComponent.retainAll(searched);
+            }
+            else
+            {
+                secondaryComponent = searched;
+                primaryComponent.removeAll(searched);
+            }
+            if (secondaryComponent.size() <= 1)
+            {
+                secondaryComponent.forEach(this.components::remove);
+            }
+            else
+            {
+                secondaryComponent.forEach(pos -> this.components.put(pos, secondaryComponent));
+            }
+            if (primaryComponent.size() <= 1)
+            {
+                primaryComponent.forEach(this.components::remove);
+            }
+            afterSplit.onChange(primaryNode, secondaryComponent.iterator().next());
+        }
     }
 
     @Override
@@ -70,6 +108,37 @@ public class SimpleBlockNetwork implements IBlockNetwork{
                 Set<BlockPos> union = Sets.newLinkedHashSet(Sets.union(primaryComponent, secondaryComponent));
                 union.forEach(pos -> this.components.put(pos, union));
             }
+        }
+    }
+    public class BFSIterator implements Iterator<BlockPos> {
+        private final Set<BlockPos> searched = Sets.newLinkedHashSet();
+        private final Queue<BlockPos> queue = Queues.newArrayDeque();
+
+        public BFSIterator(BlockPos node) {
+            node = node.toImmutable();
+            this.searched.add(node);
+            this.queue.offer(node);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.queue.size() > 0;
+        }
+
+        @Override
+        public BlockPos next() {
+            BlockPos node = this.queue.remove();
+            for (Direction direction : SimpleBlockNetwork.this.connections.get(node)) {
+                BlockPos another = node.offset(direction);
+                if (this.searched.add(another)) {
+                    this.queue.offer(another);
+                }
+            }
+            return node;
+        }
+
+        public Set<BlockPos> getSearched() {
+            return this.searched;
         }
     }
 }
