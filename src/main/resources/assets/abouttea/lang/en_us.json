@@ -7,5 +7,21 @@
   "abouttea.page.tea0": "",
   "abouttea.page.tea1": "",
   "abouttea.jei.dryer": "Dryer",
-  "abouttea.jei.dryer.ticks": "Time: %d"
+  "abouttea.jei.dryer.ticks": "Time: %d",
+  "abouttea.teacup.tea": "Include: %s",
+  "item.abouttea.tea_cup": "Tea Cup",
+  "item.abouttea.tea_stone": "Tea Stone",
+  "item.abouttea.green_tea": "Green Tea",
+  "block.abouttea.manual_tea_dryer": "Manual Dryer",
+  "block.abouttea.tea_leaves": "Tea Leaves",
+  "block.abouttea.tea_stone_ore": "Tea Stone Ore",
+  "block.abouttea.tea_wood": "Tea Log",
+  "block.abouttea.tea_generator": "Tea Generator",
+  "block.abouttea.tea_book_converter": "Tea Book Converter",
+  "block.abouttea.tea_block": "Tea Block",
+  "block.abouttea.tea_stone_block": "Tea Stone Block",
+  "block.abouttea.tea_tree_sapling": "Tea Tree Sapling",
+  "block.abouttea.manual_tea_mixer": "Manual Mixer",
+  "item.abouttea.tech_book": "Tech Book",
+  "block.abouttea.tea_stone_workstation": "Tea Stone Workstation"
 }

@@ -87,12 +87,12 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
 
         @Override
         public TeaStoneWorkStationRecipe read(ResourceLocation recipeId, JsonObject json) {
-            Map<String, Ingredient> key = ShapedRecipe.deserializeKey(JSONUtils.getJsonObject(json,"kay"));
+            Map<String, Ingredient> key = ShapedRecipe.deserializeKey(JSONUtils.getJsonObject(json,"key"));
             String[] patterns = ShapedRecipe.shrink(ShapedRecipe.patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
             int width = patterns[0].length();
             int height = patterns.length;
             NonNullList<Ingredient> inputs = ShapedRecipe.deserializeIngredients(patterns, key, width, height);
-            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json,"output"));
+            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json,"result"));
             int ticks = JSONUtils.getInt(json,"ticks");
             Ingredient[][] inputArray = getArrayFromList(inputs, width, height);
             return new TeaStoneWorkStationRecipe(inputArray, output, ticks);

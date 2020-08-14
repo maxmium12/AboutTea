@@ -7,5 +7,21 @@
   "abouttea.page.tea0": "",
   "abouttea.page.tea1": "",
   "abouttea.jei.dryer": "干燥",
-  "abouttea.jei.dryer.ticks": "时间: %d"
+  "abouttea.jei.dryer.ticks": "时间: %d",
+  "abouttea.teacup.tea": "内含: %s",
+  "item.abouttea.tea_cup": "茶杯",
+  "item.abouttea.tea_stone": "茶叶石",
+  "item.abouttea.green_tea": "绿茶",
+  "block.abouttea.manual_tea_dryer": "手动干燥台",
+  "block.abouttea.tea_leaves": "茶树叶",
+  "block.abouttea.tea_stone_ore": "茶叶石矿",
+  "block.abouttea.tea_wood": "茶树原木",
+  "block.abouttea.tea_generator": "茶叶发电机",
+  "block.abouttea.tea_book_converter": "茶叶手记注能器",
+  "block.abouttea.tea_block": "茶块",
+  "block.abouttea.tea_stone_block": "茶叶石块",
+  "block.abouttea.tea_tree_sapling": "茶树苗",
+  "block.abouttea.manual_tea_mixer": "锅",
+  "item.abouttea.tech_book": "远古科技手册",
+  "block.abouttea.tea_stone_workstation": "茶叶石工作台"
 }
