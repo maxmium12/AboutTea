@@ -21,7 +21,6 @@ public class DryerRecipeTweak implements IRecipeManager {
     }
     @ZenCodeType.Method
     public  void removeDryRecipe(IItemStack output){
-
         CraftTweakerAPI.apply(new ActionRemoveOutputRecipe(this,output));
     }
 

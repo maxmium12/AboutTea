@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +49,9 @@ public class ClientProxy {
         RenderTypeLookup.setRenderLayer(ModBlock.blockTeaStone.get(), RenderType.getTranslucent());
         //添加Gui
         ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
+        //添加外部语言支持
+        TeaI18NHandler.loadLang(Minecraft.getInstance().getResourceManager());
+        ((IReloadableResourceManager)Minecraft.getInstance().getResourceManager()).addReloadListener(new TeaI18NHandler());
     }
     @SubscribeEvent
     public static void onItemColorInit(ColorHandlerEvent.Item event){
