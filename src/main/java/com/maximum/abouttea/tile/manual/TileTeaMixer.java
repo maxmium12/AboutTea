@@ -13,11 +13,13 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -56,6 +58,9 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
     public TileTeaMixer() {
         super(ModTiles.MANUAL_TEA_MIXER_TILE.get());
     }
+    public TileTeaMixer(TileEntityType<?> type){
+        super(type);
+    }
     @Override
     public int getInvSize() {
         return 5;
@@ -85,16 +90,18 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
         for(int i=0;i<inv.getSlots();i++){
             items.add(inv.getStackInSlot(i));
         }
-        for(IRecipe<?> recipe:world.getRecipeManager().getRecipes(ModRecipeType.MIXER_RECIPE).values()){
+        return findRecipe(world.getRecipeManager(), items.toArray(new ItemStack[0]));
+    }
+    public static IMixerRecipe findRecipe(RecipeManager manager, ItemStack[] inputs){
+        for(IRecipe<?> recipe:manager.getRecipes(ModRecipeType.MIXER_RECIPE).values()){
             if(recipe instanceof IMixerRecipe){
-                if(((IMixerRecipe) recipe).matches(items.toArray(new ItemStack[0]))){
+                if(((IMixerRecipe) recipe).matches(inputs)){
                     return (IMixerRecipe) recipe;
                 }
             }
         }
         return null;
     }
-
     @Override
     public ITextComponent getDisplayName() {
         return new StringTextComponent("魔法锅");

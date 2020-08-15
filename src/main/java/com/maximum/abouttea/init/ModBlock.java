@@ -2,6 +2,8 @@ package com.maximum.abouttea.init;
 
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.block.*;
+import com.maximum.abouttea.block.machine.BlockMachineDryer;
+import com.maximum.abouttea.block.machine.BlockMachineMixer;
 import com.maximum.abouttea.block.machine.BlockTeaStoneWorkStation;
 import com.maximum.abouttea.block.manual.BlockTeaDryer;
 import com.maximum.abouttea.block.manual.BlockTeaMixer;
@@ -43,4 +45,6 @@ public class ModBlock {
     public static RegistryObject<BlockTeaStoneWorkStation> blockTeaStoneWorkStation = RegistryUtil.registryBlockWithItem("tea_stone_workstation", BlockTeaStoneWorkStation::new);
     public static RegistryObject<BlockTeaStone> blockTeaStone = RegistryUtil.registryBlockWithItem("tea_stone_block",BlockTeaStone::new);
     public static RegistryObject<BlockWire> blockWire = RegistryUtil.registryBlockWithItem("wire", BlockWire::new);
+    public static RegistryObject<BlockMachineDryer> blockMachineDryer = RegistryUtil.registryBlockWithItem("machine_dryer", BlockMachineDryer::new);
+    public static RegistryObject<BlockMachineMixer> blockMachineMixer = RegistryUtil.registryBlockWithItem("machine_mixer", BlockMachineMixer::new);
 }

@@ -1,0 +1,5 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:obj",
+  "model": "abouttea:models/item/cup.obj"
+}

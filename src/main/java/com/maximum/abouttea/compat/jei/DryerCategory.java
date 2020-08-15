@@ -8,6 +8,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -19,13 +21,19 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Arrays;
 
 public class DryerCategory implements IRecipeCategory<IDryerRecipe> {
-    private final IDrawable background;
+    private final IDrawableStatic background;
     private final ItemStack renderStack=new ItemStack(ModBlock.blockManualTeaDryer.get());
     private final IDrawable icon;
+    private final IDrawableAnimated arrow;
+    private final IDrawable backArrow;
+    //使用JEI自带原版GUI元素
+    private static final ResourceLocation RECIPE_GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
     public static final ResourceLocation UID=new ResourceLocation(AboutTea.MODID,"dryer");
     public DryerCategory(IGuiHelper helper){
         background=helper.createBlankDrawable(168,64);
         icon=helper.createDrawableIngredient(renderStack);
+        this.arrow = helper.drawableBuilder(RECIPE_GUI_VANILLA, 82, 128, 24, 17).buildAnimated(300, IDrawableAnimated.StartDirection.LEFT, false);
+        this.backArrow = helper.drawableBuilder(RECIPE_GUI_VANILLA, 24, 133, 24, 17).build();
     }
     @Override
     public ResourceLocation getUid() {
@@ -57,6 +65,8 @@ public class DryerCategory implements IRecipeCategory<IDryerRecipe> {
         RenderSystem.enableAlphaTest();
         RenderSystem.enableBlend();
         Minecraft.getInstance().fontRenderer.drawString(I18n.format("abouttea.jei.dryer.ticks",recipe.getTicks()),54,0,0xffffff);
+        arrow.draw(62,20);
+        backArrow.draw(62,20);
         RenderSystem.disableBlend();
         RenderSystem.disableAlphaTest();
         RenderSystem.popMatrix();

@@ -1,17 +1,11 @@
 package com.maximum.abouttea.tile.machine;
 
-import com.maximum.abouttea.api.recipes.IDryerRecipe;
 import com.maximum.abouttea.init.ModTiles;
-import com.maximum.abouttea.tile.TileBase;
-import com.maximum.abouttea.tile.TileMachineBase;
 import com.maximum.abouttea.tile.manual.TileTeaDryer;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntity {
+public class TileMachineMixer extends TileTeaDryer {
     protected int energy=0;
     private final LazyOptional<IEnergyStorage> lazyOptional = LazyOptional.of(() -> new IEnergyStorage() {
         @Override
@@ -19,7 +13,7 @@ public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntit
             int energy=this.getEnergyStored();
             int diff=Math.min(getMaxEnergyStored()-energy,maxReceive);
             if(!simulate){
-                TileMachineDryer.this.energy+=diff;
+                TileMachineMixer.this.energy+=diff;
                 if(diff!=0){
                     markDirty();
                 }
@@ -32,7 +26,7 @@ public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntit
             int energy=this.getEnergyStored();
             int diff=Math.min(energy,maxExtract);
             if(!simulate){
-                TileMachineDryer.this.energy-=diff;
+                TileMachineMixer.this.energy-=diff;
                 if(diff!=0){
                     markDirty();
                 }
@@ -61,39 +55,7 @@ public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntit
         }
     });
 
-    public TileMachineDryer(){
-        super(ModTiles.MACHINE_DRYER.get());
-    }
-
-    @Override
-    public int getInvSize() {
-        return 8;
-    }
-    @Override
-    public void tick() {
-        for(int i = 0;i<4;i++){
-            IDryerRecipe recipe;
-            if((recipe = findRecipe(inv.getStackInSlot(i)))!=null){
-                if (!(ticks[i]>=recipe.getTicks()) && energy >= 40){
-                    ticks[i]+=3;
-                    energy -= 40;
-                }else {
-                    inv.setStackInSlot(i + 4,recipe.getRecipeOutput());
-                    ticks[i]=0;
-                    markDirty();
-                }
-            }
-        }
-    }
-    @Override
-    public void readPacketNBT(CompoundNBT compound) {
-        super.readPacketNBT(compound);
-        energy = compound.getInt("energy");
-    }
-
-    @Override
-    public void writePacketNBT(CompoundNBT nbt){
-        nbt.putInt("energy",energy);
-        super.writePacketNBT(nbt);
+    public TileMachineMixer(){
+        super(ModTiles.MACHINE_MIXER.get());
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -34,6 +35,9 @@ public class TileTeaDryer extends TileBase implements ITickableTileEntity {
             }
         }
         return false;
+    }
+    public TileTeaDryer(TileEntityType<?> type){
+        super(type);
     }
     public boolean extractItem(ItemStack stack, PlayerEntity player, Hand hand){
         for(int i = inv.getSlots()-1;i >= 0;--i){
