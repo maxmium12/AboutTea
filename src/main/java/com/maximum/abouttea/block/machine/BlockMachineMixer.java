@@ -13,8 +13,9 @@ public class BlockMachineMixer extends Block {
     public BlockMachineMixer() {
         super(Properties.create(Material.IRON));
     }
+
     @Override
-    public boolean hasTileEntity() {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 

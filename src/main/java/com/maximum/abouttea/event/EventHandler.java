@@ -6,11 +6,9 @@ import com.maximum.abouttea.capabilities.AboutTeaCap;
 import com.maximum.abouttea.capabilities.CapabilityHandler;
 import com.maximum.abouttea.capabilities.IAboutTeaCap;
 import com.maximum.abouttea.client.render.RenderTeaSet;
-import com.maximum.abouttea.init.ModBlock;
-import com.maximum.abouttea.init.ModFeature;
-import com.maximum.abouttea.init.ModTea;
-import com.maximum.abouttea.init.ModTiles;
+import com.maximum.abouttea.init.*;
 import com.maximum.abouttea.item.ItemTea;
+import com.maximum.abouttea.item.ItemTechBook;
 import com.maximum.abouttea.network.MsgCapabilitySync;
 import com.maximum.abouttea.network.NetworkHandler;
 import com.maximum.abouttea.world.FeatureConfig;
@@ -31,9 +29,13 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.storage.loot.*;
+import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -70,24 +72,47 @@ public class EventHandler {
             }
         }
         @SubscribeEvent
-        public static void commonSetup(FMLCommonSetupEvent event){
+        public static void commonSetup(FMLCommonSetupEvent event) {
             new CapabilityHandler();
+            new NetworkHandler().registryMessage();
         }
     }
     @SubscribeEvent
-    public static void onAttachCapability(AttachCapabilitiesEvent<PlayerEntity> event){
-        event.addCapability(new ResourceLocation(AboutTea.MODID, "aboutteacap"),new AboutTeaCap.ProviderPlayer());
+    public static void onLootTableLoad(LootTableLoadEvent event){
+        if(event.getName().equals(LootTables.CHESTS_ABANDONED_MINESHAFT)
+                || event.getName().equals(LootTables.CHESTS_BURIED_TREASURE)
+                || event.getName().equals(LootTables.CHESTS_DESERT_PYRAMID)
+                || event.getName().equals(LootTables.CHESTS_END_CITY_TREASURE)
+                || event.getName().equals(LootTables.CHESTS_IGLOO_CHEST)
+                || event.getName().equals(LootTables.CHESTS_JUNGLE_TEMPLE)
+                || event.getName().equals(LootTables.CHESTS_SHIPWRECK_TREASURE)
+                || event.getName().equals(LootTables.CHESTS_SIMPLE_DUNGEON)){
+            LootEntry.Builder<?> entry = ItemLootEntry.builder(ModItems.itemTechBook.get()).weight(20);
+            LootPool pool = LootPool.builder().addEntry(entry).name("tech").rolls(ConstantRange.of(1)).acceptCondition(SurvivesExplosion.builder()).build();
+            event.getTable().addPool(pool);
+        }
     }
+
+    @SubscribeEvent
+    public static void onAttachCapability(AttachCapabilitiesEvent<Entity> event){
+       // AboutTea.LOGGER.info("attach capability");
+        if(event.getObject() instanceof PlayerEntity)
+            event.addCapability(new ResourceLocation(AboutTea.MODID, "aboutteacap"),new AboutTeaCap.ProviderPlayer());
+    }
+
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event){
-        Capability<IAboutTeaCap> capability=CapabilityHandler.ABOUTTEACAP;
-        Capability.IStorage<IAboutTeaCap> storage=capability.getStorage();
-        event.getOriginal().getCapability(capability).ifPresent(iAboutTeaCap -> {
-            INBT nbt = storage.writeNBT(capability,iAboutTeaCap,null);
-            storage.readNBT(capability,iAboutTeaCap,null,nbt);
-        });
+        LazyOptional<IAboutTeaCap> oldCap = event.getOriginal().getCapability(CapabilityHandler.ABOUTTEACAP);
+        LazyOptional<IAboutTeaCap> newCap = event.getPlayer().getCapability(CapabilityHandler.ABOUTTEACAP);
+        if(oldCap.isPresent() && newCap.isPresent()){
+            newCap.ifPresent(n -> {
+                oldCap.ifPresent(o -> {
+                    n.deserializeNBT(o.serializeNBT());
+                });
+            });
+        }
     }
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event){
         if(!event.getWorld().isRemote&&event.getEntity() instanceof PlayerEntity){
             ServerPlayerEntity player= (ServerPlayerEntity) event.getEntity();

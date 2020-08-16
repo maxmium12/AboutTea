@@ -3,6 +3,7 @@ package com.maximum.abouttea.util;
 import com.google.common.collect.Lists;
 import com.maximum.abouttea.effect.EffectInstanceWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static com.maximum.abouttea.AboutTea.prefix;
 
 public class RenderUtil {
     public static TextureAtlasSprite getSpite(ResourceLocation location){
@@ -88,7 +91,7 @@ public class RenderUtil {
             lores.add(new StringTextComponent(""));
             lores.add((new TranslationTextComponent("potion.whenDrank")).applyTextStyle(TextFormatting.DARK_PURPLE));
 
-            for(Tuple<String, AttributeModifier> tuple : list1) {
+            for (Tuple<String, AttributeModifier> tuple : list1) {
                 AttributeModifier attributemodifier2 = tuple.getB();
                 double d0 = attributemodifier2.getAmount();
                 double d1;
@@ -99,13 +102,12 @@ public class RenderUtil {
                 }
 
                 if (d0 > 0.0D) {
-                    lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String)tuple.getA()))).applyTextStyle(TextFormatting.BLUE));
+                    lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String) tuple.getA()))).applyTextStyle(TextFormatting.BLUE));
                 } else if (d0 < 0.0D) {
                     d1 = d1 * -1.0D;
-                    lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String)tuple.getA()))).applyTextStyle(TextFormatting.RED));
+                    lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent("attribute.name." + (String) tuple.getA()))).applyTextStyle(TextFormatting.RED));
                 }
             }
         }
-
     }
 }

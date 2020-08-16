@@ -34,6 +34,7 @@ public class MixerRecipes implements IMixerRecipe {
     @Override
     public boolean matches(ItemStack[] inputs) {
         int i=0;
+        if(inputs.length == 0) return false;
         for(ItemStack input:inputs){
             for(Ingredient ingredient:this.inputs){
                 if(ingredient.test(input)) i++;

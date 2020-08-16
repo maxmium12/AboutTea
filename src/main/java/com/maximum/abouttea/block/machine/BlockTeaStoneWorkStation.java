@@ -32,7 +32,10 @@ public class BlockTeaStoneWorkStation extends Block {
         if(!worldIn.isRemote){
             IAboutTeaCap cap = player.getCapability(CapabilityHandler.ABOUTTEACAP).orElse(new AboutTeaCap.Impl());
             if(cap.isUnlock()){
-                NetworkHooks.openGui((ServerPlayerEntity) player, ModTiles.TEA_STONE_WORKSTATION.get().create());
+                NetworkHooks.openGui((ServerPlayerEntity) player, ModTiles.TEA_STONE_WORKSTATION.get().create(), buffer -> {
+                    buffer.writeBlockPos(pos);
+                    buffer.writeBlockPos(pos);
+                });
                 return ActionResultType.SUCCESS;
             } else {
                 player.sendStatusMessage(new TranslationTextComponent("abouttea.teastoneworkstation.fail"), false);
@@ -43,7 +46,7 @@ public class BlockTeaStoneWorkStation extends Block {
     }
 
     @Override
-    public boolean hasTileEntity() {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 

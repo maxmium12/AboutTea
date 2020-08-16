@@ -1,0 +1,34 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "abouttea:block/wire_part1",
+		"1": "abouttea:block/wire_core1",
+		"particle": "abouttea:block/wire_part1"
+	},
+	"elements": [
+		{
+			"from": [5, 2, 6],
+			"to": [14, 6, 10],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 15.998, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+			}
+		},
+		{
+			"from": [14, 2.5, 6.5],
+			"to": [16, 5.5, 9.5],
+			"faces": {
+				"north": {"uv": [0, 3, 3.997, 12.995], "texture": "#0"},
+				"east": {"uv": [2.666, 2.666, 13.331, 13.331], "texture": "#1"},
+				"south": {"uv": [0, 3, 3.998, 12.996], "texture": "#0"},
+				"west": {"uv": [0, 0, 4, 4], "texture": "#missing"},
+				"up": {"uv": [0, 3, 3.998, 12.996], "texture": "#0"},
+				"down": {"uv": [0, 3, 3.998, 12.996], "texture": "#0"}
+			}
+		}
+	]
+}

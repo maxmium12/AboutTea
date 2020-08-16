@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
@@ -28,6 +29,7 @@ import java.util.List;
 public class TileTeaMixer extends TileBase implements ITickableTileEntity , INamedContainerProvider {
     private int tick=0;
     private int hasFire=0;
+    private int maxTick;
     private IIntArray data=new IIntArray() {
         @Override
         public int get(int index) {
@@ -36,6 +38,8 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
                     return tick;
                 case 1:
                     return hasFire;
+                case 2:
+                    return maxTick;
             }
             return 0;
         }
@@ -47,12 +51,14 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
                     tick=value;
                 case 1:
                   hasFire=value;
+                case 2:
+                    maxTick = value;
             }
         }
 
         @Override
         public int size() {
-            return 2;
+            return 3;
         }
     };
     public TileTeaMixer() {
@@ -73,22 +79,31 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
         if(world.getBlockState(pos.down()).getBlock() instanceof FireBlock){
             hasFire=1;
             IMixerRecipe recipe=findRecipe();
-            if((recipe!=null && recipe.getRecipeOutput().getItem() instanceof ItemTea && ((ItemTea)recipe.getRecipeOutput().getItem()).getTier()==1)){
+            if(canWork(recipe)){
+                maxTick = recipe.getTicks();
                 if(tick>=recipe.getTicks()){
                     if(inv.insertItem(4,recipe.getRecipeOutput(),true).isEmpty()){
-                        for(int i=0;i<inv.getSlots();i++){
-                            inv.extractItem(i,1,false);
+                        for(int i=0;i<inv.getSlots()-1;i++) {
+                            inv.extractItem(i, 1, false);
                         }
+                        inv.insertItem(4,recipe.getRecipeOutput(),false);
                         tick=0;
+                        markDirty();
                     }
-                }else tick++;
-            }
+                }else {
+                    tick++;
+                    return;
+                }
+            } else {
+                tick = 0;
+                return;
+            };
         }else hasFire=0;
     }
     private IMixerRecipe findRecipe(){
         List<ItemStack> items=new ArrayList<>();
-        for(int i=0;i<inv.getSlots();i++){
-            items.add(inv.getStackInSlot(i));
+        for(int i=0;i < 4;i++){
+            if(!inv.getStackInSlot(i).isEmpty()) items.add(inv.getStackInSlot(i));
         }
         return findRecipe(world.getRecipeManager(), items.toArray(new ItemStack[0]));
     }
@@ -101,6 +116,17 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
             }
         }
         return null;
+    }
+    private boolean canWork(IMixerRecipe recipe){
+        if(recipe != null && hasFire == 1){
+            ItemStack stack = recipe.getRecipeOutput();
+            if((stack.getItem() instanceof ItemTea && ((ItemTea)stack.getItem()).getTier()<=1)){
+                return true;
+            } else if(!(stack.getItem() instanceof ItemTea) && !stack.isEmpty()){
+                return true;
+            }
+        }
+        return false;
     }
     @Override
     public ITextComponent getDisplayName() {

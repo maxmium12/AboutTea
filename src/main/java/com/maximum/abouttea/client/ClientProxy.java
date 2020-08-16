@@ -1,7 +1,9 @@
 package com.maximum.abouttea.client;
 
 import com.maximum.abouttea.AboutTea;
+import com.maximum.abouttea.client.gui.GuiMachineDryer;
 import com.maximum.abouttea.client.gui.GuiMixer;
+import com.maximum.abouttea.client.gui.GuiTeaStoneWorkstation;
 import com.maximum.abouttea.client.render.LayerCustomArmor;
 import com.maximum.abouttea.client.render.RenderManualTeaDryer;
 import com.maximum.abouttea.client.render.RenderTeaSet;
@@ -49,6 +51,8 @@ public class ClientProxy {
         RenderTypeLookup.setRenderLayer(ModBlock.blockTeaStone.get(), RenderType.getTranslucent());
         //添加Gui
         ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
+        ScreenManager.registerFactory(ModContainer.MACHINE_DRYER.get(), GuiMachineDryer::new);
+        ScreenManager.registerFactory(ModContainer.TEA_STONE_WORKSTATION.get(), GuiTeaStoneWorkstation::new);
         //添加外部语言支持
         TeaI18NHandler.loadLang(Minecraft.getInstance().getResourceManager());
         ((IReloadableResourceManager)Minecraft.getInstance().getResourceManager()).addReloadListener(new TeaI18NHandler());

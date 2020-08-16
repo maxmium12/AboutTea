@@ -18,7 +18,7 @@ public class MsgCapabilitySync {
     public CompoundNBT cap;
     public MsgCapabilitySync(CompoundNBT cap){this.cap = cap;}
     public MsgCapabilitySync(PacketBuffer buffer){
-        buffer.readCompoundTag();
+        cap = buffer.readCompoundTag();
     }
     public void toByte(PacketBuffer buffer){
         buffer.writeCompoundTag(cap);
@@ -26,11 +26,11 @@ public class MsgCapabilitySync {
     public void handle(Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(()->{
             PlayerEntity player= Minecraft.getInstance().player;
-            AtomicBoolean unlock = new AtomicBoolean(false);
             player.getCapability(CapabilityHandler.ABOUTTEACAP).ifPresent(iAboutTeaCap -> {
                 Capability.IStorage<IAboutTeaCap> storage=CapabilityHandler.ABOUTTEACAP.getStorage();
                 storage.readNBT(CapabilityHandler.ABOUTTEACAP,iAboutTeaCap,null,cap);
             });
         });
+        ctx.get().setPacketHandled(true);
     }
 }

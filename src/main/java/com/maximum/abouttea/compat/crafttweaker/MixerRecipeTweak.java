@@ -1,6 +1,7 @@
 package com.maximum.abouttea.compat.crafttweaker;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
@@ -15,7 +16,8 @@ import net.minecraft.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 
 import java.util.List;
-
+@ZenRegister
+@ZenCodeType.Name("mods.maxseth.abouttea.mixerrecipe")
 public class MixerRecipeTweak implements IRecipeManager {
     @ZenCodeType.Method
     public  void addMixRecipe(IIngredient[] input, IItemStack output, int time){

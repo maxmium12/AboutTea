@@ -8,6 +8,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.IProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -48,6 +50,14 @@ public class BlockWire extends Block {
     public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
         return ModTiles.WIRE_TILE.get().create();
     }
+
+    @Override
+    protected void fillStateContainer(@Nonnull StateContainer.Builder<Block, BlockState> builder)
+    {
+        builder.add(PROPERTY_MAP.values().toArray(new IProperty<?>[0]));
+        super.fillStateContainer(builder);
+    }
+
     @Override
     public BlockState getStateForPlacement(@Nonnull BlockItemUseContext context)
     {

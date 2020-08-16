@@ -11,7 +11,7 @@ public class NetworkHandler {
     public int nextID(){
         return ID++;
     }
-    public void registryMessage(){
+    public  void registryMessage(){
         INSTANCE.registerMessage(nextID(),MsgCapabilitySync.class,MsgCapabilitySync::toByte,MsgCapabilitySync::new,MsgCapabilitySync::handle);
     }
 }

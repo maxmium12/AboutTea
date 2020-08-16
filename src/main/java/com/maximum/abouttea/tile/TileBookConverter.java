@@ -8,6 +8,7 @@ import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.item.ItemTeaBook;
 import com.maximum.abouttea.item.ItemTeaStone;
 import com.maximum.abouttea.item.ItemTechBook;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -52,12 +53,16 @@ public class TileBookConverter extends TileEntity implements ITickableTileEntity
                 if(ticks>=40){
                     canConvert=true;
                     if(!world.getBlockState(pos).get(BlockTeaBookConverter.CONVERT)){
-                        world.getBlockState(pos).cycle(BlockTeaBookConverter.CONVERT);
+                        BlockState state = world.getBlockState(pos).cycle(BlockTeaBookConverter.CONVERT);
+                        world.setBlockState(pos, state, 3);
                     }
+                    return;
                 }
                 ticks++;
+                return;
             }else {
                 setDefault();
+                return;
             }
         }else {
             setDefault();

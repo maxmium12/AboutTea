@@ -20,15 +20,30 @@ public class ModelHandler {
     @SubscribeEvent
     public static void onRegistryModel(ModelRegistryEvent event){
         AboutTea.LOGGER.info("load tea model");
-        ModelLoader.addSpecialModel(new ResourceLocation(AboutTea.MODID,"item/tea"));
+        ModelLoader.addSpecialModel(new ResourceLocation(AboutTea.MODID,"item/tea1"));
+        ModelLoader.addSpecialModel(new ResourceLocation(AboutTea.MODID,"item/tea2"));
+        ModelLoader.addSpecialModel(new ResourceLocation(AboutTea.MODID,"item/tea3"));
     }
     @SubscribeEvent
     public static void onModelBake(ModelBakeEvent event){
         AboutTea.LOGGER.info("replace models");
-        ResourceLocation tealocation=new ResourceLocation(AboutTea.MODID,"item/tea");
-        IBakedModel teamodel=event.getModelRegistry().get(tealocation);
+        ResourceLocation tealocation1=new ResourceLocation(AboutTea.MODID,"item/tea1");
+        IBakedModel teamodel1=event.getModelRegistry().get(tealocation1);
+        ResourceLocation tealocation2=new ResourceLocation(AboutTea.MODID,"item/tea2");
+        IBakedModel teamodel2=event.getModelRegistry().get(tealocation1);
+        ResourceLocation tealocation3=new ResourceLocation(AboutTea.MODID,"item/tea3");
+        IBakedModel teamodel3=event.getModelRegistry().get(tealocation1);
         ModTea.getTeas().forEach(((s, itemTea) -> {
-            event.getModelRegistry().put(new ModelResourceLocation(itemTea.getRegistryName(),"inventory"),teamodel);
+            switch (itemTea.getTier()){
+                case 1:
+                    event.getModelRegistry().put(new ModelResourceLocation(itemTea.getRegistryName(),"inventory"),teamodel1);
+                    break;
+                case 2:
+                    event.getModelRegistry().put(new ModelResourceLocation(itemTea.getRegistryName(),"inventory"),teamodel2);
+                    break;
+                case 3:
+                    event.getModelRegistry().put(new ModelResourceLocation(itemTea.getRegistryName(),"inventory"),teamodel3);
+            }
         }));
     }
 }

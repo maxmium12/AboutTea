@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 public class AboutTeaCap{
     public static class Impl implements IAboutTeaCap{
         private boolean unlock = false;
+        private final Capability.IStorage<IAboutTeaCap> storage = CapabilityHandler.ABOUTTEACAP.getStorage();
         @Override
         public boolean isUnlock() {
             return unlock;
@@ -22,6 +23,19 @@ public class AboutTeaCap{
         @Override
         public void setUnlock(boolean unlock) {
             this.unlock=unlock;
+        }
+
+        @Override
+        public CompoundNBT serializeNBT() {
+            CompoundNBT compound=new CompoundNBT();
+            compound.put("aboutteacap",storage.writeNBT(CapabilityHandler.ABOUTTEACAP,this,null));
+            return compound;
+        }
+
+        @Override
+        public void deserializeNBT(CompoundNBT nbt) {
+            CompoundNBT compound=nbt.getCompound("aboutteacap");
+            storage.readNBT(CapabilityHandler.ABOUTTEACAP,this,null,compound);
         }
     }
     public static class Storage implements Capability.IStorage<IAboutTeaCap>{
@@ -47,24 +61,19 @@ public class AboutTeaCap{
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
             if(CapabilityHandler.ABOUTTEACAP.equals(cap)){
-                @SuppressWarnings("uncheck")
-                T result=(T) cap;
-                return LazyOptional.of(()->result);
+                return LazyOptional.of(()->aboutTeaCap).cast();
             }
-            return null;
+            return LazyOptional.empty();
         }
 
         @Override
         public CompoundNBT serializeNBT() {
-            CompoundNBT compound=new CompoundNBT();
-            compound.put("aboutteacap",storage.writeNBT(CapabilityHandler.ABOUTTEACAP,aboutTeaCap,null));
-            return compound;
+            return aboutTeaCap.serializeNBT();
         }
 
         @Override
         public void deserializeNBT(CompoundNBT nbt) {
-            CompoundNBT compound=nbt.getCompound("aboutteacap");
-            storage.readNBT(CapabilityHandler.ABOUTTEACAP,aboutTeaCap,null,compound);
+            aboutTeaCap.deserializeNBT(nbt);
         }
     }
 }

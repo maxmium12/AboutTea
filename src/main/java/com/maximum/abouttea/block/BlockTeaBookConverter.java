@@ -1,7 +1,11 @@
 package com.maximum.abouttea.block;
 
+import com.maximum.abouttea.capabilities.CapabilityHandler;
+import com.maximum.abouttea.capabilities.IAboutTeaCap;
 import com.maximum.abouttea.init.ModTrigger;
 import com.maximum.abouttea.item.ItemTeaBook;
+import com.maximum.abouttea.network.MsgCapabilitySync;
+import com.maximum.abouttea.network.NetworkHandler;
 import com.maximum.abouttea.tile.TileBookConverter;
 import com.maximum.abouttea.tile.TileTeaSet;
 import com.maximum.abouttea.util.UnlockTechTrigger;
@@ -13,6 +17,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -24,6 +29,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -47,6 +54,7 @@ public class BlockTeaBookConverter extends Block {
     }
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(worldIn.isRemote) return ActionResultType.SUCCESS;
         if(state.get(CONVERT)){
             TileBookConverter tile= (TileBookConverter) worldIn.getTileEntity(pos);
             ItemStack stack=ItemStack.EMPTY;
@@ -62,7 +70,16 @@ public class BlockTeaBookConverter extends Block {
                 }
             }
             ItemTeaBook.setUnlockTech(stack,true);
-            if(!worldIn.isRemote) ModTrigger.UnlockTechTrigger.trigger((ServerPlayerEntity) player, state);
+            ModTrigger.UnlockTechTrigger.trigger((ServerPlayerEntity) player, state);
+            player.getCapability(CapabilityHandler.ABOUTTEACAP).ifPresent( cap -> {
+                cap.setUnlock(true);
+                Capability.IStorage<IAboutTeaCap> storage = CapabilityHandler.ABOUTTEACAP.getStorage();
+                CompoundNBT nbt = new CompoundNBT();
+                nbt.put("aboutteacap", storage.writeNBT(CapabilityHandler.ABOUTTEACAP, cap, null));
+                MsgCapabilitySync msg =  new MsgCapabilitySync(nbt);
+                NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), msg);
+            });
+
             state.cycle(CONVERT);
             return ActionResultType.SUCCESS;
         }

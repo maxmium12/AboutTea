@@ -1,6 +1,7 @@
 package com.maximum.abouttea.compat.crafttweaker;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
@@ -12,6 +13,8 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 
+@ZenRegister
+@ZenCodeType.Name("mods.maxseth.abouttea.tea_stone_workstation_recipe")
 public class TeaStoneWorkstationTweak implements IRecipeManager {
     @ZenCodeType.Method
     public void addTeaStoneWorkstationRecipe(IIngredient[][] inputs, IItemStack output, int tick){

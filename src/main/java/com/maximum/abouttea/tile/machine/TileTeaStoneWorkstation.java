@@ -1,17 +1,16 @@
 package com.maximum.abouttea.tile.machine;
 
 import com.maximum.abouttea.api.recipes.ITeaStoneCraftingTableRecipe;
-import com.maximum.abouttea.gui.ContainerTeaStoneWorkStaion;
-import com.maximum.abouttea.init.ModContainer;
+import com.maximum.abouttea.gui.ContainerTeaStoneWorkStation;
 import com.maximum.abouttea.init.ModRecipeType;
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileMachineBase;
+import com.maximum.abouttea.util.EnergyArray;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -27,22 +26,7 @@ public class TileTeaStoneWorkstation extends TileMachineBase implements INamedCo
     }
     private ITeaStoneCraftingTableRecipe currentRecipe;
     private int ticks = 0;
-    private IIntArray data=new IIntArray() {
-        @Override
-        public int get(int index) {
-            return ticks;
-        }
-
-        @Override
-        public void set(int index, int value) {
-            ticks = value;
-        }
-
-        @Override
-        public int size() {
-            return 1;
-        }
-    };
+    private IIntArray data = new EnergyArray(ticks, energy);
     @Override
     public void doWork() {
         if(ticks >= currentRecipe.getTicks()){
@@ -102,6 +86,14 @@ public class TileTeaStoneWorkstation extends TileMachineBase implements INamedCo
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInv, PlayerEntity player) {
-        return new ContainerTeaStoneWorkStaion(id, playerInv, this, data);
+        return new ContainerTeaStoneWorkStation(id, playerInv, this, data);
+    }
+
+    public static int getMaxEnergy(){
+        return 24000;
+    }
+
+    public IIntArray getData() {
+        return data;
     }
 }
