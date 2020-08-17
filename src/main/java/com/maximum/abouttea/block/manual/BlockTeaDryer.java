@@ -51,7 +51,6 @@ public class BlockTeaDryer extends Block {
         if(!worldIn.isRemote){
             TileTeaDryer dryer = (TileTeaDryer) worldIn.getTileEntity(pos);
             if(dryer != null){
-                player.sendStatusMessage(new StringTextComponent(dryer.getInv().getStackInSlot(1).toString()),false); //DEBUG
                 if(!player.isSneaking()){
                     if(dryer.addItem(player.getHeldItem(handIn),player,handIn)) {
                         return ActionResultType.SUCCESS;
