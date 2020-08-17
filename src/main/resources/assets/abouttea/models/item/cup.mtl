@@ -2,7 +2,7 @@
 # Material Count: 2
 
 newmtl None
-map_Kd neutrino:item/white
+map_Kd abouttea:item/armor_tex
 
 newmtl 材质
-map_Kd neutrino:item/white
+map_Kd abouttea:item/armor_tex

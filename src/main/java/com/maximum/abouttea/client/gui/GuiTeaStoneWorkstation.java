@@ -39,4 +39,9 @@ public class GuiTeaStoneWorkstation extends GuiEnergyBar<ContainerTeaStoneWorkSt
         if(maxTicks > 0) return (int) Math.floor(container.getData().get(0) * 21/ maxTicks);
         return 0;
     }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        drawFrontBar(154, 10, mouseX, mouseY, container.getData().get(4));
+    }
 }

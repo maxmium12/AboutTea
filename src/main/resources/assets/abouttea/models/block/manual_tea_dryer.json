@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "textures/block/manual_tea_dryer1",
-		"particle": "textures/block/manual_tea_dryer1"
+		"0": "abouttea:block/manual_tea_dryer1",
+		"particle": "abouttea:block/manual_tea_dryer1"
 	},
 	"elements": [
 		{

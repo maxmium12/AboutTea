@@ -1,14 +1,14 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/machine_dryer_plate",
-		"1": "block/machine_dryer_front",
-		"3": "block/machine_dryer_glass",
-		"4": "block/machine_mixer_back",
-		"5": "block/machine_mixer_side2",
-		"6": "block/machine_mixer_side",
-		"7": "block/machine_mixer_bottom",
-		"8": "block/machine_dryer_1",
+		"0": "abouttea:block/machine_dryer_plate",
+		"1": "abouttea:block/machine_dryer_front",
+		"3": "abouttea:block/machine_dryer_glass",
+		"4": "abouttea:block/machine_mixer_back",
+		"5": "abouttea:block/machine_mixer_side2",
+		"6": "abouttea:block/machine_mixer_side",
+		"7": "abouttea:block/machine_mixer_bottom",
+		"8": "abouttea:block/machine_dryer_1",
 		"particle": "block/machine_dryer_plate"
 	},
 	"elements": [

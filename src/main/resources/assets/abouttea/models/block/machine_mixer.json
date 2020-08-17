@@ -1,13 +1,13 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/machine_mixer_back",
-		"1": "block/machine_mixer_side",
-		"2": "block/machine_mixer_front",
-		"3": "block/machine_mixer_side2",
-		"4": "block/machine_mixer_bottom",
-		"5": "block/machine_mixer_1",
-		"particle": "block/machine_mixer_back"
+		"0": "abouttea:block/machine_mixer_back",
+		"1": "abouttea:block/machine_mixer_side",
+		"2": "abouttea:block/machine_mixer_front",
+		"3": "abouttea:block/machine_mixer_side2",
+		"4": "abouttea:block/machine_mixer_bottom",
+		"5": "abouttea:block/machine_mixer_1",
+		"particle": "abouttea:block/machine_mixer_back"
 	},
 	"elements": [
 		{

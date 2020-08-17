@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 
 public class ContainerMixer extends Container {
     private TileTeaMixer tile;
+    private IIntArray data;
 
     public ContainerMixer(int id, PlayerInventory playerInv, PacketBuffer buffer) {
         this(id, playerInv, (TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
@@ -27,6 +28,7 @@ public class ContainerMixer extends Container {
     public ContainerMixer(int id, PlayerInventory playerInv, TileTeaMixer tile, IIntArray data) {
         super(ModContainer.MIXER_CONTAINER.get(), id);
         this.tile = tile;
+        this.data = data;
         trackIntArray(tile.getData());
         createTileInv();
         createPlayerInv(playerInv);
@@ -76,6 +78,6 @@ public class ContainerMixer extends Container {
         return slot.getStack();
     }
     public IIntArray getData(){
-        return tile.getData();
+        return data;
     }
 }

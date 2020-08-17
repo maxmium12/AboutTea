@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "abouttea:block/machine_mixer"
+    },
+    "facing=south": {
+      "model": "abouttea:block/machine_mixer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "abouttea:block/machine_mixer",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "abouttea:block/machine_mixer",
+      "y": 90
+    }
+  }
+}

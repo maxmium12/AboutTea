@@ -31,10 +31,7 @@ public class ContainerMachineDryer extends Container {
         this.tile = tile;
         this.data = data;
         trackIntArray(data);
-        addSlotPair(0, 20, 13);
-        addSlotPair(1, 50, 13);
-        addSlotPair(2, 89, 13);
-        addSlotPair(3, 119, 13);
+        addTileSlots();
         createPlayerInv(playerInv);
     }
 
@@ -48,7 +45,7 @@ public class ContainerMachineDryer extends Container {
             }
         }
     }
-    private void addTileSlots(TileBase tile){
+    private void addTileSlots(){
         addSlotPair(0, 20, 13);
         addSlotPair(1, 50, 13);
         addSlotPair(2, 89, 13);
@@ -57,9 +54,7 @@ public class ContainerMachineDryer extends Container {
     private void addSlotPair(int index, int x, int y){
         tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(inv ->{
             addSlot(new SlotItemHandler(tile.getInv(), index, x, y));
-            AboutTea.LOGGER.info(index);
             addSlot(new SlotItemHandler(tile.getInv(), index+4, x, y+46));
-            AboutTea.LOGGER.info(index + 4);
         });
     }
 

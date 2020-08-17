@@ -20,8 +20,8 @@ import java.util.List;
 import static com.maximum.abouttea.AboutTea.prefix;
 
 public class MixerRecipes implements IMixerRecipe {
-    List<Ingredient> inputs;
-    ItemStack output;
+    private final List<Ingredient> inputs;
+    private final ItemStack output;
     int ticks;
     public MixerRecipes(ItemStack output,int ticks,Ingredient[] inputs){
         if(inputs.length>4){

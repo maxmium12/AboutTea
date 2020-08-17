@@ -136,15 +136,14 @@ public class SimpleEnergyNetwork {
         if (this.world.isBlockLoaded(pos))
         {
             BlockState state = this.world.getBlockState(pos);
-            return state.getBlock().equals(ModBlock.blockWire) && state.get(BlockWire.PROPERTY_MAP.get(side));
+            return state.getBlock().equals(ModBlock.blockWire.get()) && state.get(BlockWire.PROPERTY_MAP.get(side));
         }
         return false;
     }
     @SuppressWarnings("deprecation")
     private void tickEnd()
     {
-        for (Map.Entry<BlockPos, Direction> entry : this.shuffled(this.machineCollection.entries()))
-        {
+        for (Map.Entry<BlockPos, Direction> entry : this.shuffled(this.machineCollection.entries())) {
             Direction direction = entry.getValue();
             BlockPos node = entry.getKey(), root = this.blockNetwork.root(node);
             if (this.world.isBlockLoaded(node.offset(direction)))

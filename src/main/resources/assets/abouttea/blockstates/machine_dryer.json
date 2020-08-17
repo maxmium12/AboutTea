@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "abouttea:block/machine_dryer"
+    },
+    "facing=south": {
+      "model": "abouttea:block/machine_dryer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "abouttea:block/machine_dryer",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "abouttea:block/machine_dryer",
+      "y": 90
+    }
+  }
+}

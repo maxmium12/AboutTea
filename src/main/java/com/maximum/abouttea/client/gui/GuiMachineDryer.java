@@ -32,7 +32,6 @@ public class GuiMachineDryer extends GuiEnergyBar<ContainerMachineDryer>{
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         blit(i, j, 0, 0, xSize, ySize, textureWidth, textureHeight);
-        drawBackBar(container.getData().get(4),i + 154, j + 10);
     }
 
     @Override

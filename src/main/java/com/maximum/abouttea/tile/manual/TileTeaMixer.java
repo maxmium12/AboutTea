@@ -14,6 +14,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -83,8 +84,13 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity , INam
                 maxTick = recipe.getTicks();
                 if(tick>=recipe.getTicks()){
                     if(inv.insertItem(4,recipe.getRecipeOutput(),true).isEmpty()){
-                        for(int i=0;i<inv.getSlots()-1;i++) {
-                            inv.extractItem(i, 1, false);
+                        for(Ingredient input:recipe.getInputs()){
+                            for(int i=0;i<inv.getSlots()-1;i++) {
+                                if(input.test(inv.getStackInSlot(i))){
+                                    inv.extractItem(i, 1, false);
+                                    break;
+                                }
+                            }
                         }
                         inv.insertItem(4,recipe.getRecipeOutput(),false);
                         tick=0;

@@ -3,6 +3,7 @@ package com.maximum.abouttea.client;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.client.gui.GuiMachineDryer;
 import com.maximum.abouttea.client.gui.GuiMixer;
+import com.maximum.abouttea.client.gui.GuiTeaGenerator;
 import com.maximum.abouttea.client.gui.GuiTeaStoneWorkstation;
 import com.maximum.abouttea.client.render.LayerCustomArmor;
 import com.maximum.abouttea.client.render.RenderManualTeaDryer;
@@ -49,10 +50,13 @@ public class ClientProxy {
         //添加RenderLayer
         AboutTea.LOGGER.info("Add render layer");
         RenderTypeLookup.setRenderLayer(ModBlock.blockTeaStone.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlock.blockMachineDryer.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlock.blockMachineMixer.get(), RenderType.getTranslucent());
         //添加Gui
         ScreenManager.registerFactory(ModContainer.MIXER_CONTAINER.get(), GuiMixer::new);
         ScreenManager.registerFactory(ModContainer.MACHINE_DRYER.get(), GuiMachineDryer::new);
         ScreenManager.registerFactory(ModContainer.TEA_STONE_WORKSTATION.get(), GuiTeaStoneWorkstation::new);
+        ScreenManager.registerFactory(ModContainer.TEA_GENERATOR.get(), GuiTeaGenerator::new);
         //添加外部语言支持
         TeaI18NHandler.loadLang(Minecraft.getInstance().getResourceManager());
         ((IReloadableResourceManager)Minecraft.getInstance().getResourceManager()).addReloadListener(new TeaI18NHandler());

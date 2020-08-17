@@ -1,9 +1,6 @@
 package com.maximum.abouttea.init;
 
-import com.maximum.abouttea.gui.ContainerMachineDryer;
-import com.maximum.abouttea.gui.ContainerMixer;
-import com.maximum.abouttea.gui.ContainerTeaSet;
-import com.maximum.abouttea.gui.ContainerTeaStoneWorkStation;
+import com.maximum.abouttea.gui.*;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.ContainerType;
@@ -19,4 +16,6 @@ public class ModContainer {
             () -> IForgeContainerType.create(ContainerTeaStoneWorkStation::new));
     public static final RegistryObject<ContainerType<ContainerMachineDryer>> MACHINE_DRYER = RegistryUtil.registryContainer("machine_dryer",
             () -> IForgeContainerType.create(ContainerMachineDryer::new));
+    public static final RegistryObject<ContainerType<ContainerTeaGenerator>> TEA_GENERATOR = RegistryUtil.registryContainer("tea_generator",
+            () -> IForgeContainerType.create(ContainerTeaGenerator::new));
 }

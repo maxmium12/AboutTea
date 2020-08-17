@@ -3,6 +3,8 @@ package com.maximum.abouttea.block;
 import com.google.common.collect.Maps;
 import com.maximum.abouttea.init.ModBlock;
 import com.maximum.abouttea.init.ModTiles;
+import com.maximum.abouttea.tile.TileWire;
+import com.maximum.abouttea.util.network.SimpleEnergyNetwork;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -89,4 +91,19 @@ public class BlockWire extends Block {
         }
         return true;
     }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block fromBlock, @Nonnull BlockPos fromPos, boolean isMoving)
+    {
+        if (!world.isRemote)
+        {
+            TileEntity te = world.getTileEntity(pos);
+            if (te instanceof TileWire)
+            {
+                SimpleEnergyNetwork.Factory.get(world).enableBlock(pos, te::markDirty);
+            }
+        }
+    }
+
 }

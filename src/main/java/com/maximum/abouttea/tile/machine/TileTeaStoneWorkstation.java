@@ -26,9 +26,11 @@ public class TileTeaStoneWorkstation extends TileMachineBase implements INamedCo
     }
     private ITeaStoneCraftingTableRecipe currentRecipe;
     private int ticks = 0;
-    private IIntArray data = new EnergyArray(ticks, energy);
+    private int maxTicks;
+    private IIntArray data = new EnergyArray(ticks, energy, maxTicks);
     @Override
     public void doWork() {
+        maxTicks = currentRecipe.getTicks();
         if(ticks >= currentRecipe.getTicks()){
             ItemStack currentOutput = inv.getStackInSlot(9).copy();
             if(currentOutput.getMaxStackSize() <= currentOutput.getCount()) return;

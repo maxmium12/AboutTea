@@ -43,7 +43,8 @@ public abstract class TileBase extends TileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, autoinv);
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, autoinv);
+        return super.getCapability(cap, side);
     }
     public ItemStackHandler getInv(){
         return inv;

@@ -13,12 +13,16 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntity, INamedContainerProvider {
@@ -155,5 +159,11 @@ public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntit
     @Override
     public Container createMenu(int id, PlayerInventory playerInv, PlayerEntity player) {
         return new ContainerMachineDryer(id, playerInv, this, data);
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if(cap == CapabilityEnergy.ENERGY) return lazyOptional.cast();
+        return super.getCapability(cap, side);
     }
 }

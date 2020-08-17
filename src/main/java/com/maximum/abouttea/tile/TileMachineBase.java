@@ -4,9 +4,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
+
+import javax.annotation.Nonnull;
 
 public abstract class TileMachineBase extends TileBase implements ITickableTileEntity {
     private final int maxEnergy;
@@ -97,5 +103,11 @@ public abstract class TileMachineBase extends TileBase implements ITickableTileE
     public void writePacketNBT(CompoundNBT nbt){
         nbt.putInt("energy",energy);
         super.writePacketNBT(nbt);
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if(cap == CapabilityEnergy.ENERGY) return lazyOptional.cast();
+        return super.getCapability(cap, side);
     }
 }

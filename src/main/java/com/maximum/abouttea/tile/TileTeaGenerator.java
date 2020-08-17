@@ -1,22 +1,34 @@
 package com.maximum.abouttea.tile;
 
+import com.maximum.abouttea.gui.ContainerTeaGenerator;
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.item.ItemTea;
 import com.maximum.abouttea.tile.machine.TileMachineDryer;
+import com.maximum.abouttea.util.EnergyArray;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileTeaGenerator extends TileBase implements ITickableTileEntity {
-    protected int energy=0;
-    private int ticks = 0;
-    private int maxTicks = 0;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class TileTeaGenerator extends TileBase implements ITickableTileEntity, INamedContainerProvider {
+    protected int energy;
+    private int ticks ;
+    private int maxTicks;
     private ItemTea currentTea;
+    private EnergyArray data = new EnergyArray(ticks, energy, maxTicks);
     private final LazyOptional<IEnergyStorage> lazyOptional = LazyOptional.of(() -> new IEnergyStorage() {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
@@ -86,12 +98,19 @@ public class TileTeaGenerator extends TileBase implements ITickableTileEntity {
             }
         }
         if(ticks < maxTicks){
-            ticks++;
-            energy+=currentTea.getTier() * 40;
+            if(energy <getMaxEnergy()) {
+                ticks++;
+                energy += currentTea.getTier() * 40;
+            }
         } else {
             ticks = 0;
             maxTicks = 0;
             markDirty();
+        }
+        if(!world.isRemote){
+            data.set(1,energy);
+            data.set(0,ticks);
+            data.set(2,maxTicks);
         }
         transferEnergy();
     }
@@ -111,5 +130,30 @@ public class TileTeaGenerator extends TileBase implements ITickableTileEntity {
                 });
             }
         }
+    }
+
+    public EnergyArray getData() {
+        return data;
+    }
+
+    public static int getMaxEnergy(){
+        return 120000;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if(cap == CapabilityEnergy.ENERGY) return lazyOptional.cast();
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) {
+        return new ContainerTeaGenerator(id, inv, this, data);
     }
 }

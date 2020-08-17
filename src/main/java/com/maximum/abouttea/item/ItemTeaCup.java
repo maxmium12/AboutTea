@@ -76,6 +76,9 @@ public class ItemTeaCup extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         tooltip.add(new TranslationTextComponent("abouttea.teacup.tea", getTea(stack).getItem().getName().getString()));
+        if(hasWater(stack)){
+            tooltip.add(new TranslationTextComponent("abouttea.teacup.water"));
+        }
     }
     public static void setTea(ItemStack cup,ItemTea tea){
         ItemStack teastack=new ItemStack(tea);

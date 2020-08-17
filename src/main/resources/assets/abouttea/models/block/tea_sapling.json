@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "abouttea:block/tea_sapling1"
+  }
+}
