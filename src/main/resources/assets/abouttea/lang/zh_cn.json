@@ -1,4 +1,5 @@
 {
+  "itemGroup.about_tea": "About Tea",
   "abouttea.teaset.title": "茶具",
   "item.abouttea.tea_book": "茶叶手记",
   "abouttea.category.basics": "开始",
@@ -22,6 +23,9 @@
   "block.abouttea.tea_stone_block": "茶叶石块",
   "block.abouttea.tea_tree_sapling": "茶树苗",
   "block.abouttea.manual_tea_mixer": "锅",
+  "block.abouttea.machine_mixer": "混合器",
+  "block.abouttea.machine_dryer": "干燥器",
+  "block.abouttea.wire": "导线",
   "item.abouttea.tech_book": "远古科技手册",
   "block.abouttea.tea_stone_workstation": "茶叶石工作台"
 }

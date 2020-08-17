@@ -2,6 +2,5 @@
   "parent": "block/leaves",
   "textures": {
     "all": "block/birch_leaves"
-  },
-
+  }
 }

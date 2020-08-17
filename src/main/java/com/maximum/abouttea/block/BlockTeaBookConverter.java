@@ -80,7 +80,8 @@ public class BlockTeaBookConverter extends Block {
                 NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), msg);
             });
 
-            state.cycle(CONVERT);
+            BlockState state1 = state.cycle(CONVERT);
+            worldIn.setBlockState(pos, state1, 3);
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.FAIL;
