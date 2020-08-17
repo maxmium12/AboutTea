@@ -9,7 +9,7 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class ModContainer {
     public static final RegistryObject<ContainerType<ContainerTeaSet>> containerteaset = RegistryUtil.registryContainer("tea_set_container",
-            () -> IForgeContainerType.create((windowid, inv, buffer) -> new ContainerTeaSet(windowid, inv, buffer.readBlockPos(), Minecraft.getInstance().world)));
+            () -> IForgeContainerType.create((windowid, inv, buffer) -> new ContainerTeaSet(windowid, inv, buffer.readBlockPos(), inv.player.world)));
     public static final RegistryObject<ContainerType<ContainerMixer>> MIXER_CONTAINER = RegistryUtil.registryContainer("mixer_container",
             () -> IForgeContainerType.create((ContainerMixer::new)));
     public static final RegistryObject<ContainerType<ContainerTeaStoneWorkStation>> TEA_STONE_WORKSTATION = RegistryUtil.registryContainer("tea_stone_workstation",
