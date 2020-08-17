@@ -6,5 +6,5 @@ version="${file.jarVersion}"
 displayName="AboutTea"
 authors="MaxSeth,浊酒散人lsg"
 description='''
-一个关于各种各样茶的mod
+一个关于各种各样茶的mod.
 '''
