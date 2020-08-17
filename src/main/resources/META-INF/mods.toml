@@ -4,7 +4,7 @@ loaderVersion="[31,)"
 modId="abouttea"
 version="${file.jarVersion}" 
 displayName="AboutTea"
-authors="MaxSeth"
+authors="MaxSeth,浊酒散人lsg"
 description='''
-这是我们的教学mod！
+一个关于各种各样茶的mod
 '''
