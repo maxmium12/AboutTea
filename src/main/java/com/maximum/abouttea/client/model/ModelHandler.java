@@ -14,7 +14,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
 public class ModelHandler {
     private static final ResourceLocation CUP=new ResourceLocation(AboutTea.MODID,"models/item/cup.obj");
     @SubscribeEvent
