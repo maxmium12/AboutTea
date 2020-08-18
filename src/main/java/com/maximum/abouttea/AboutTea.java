@@ -16,7 +16,7 @@ public class AboutTea {
     public static final String MODID="abouttea";
     public AboutTea(){
         instance=this;
-        //new ModBlock();
+        new ModBlock();
         new ModTiles();
         new ModFeature();
         new ModItems();
