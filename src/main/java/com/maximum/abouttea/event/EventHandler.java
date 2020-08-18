@@ -46,6 +46,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.loading.FMLCommonLaunchHandler;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
@@ -74,7 +75,9 @@ public class EventHandler {
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             new CapabilityHandler();
-            new NetworkHandler().registryMessage();
+            DeferredWorkQueue.runLater(() -> {
+                new NetworkHandler().registryMessage();
+            });
         }
     }
     @SubscribeEvent
