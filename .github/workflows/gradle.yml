@@ -27,6 +27,6 @@ jobs:
     - name: Upload to release
       uses: JasonEtco/upload-to-release@master
       with:
-        args: build/libs/AboutTea-1.0.jar
+        args: build/libs/AboutTea-1.0.jar application/x-java-archive
       env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
