@@ -26,3 +26,9 @@ jobs:
       run: ./gradlew build
     - name: Run ServerTest
       run: ./gradlew runServer
+    - name: Upload to release
+      uses: JasonEtco/upload-to-release@master
+      with:
+        args: build/libs/AboutTea-1.0.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
