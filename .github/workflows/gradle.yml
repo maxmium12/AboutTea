@@ -20,10 +20,10 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      run: chmkd +x SERVERTEST
+      run: chmkd +x SERVERTEST.sh
     - name: Build with Gradle
       run: ./gradlew build
-      run: ./SERVERTEST
+      run: ./SERVERTEST.sh
     - name: Upload to release
       uses: JasonEtco/upload-to-release@master
       with:
