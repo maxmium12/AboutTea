@@ -17,8 +17,8 @@ public class AboutTea {
     public AboutTea(){
         instance=this;
         //new ModBlock();
-        //new ModTiles();
-        //new ModFeature();
+        new ModTiles();
+        new ModFeature();
         new ModItems();
         new ModTea();
         new ModContainer();
