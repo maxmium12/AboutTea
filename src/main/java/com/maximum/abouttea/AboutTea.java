@@ -1,7 +1,6 @@
 package com.maximum.abouttea;
 
 import com.maximum.abouttea.capabilities.CapabilityHandler;
-import com.maximum.abouttea.client.ClientProxy;
 import com.maximum.abouttea.init.*;
 import com.maximum.abouttea.util.RegistryUtil;
 import net.minecraft.util.ResourceLocation;
