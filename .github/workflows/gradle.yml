@@ -4,7 +4,7 @@
 name: Java CI with Gradle
 
 on:
-  release:
+  push:
     branches: [master]
 
 jobs:
@@ -24,6 +24,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       run: ./SERVERTEST.sh
+    - name: Run Server
+      run: ./gradlew runServer
     - name: Upload to release
       uses: JasonEtco/upload-to-release@master
       with:
