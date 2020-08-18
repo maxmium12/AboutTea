@@ -25,8 +25,7 @@ public class MsgCapabilitySync {
     }
     public void handle(Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(()->{
-            PlayerEntity player= Minecraft.getInstance().player;
-            player.getCapability(CapabilityHandler.ABOUTTEACAP).ifPresent(iAboutTeaCap -> {
+            Minecraft.getInstance().player.getCapability(CapabilityHandler.ABOUTTEACAP).ifPresent(iAboutTeaCap -> {
                 Capability.IStorage<IAboutTeaCap> storage=CapabilityHandler.ABOUTTEACAP.getStorage();
                 storage.readNBT(CapabilityHandler.ABOUTTEACAP,iAboutTeaCap,null,cap);
             });
