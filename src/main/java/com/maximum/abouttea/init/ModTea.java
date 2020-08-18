@@ -8,7 +8,6 @@ import com.maximum.abouttea.api.IEffect;
 import com.maximum.abouttea.effect.EffectInstanceWrapper;
 import com.maximum.abouttea.item.ItemTea;
 import com.maximum.abouttea.util.RegistryUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
