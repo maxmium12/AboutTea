@@ -6,7 +6,7 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class NetworkHandler {
-    public static SimpleChannel INSTANCE= NetworkRegistry.newSimpleChannel(new ResourceLocation(AboutTea.MODID),()->"1.0",(s)->true,(s)->true);
+    public static SimpleChannel INSTANCE= NetworkRegistry.newSimpleChannel(new ResourceLocation(AboutTea.MODID),()->"1.0",(s)->s.equals("1.0"),(s)->s.equals("1.0"));
     private int ID=0;
     public int nextID(){
         return ID++;
