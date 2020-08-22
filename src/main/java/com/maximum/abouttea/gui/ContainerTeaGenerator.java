@@ -2,8 +2,6 @@ package com.maximum.abouttea.gui;
 
 import com.maximum.abouttea.init.ModContainer;
 import com.maximum.abouttea.tile.TileTeaGenerator;
-import com.maximum.abouttea.tile.machine.TileTeaStoneWorkstation;
-import com.maximum.abouttea.tile.manual.TileTeaMixer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -17,8 +15,9 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerTeaGenerator extends Container {
     private TileTeaGenerator tile;
     private IIntArray data;
+
     public ContainerTeaGenerator(int id, PlayerInventory playerInv, PacketBuffer buffer) {
-        this(id, playerInv, (TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
+        this(id, playerInv, (TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos()), ((TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
     }
 
     public ContainerTeaGenerator(int id, PlayerInventory playerInv, TileTeaGenerator tile, IIntArray data) {

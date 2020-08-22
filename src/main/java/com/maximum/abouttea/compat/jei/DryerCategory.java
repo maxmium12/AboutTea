@@ -21,20 +21,22 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Arrays;
 
 public class DryerCategory implements IRecipeCategory<IDryerRecipe> {
+    public static final ResourceLocation UID = new ResourceLocation(AboutTea.MODID, "dryer");
+    //使用JEI自带原版GUI元素
+    private static final ResourceLocation RECIPE_GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
     private final IDrawableStatic background;
-    private final ItemStack renderStack=new ItemStack(ModBlock.blockManualTeaDryer.get());
+    private final ItemStack renderStack = new ItemStack(ModBlock.blockManualTeaDryer.get());
     private final IDrawable icon;
     private final IDrawableAnimated arrow;
     private final IDrawable backArrow;
-    //使用JEI自带原版GUI元素
-    private static final ResourceLocation RECIPE_GUI_VANILLA = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
-    public static final ResourceLocation UID=new ResourceLocation(AboutTea.MODID,"dryer");
-    public DryerCategory(IGuiHelper helper){
-        background=helper.createBlankDrawable(168,64);
-        icon=helper.createDrawableIngredient(renderStack);
+
+    public DryerCategory(IGuiHelper helper) {
+        background = helper.createBlankDrawable(168, 64);
+        icon = helper.createDrawableIngredient(renderStack);
         this.arrow = helper.drawableBuilder(RECIPE_GUI_VANILLA, 82, 128, 24, 17).buildAnimated(300, IDrawableAnimated.StartDirection.LEFT, false);
         this.backArrow = helper.drawableBuilder(RECIPE_GUI_VANILLA, 24, 133, 24, 17).build();
     }
+
     @Override
     public ResourceLocation getUid() {
         return UID;
@@ -64,26 +66,27 @@ public class DryerCategory implements IRecipeCategory<IDryerRecipe> {
         RenderSystem.pushMatrix();
         RenderSystem.enableAlphaTest();
         RenderSystem.enableBlend();
-        Minecraft.getInstance().fontRenderer.drawString(I18n.format("abouttea.jei.dryer.ticks",recipe.getTicks()),54,0,0xffffff);
-        arrow.draw(62,20);
-        backArrow.draw(62,20);
+        Minecraft.getInstance().fontRenderer.drawString(I18n.format("abouttea.jei.dryer.ticks", recipe.getTicks()), 54, 0, 0xffffff);
+        arrow.draw(62, 20);
+        backArrow.draw(62, 20);
         RenderSystem.disableBlend();
         RenderSystem.disableAlphaTest();
         RenderSystem.popMatrix();
     }
+
     @Override
     public void setIngredients(IDryerRecipe recipe, IIngredients iIngredients) {
-        iIngredients.setInput(VanillaTypes.ITEM,recipe.getInput().getMatchingStacks()[0]);
-        iIngredients.setOutput(VanillaTypes.ITEM,recipe.getRecipeOutput());
+        iIngredients.setInput(VanillaTypes.ITEM, recipe.getInput().getMatchingStacks()[0]);
+        iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
     public void setRecipe(IRecipeLayout iRecipeLayout, IDryerRecipe recipe, IIngredients iIngredients) {
-        int index=0;
-        iRecipeLayout.getItemStacks().init(index,true,42,20);
+        int index = 0;
+        iRecipeLayout.getItemStacks().init(index, true, 42, 20);
         iRecipeLayout.getItemStacks().set(index, Arrays.asList(recipe.getInput().getMatchingStacks()));
         index++;
-        iRecipeLayout.getItemStacks().init(index,true,90,20);
-        iRecipeLayout.getItemStacks().set(index,recipe.getRecipeOutput());
+        iRecipeLayout.getItemStacks().init(index, true, 90, 20);
+        iRecipeLayout.getItemStacks().set(index, recipe.getRecipeOutput());
     }
 }

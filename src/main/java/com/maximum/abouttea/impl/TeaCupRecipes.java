@@ -10,18 +10,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
 import static com.maximum.abouttea.AboutTea.prefix;
 
 public class TeaCupRecipes extends SpecialRecipe {
+    public static final ResourceLocation ID = prefix("tea_cup");
     private static final Ingredient INGREDIENT_TEA = Ingredient.fromItems(ModTea.getTeas().values().toArray(new IItemProvider[0]));
     private static final Ingredient INGREDIENT_CUP = Ingredient.fromItems(ModItems.itemTeaCup.get());
-    public static final ResourceLocation ID = prefix("tea_cup");
 
     public TeaCupRecipes(ResourceLocation idIn) {
         super(idIn);
@@ -31,15 +29,15 @@ public class TeaCupRecipes extends SpecialRecipe {
     public boolean matches(CraftingInventory inv, World worldIn) {
         boolean cup = false;
         boolean tea = false;
-        for(int i = 0; i < inv.getSizeInventory();i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if(INGREDIENT_CUP.test(stack)){
+            if (INGREDIENT_CUP.test(stack)) {
                 if (cup) {
                     return false;
                 }
                 cup = true;
             }
-            if(INGREDIENT_TEA.test(stack)){
+            if (INGREDIENT_TEA.test(stack)) {
                 if (tea) {
                     return false;
                 }
@@ -53,9 +51,9 @@ public class TeaCupRecipes extends SpecialRecipe {
     public ItemStack getCraftingResult(CraftingInventory inv) {
         ItemStack cup = new ItemStack(ModItems.itemTeaCup.get());
         ItemTea tea = ModTea.getTea("green_tea");
-        for(int i = 0; i < inv.getSizeInventory();i++){
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if(INGREDIENT_TEA.test(stack)){
+            if (INGREDIENT_TEA.test(stack)) {
                 ItemTeaCup.setTea(cup, (ItemTea) stack.getItem());
             }
         }
@@ -64,7 +62,7 @@ public class TeaCupRecipes extends SpecialRecipe {
 
     @Override
     public boolean canFit(int width, int height) {
-        return width * height >=2;
+        return width * height >= 2;
     }
 
     @Override

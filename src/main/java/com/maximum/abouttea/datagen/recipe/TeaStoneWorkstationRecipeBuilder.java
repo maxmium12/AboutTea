@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 public class TeaStoneWorkstationRecipeBuilder extends ShapedRecipeBuilder {
     private final int ticks;
+
     public TeaStoneWorkstationRecipeBuilder(IItemProvider resultIn, int countIn, int ticks) {
         super(resultIn, countIn);
         this.ticks = ticks;
@@ -30,6 +31,7 @@ public class TeaStoneWorkstationRecipeBuilder extends ShapedRecipeBuilder {
     public void build(Consumer<IFinishedRecipe> p_200464_1_) {
         this.build(p_200464_1_, ForgeRegistries.ITEMS.getKey(result));
     }
+
     @Override
     public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
         super.validate(id);
@@ -38,10 +40,10 @@ public class TeaStoneWorkstationRecipeBuilder extends ShapedRecipeBuilder {
                 .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(id))
                 .withRewards(net.minecraft.advancements.AdvancementRewards.Builder.recipe(id))
                 .withRequirementsStrategy(IRequirementsStrategy.OR);
-        assert super.result !=null;
-        assert super.pattern !=null;
-        assert super.key !=null;
-        assert super.advancementBuilder !=null;
+        assert super.result != null;
+        assert super.pattern != null;
+        assert super.key != null;
+        assert super.advancementBuilder != null;
         assert id != null;
         assert consumerIn != null;
         assert super.result.getGroup() != null;
@@ -49,11 +51,12 @@ public class TeaStoneWorkstationRecipeBuilder extends ShapedRecipeBuilder {
         consumerIn.accept(new TeaStoneWorkstationRecipeBuilder.FinishRecipe(
                 id, super.result, super.count, super.group == null ? "" : super.group,
                 super.pattern, super.key, super.advancementBuilder,
-                advancementID,ticks));
+                advancementID, ticks));
     }
 
     public class FinishRecipe extends Result {
         private final int ticks;
+
         public FinishRecipe(ResourceLocation idIn, Item resultIn, int countIn, String groupIn, List<String> patternIn, Map<Character, Ingredient> keyIn, Advancement.Builder advancementBuilderIn, ResourceLocation advancementIdIn, int ticks) {
             super(idIn, resultIn, countIn, groupIn, patternIn, keyIn, advancementBuilderIn, advancementIdIn);
             this.ticks = ticks;

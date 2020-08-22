@@ -3,7 +3,6 @@ package com.maximum.abouttea.block;
 
 import com.maximum.abouttea.init.ModTiles;
 import com.maximum.abouttea.tile.TileTeaGenerator;
-import com.maximum.abouttea.tile.machine.TileMachineDryer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -24,26 +23,29 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockTeaGenerator extends Block {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
     public BlockTeaGenerator() {
         super(Properties.create(Material.IRON).harvestTool(ToolType.PICKAXE).harvestLevel(2).hardnessAndResistance(2f));
     }
+
     @Override
     public boolean hasTileEntity(@Nonnull BlockState state) {
         return true;
     }
+
     @Override
-    public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world)
-    {
+    public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
         return ModTiles.TEA_GENERATOR_TILE.get().create();
     }
+
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
+
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }

@@ -9,11 +9,12 @@ import net.minecraft.util.text.ITextComponent;
 
 import static com.maximum.abouttea.AboutTea.prefix;
 
-public class GuiMachineDryer extends GuiEnergyBar<ContainerMachineDryer>{
+public class GuiMachineDryer extends GuiEnergyBar<ContainerMachineDryer> {
     private static final ResourceLocation DRYER = prefix("textures/gui/machine_dryer.png");
-    private final ContainerMachineDryer container;
     private static final int textureWidth = 256;
     private static final int textureHeight = 256;
+    private final ContainerMachineDryer container;
+
     public GuiMachineDryer(ContainerMachineDryer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn, TileMachineDryer.getMaxEnergy());
         this.container = screenContainer;

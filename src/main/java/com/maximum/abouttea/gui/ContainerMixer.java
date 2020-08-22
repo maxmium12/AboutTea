@@ -5,24 +5,19 @@ import com.maximum.abouttea.tile.manual.TileTeaMixer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
-import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nullable;
 
 public class ContainerMixer extends Container {
     private TileTeaMixer tile;
     private IIntArray data;
 
     public ContainerMixer(int id, PlayerInventory playerInv, PacketBuffer buffer) {
-        this(id, playerInv, (TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
+        this(id, playerInv, (TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos()), ((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
     }
 
     public ContainerMixer(int id, PlayerInventory playerInv, TileTeaMixer tile, IIntArray data) {
@@ -46,12 +41,12 @@ public class ContainerMixer extends Container {
     }
 
     private void createTileInv() {
-        tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(inv ->{
-          addSlot(new SlotItemHandler(inv,0,35,8));
-          addSlot(new SlotItemHandler(inv,1,61,8));
-          addSlot(new SlotItemHandler(inv,2,99,8));
-          addSlot(new SlotItemHandler(inv,3,125,8));
-          addSlot(new SlotItemHandler(inv,4,80,50));
+        tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(inv -> {
+            addSlot(new SlotItemHandler(inv, 0, 35, 8));
+            addSlot(new SlotItemHandler(inv, 1, 61, 8));
+            addSlot(new SlotItemHandler(inv, 2, 99, 8));
+            addSlot(new SlotItemHandler(inv, 3, 125, 8));
+            addSlot(new SlotItemHandler(inv, 4, 80, 50));
         });
     }
 
@@ -68,8 +63,8 @@ public class ContainerMixer extends Container {
                 if (!mergeItemStack(slot.getStack(), 5, 41, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else{
-                if(!mergeItemStack(slot.getStack(),0,3,false)){
+            } else {
+                if (!mergeItemStack(slot.getStack(), 0, 3, false)) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -77,7 +72,8 @@ public class ContainerMixer extends Container {
         }
         return slot.getStack();
     }
-    public IIntArray getData(){
+
+    public IIntArray getData() {
         return data;
     }
 }

@@ -14,6 +14,7 @@ public class BlockTeaStone extends Block {
     public BlockTeaStone() {
         super(Properties.create(Material.ROCK).notSolid());
     }
+
     @OnlyIn(Dist.CLIENT)
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1.0F;

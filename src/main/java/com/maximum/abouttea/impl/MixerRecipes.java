@@ -24,24 +24,26 @@ public class MixerRecipes implements IMixerRecipe {
     private final List<Ingredient> inputs;
     private final ItemStack output;
     int ticks;
-    public MixerRecipes(ItemStack output,int ticks,Ingredient[] inputs){
-        if(inputs.length>4){
+
+    public MixerRecipes(ItemStack output, int ticks, Ingredient[] inputs) {
+        if (inputs.length > 4) {
             throw new IllegalArgumentException("Input must lower than 4");
         }
-        this.inputs= Lists.newArrayList(inputs);
-        this.ticks=ticks;
-        this.output=output;
+        this.inputs = Lists.newArrayList(inputs);
+        this.ticks = ticks;
+        this.output = output;
     }
+
     @Override
     public boolean matches(ItemStack[] inputs) {
-        int i=0;
-        if(inputs.length == 0) return false;
-        for(ItemStack input:inputs){
-            for(Ingredient ingredient:this.inputs){
-                if(ingredient.test(input)) i++;
+        int i = 0;
+        if (inputs.length == 0) return false;
+        for (ItemStack input : inputs) {
+            for (Ingredient ingredient : this.inputs) {
+                if (ingredient.test(input)) i++;
             }
         }
-        return i==inputs.length;
+        return i == inputs.length;
     }
 
     @Override
@@ -68,36 +70,37 @@ public class MixerRecipes implements IMixerRecipe {
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipeType.MIXER_SERIALIZER;
     }
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<MixerRecipes>{
+
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MixerRecipes> {
 
         @Override
         public MixerRecipes read(ResourceLocation recipeId, JsonObject json) {
-            ItemStack output=CraftingHelper.getItemStack(JSONUtils.getJsonObject(json,"output"),true);
-            List<Ingredient> inputs=new ArrayList<>();
-            for(JsonElement in:JSONUtils.getJsonArray(json,"inputs")){
+            ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
+            List<Ingredient> inputs = new ArrayList<>();
+            for (JsonElement in : JSONUtils.getJsonArray(json, "inputs")) {
                 inputs.add(Ingredient.deserialize(in));
             }
-            int ticks=JSONUtils.getInt(json,"time");
-            return new MixerRecipes(output,ticks,inputs.toArray(new Ingredient[0]));
+            int ticks = JSONUtils.getInt(json, "time");
+            return new MixerRecipes(output, ticks, inputs.toArray(new Ingredient[0]));
         }
 
         @Nullable
         @Override
         public MixerRecipes read(ResourceLocation recipeId, PacketBuffer buffer) {
-            ItemStack output=buffer.readItemStack();
-            Ingredient[] inputs=new Ingredient[buffer.readVarInt()];
-            for(int i=0;i<inputs.length;i++){
-                inputs[i]=Ingredient.read(buffer);
+            ItemStack output = buffer.readItemStack();
+            Ingredient[] inputs = new Ingredient[buffer.readVarInt()];
+            for (int i = 0; i < inputs.length; i++) {
+                inputs[i] = Ingredient.read(buffer);
             }
-            int ticks=buffer.readVarInt();
-            return new MixerRecipes(output,ticks,inputs);
+            int ticks = buffer.readVarInt();
+            return new MixerRecipes(output, ticks, inputs);
         }
 
         @Override
         public void write(PacketBuffer buffer, MixerRecipes recipe) {
             buffer.writeItemStack(recipe.getRecipeOutput());
             buffer.writeVarInt(recipe.getInputs().size());
-            for(Ingredient input:recipe.getInputs()){
+            for (Ingredient input : recipe.getInputs()) {
                 input.write(buffer);
             }
             buffer.writeVarInt(recipe.getTicks());

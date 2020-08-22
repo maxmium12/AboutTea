@@ -11,6 +11,7 @@ public class TeaTreeGenConfig extends BaseTreeFeatureConfig {
     public TeaTreeGenConfig(BlockStateProvider trunkProviderIn, BlockStateProvider leavesProviderIn, List<TreeDecorator> decoratorsIn, int baseHeightIn) {
         super(trunkProviderIn, leavesProviderIn, decoratorsIn, baseHeightIn);
     }
+
     @Override
     protected TeaTreeGenConfig setSapling(IPlantable sapling) {
         super.setSapling(sapling);

@@ -16,12 +16,13 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenCodeType.Name("mods.maxseth.abouttea.dryrecipe")
 public class DryerRecipeTweak implements IRecipeManager {
     @ZenCodeType.Method
-    public  void addDryRecipe(IItemStack input,IItemStack output,int time){
-        CraftTweakerAPI.apply(new ActionAddRecipe(this,new DryerRecipes(time,Ingredient.fromStacks(input.getInternal()),output.getInternal()),"dryer_recipe"));
+    public void addDryRecipe(IItemStack input, IItemStack output, int time) {
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, new DryerRecipes(time, Ingredient.fromStacks(input.getInternal()), output.getInternal()), "dryer_recipe"));
     }
+
     @ZenCodeType.Method
-    public  void removeDryRecipe(IItemStack output){
-        CraftTweakerAPI.apply(new ActionRemoveOutputRecipe(this,output));
+    public void removeDryRecipe(IItemStack output) {
+        CraftTweakerAPI.apply(new ActionRemoveOutputRecipe(this, output));
     }
 
     @Override

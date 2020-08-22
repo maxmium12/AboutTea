@@ -2,7 +2,6 @@ package com.maximum.abouttea.init;
 
 import com.maximum.abouttea.gui.*;
 import com.maximum.abouttea.util.RegistryUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;

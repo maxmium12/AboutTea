@@ -8,8 +8,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 
 public class TeaMaterial implements IArmorMaterial {
-    private final int[] armorDamageDeduction=new int[]{3,6,8,3};
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+    private final int[] armorDamageDeduction = new int[]{3, 6, 8, 3};
+
     @Override
     public int getDurability(EquipmentSlotType slotIn) {
         return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * 33;

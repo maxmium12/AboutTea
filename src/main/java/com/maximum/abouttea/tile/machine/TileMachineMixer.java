@@ -11,15 +11,15 @@ import net.minecraftforge.energy.IEnergyStorage;
 import javax.annotation.Nonnull;
 
 public class TileMachineMixer extends TileTeaDryer {
-    protected int energy=0;
+    protected int energy = 0;
     private final LazyOptional<IEnergyStorage> lazyOptional = LazyOptional.of(() -> new IEnergyStorage() {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            int energy=this.getEnergyStored();
-            int diff=Math.min(getMaxEnergyStored()-energy,maxReceive);
-            if(!simulate){
-                TileMachineMixer.this.energy+=diff;
-                if(diff!=0){
+            int energy = this.getEnergyStored();
+            int diff = Math.min(getMaxEnergyStored() - energy, maxReceive);
+            if (!simulate) {
+                TileMachineMixer.this.energy += diff;
+                if (diff != 0) {
                     markDirty();
                 }
             }
@@ -28,11 +28,11 @@ public class TileMachineMixer extends TileTeaDryer {
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            int energy=this.getEnergyStored();
-            int diff=Math.min(energy,maxExtract);
-            if(!simulate){
-                TileMachineMixer.this.energy-=diff;
-                if(diff!=0){
+            int energy = this.getEnergyStored();
+            int diff = Math.min(energy, maxExtract);
+            if (!simulate) {
+                TileMachineMixer.this.energy -= diff;
+                if (diff != 0) {
                     markDirty();
                 }
             }
@@ -41,7 +41,7 @@ public class TileMachineMixer extends TileTeaDryer {
 
         @Override
         public int getEnergyStored() {
-            return Math.max(0,Math.min(this.getMaxEnergyStored(),energy));
+            return Math.max(0, Math.min(this.getMaxEnergyStored(), energy));
         }
 
         @Override
@@ -60,12 +60,13 @@ public class TileMachineMixer extends TileTeaDryer {
         }
     });
 
-    public TileMachineMixer(){
+    public TileMachineMixer() {
         super(ModTiles.MACHINE_MIXER.get());
     }
+
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if(cap == CapabilityEnergy.ENERGY) return lazyOptional.cast();
+        if (cap == CapabilityEnergy.ENERGY) return lazyOptional.cast();
         return super.getCapability(cap, side);
     }
 }

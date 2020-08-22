@@ -18,20 +18,23 @@ public class ItemTeaBook extends Item {
     public ItemTeaBook() {
         super(new Properties().group(ModGroup.GROUP).maxStackSize(1));
     }
+
+    public static boolean isUnlockTech(ItemStack stack) {
+        return stack.hasTag() && stack.getTag().getBoolean("unlock");
+    }
+
+    public static void setUnlockTech(ItemStack stack, boolean unlock) {
+        stack.getOrCreateTag().putBoolean("unlock", unlock);
+    }
+
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack=playerIn.getHeldItem(handIn);
-        if(playerIn instanceof ServerPlayerEntity){
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        if (playerIn instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
             PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
         }
-        return new ActionResult<>(ActionResultType.SUCCESS,stack);
-    }
-    public static boolean isUnlockTech(ItemStack stack){
-       return stack.hasTag()&&stack.getTag().getBoolean("unlock");
-    }
-    public static void setUnlockTech(ItemStack stack,boolean unlock){
-        stack.getOrCreateTag().putBoolean("unlock",unlock);
+        return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
 }

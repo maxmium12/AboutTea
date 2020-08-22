@@ -6,7 +6,6 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -18,21 +17,26 @@ import javax.annotation.Nullable;
 
 public abstract class TileBase extends TileEntity {
     protected ItemStackHandler inv = new ItemStackHandler(getInvSize());
-    private final LazyOptional<IItemHandler> autoinv = LazyOptional.of(()->inv);
+    private final LazyOptional<IItemHandler> autoinv = LazyOptional.of(() -> inv);
+
     public TileBase(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
+
     public abstract int getInvSize();
+
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
         readPacketNBT(compound);
     }
+
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         writePacketNBT(compound);
         return super.write(compound);
     }
+
     public void writePacketNBT(CompoundNBT compound) {
         compound.merge(inv.serializeNBT());
     }
@@ -40,13 +44,16 @@ public abstract class TileBase extends TileEntity {
     public void readPacketNBT(CompoundNBT compound) {
         inv.deserializeNBT(compound);
     }
+
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, autoinv);
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, autoinv);
         return super.getCapability(cap, side);
     }
-    public ItemStackHandler getInv(){
+
+    public ItemStackHandler getInv() {
         return inv;
     }
 
@@ -55,7 +62,7 @@ public abstract class TileBase extends TileEntity {
     public SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT compound = new CompoundNBT();
         writePacketNBT(compound);
-        return new SUpdateTileEntityPacket(pos,999,compound);
+        return new SUpdateTileEntityPacket(pos, 999, compound);
     }
 
     @Override

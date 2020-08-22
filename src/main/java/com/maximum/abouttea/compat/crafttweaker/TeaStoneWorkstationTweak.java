@@ -17,19 +17,21 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenCodeType.Name("mods.maxseth.abouttea.tea_stone_workstation_recipe")
 public class TeaStoneWorkstationTweak implements IRecipeManager {
     @ZenCodeType.Method
-    public void addTeaStoneWorkstationRecipe(IIngredient[][] inputs, IItemStack output, int tick){
+    public void addTeaStoneWorkstationRecipe(IIngredient[][] inputs, IItemStack output, int tick) {
         Ingredient[][] ingredients = new Ingredient[inputs.length][inputs[0].length];
-        for(int i = 0;i < inputs.length; i++){
-            for(int j = 0;j < inputs[0].length; j++){
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[0].length; j++) {
                 ingredients[i][j] = inputs[i][j].asVanillaIngredient();
             }
         }
-        CraftTweakerAPI.apply(new ActionAddRecipe(this,new TeaStoneWorkStationRecipe(ingredients, output.getInternal(), tick),"tea_stone_workstation_recipe"));
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, new TeaStoneWorkStationRecipe(ingredients, output.getInternal(), tick), "tea_stone_workstation_recipe"));
     }
+
     @ZenCodeType.Method
-    public  void removeTeaStoneWorkstationRecipe(IItemStack output){
-        CraftTweakerAPI.apply(new ActionRemoveOutputRecipe(this,output));
+    public void removeTeaStoneWorkstationRecipe(IItemStack output) {
+        CraftTweakerAPI.apply(new ActionRemoveOutputRecipe(this, output));
     }
+
     @Override
     public IRecipeType getRecipeType() {
         return ModRecipeType.TEA_STONE_WORKSTATION_RECIPE;

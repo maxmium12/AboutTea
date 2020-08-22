@@ -29,9 +29,9 @@ public class BlockTeaStoneWorkStation extends Block {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if(!worldIn.isRemote){
+        if (!worldIn.isRemote) {
             IAboutTeaCap cap = player.getCapability(CapabilityHandler.ABOUTTEACAP).orElse(new AboutTeaCap.Impl());
-            if(cap.isUnlock()){
+            if (cap.isUnlock()) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, ModTiles.TEA_STONE_WORKSTATION.get().create(), buffer -> {
                     buffer.writeBlockPos(pos);
                     buffer.writeBlockPos(pos);

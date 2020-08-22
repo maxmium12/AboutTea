@@ -1,6 +1,5 @@
 package com.maximum.abouttea.block.manual;
 
-import com.maximum.abouttea.tile.TileTeaSet;
 import com.maximum.abouttea.tile.manual.TileTeaMixer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,17 +21,20 @@ public class BlockTeaMixer extends Block {
     public BlockTeaMixer() {
         super(Properties.create(Material.IRON).notSolid().hardnessAndResistance(2f));
     }
+
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if(!worldIn.isRemote&&!player.isSneaking()){
-            TileTeaMixer tile= (TileTeaMixer) worldIn.getTileEntity(pos);
-            NetworkHooks.openGui((ServerPlayerEntity)player, tile, (buffer -> {
+        if (!worldIn.isRemote && !player.isSneaking()) {
+            TileTeaMixer tile = (TileTeaMixer) worldIn.getTileEntity(pos);
+            NetworkHooks.openGui((ServerPlayerEntity) player, tile, (buffer -> {
                 buffer.writeBlockPos(pos);
-                buffer.writeBlockPos(pos);}));
+                buffer.writeBlockPos(pos);
+            }));
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.PASS;
     }
+
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;

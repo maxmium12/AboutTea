@@ -2,6 +2,7 @@ package com.maximum.abouttea.util.network;
 
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+
 //来自4z大佬教程
 public interface IBlockNetwork {
     int size(BlockPos node);
@@ -13,8 +14,7 @@ public interface IBlockNetwork {
     void link(BlockPos node, Direction direction, ConnectivityListener beforeMerge);
 
     @FunctionalInterface
-    interface ConnectivityListener
-    {
+    interface ConnectivityListener {
         void onChange(BlockPos primaryNode, BlockPos secondaryNode);
     }
 }

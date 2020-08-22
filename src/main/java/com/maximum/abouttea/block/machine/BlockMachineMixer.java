@@ -4,7 +4,6 @@ import com.maximum.abouttea.init.ModTiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -16,6 +15,7 @@ import javax.annotation.Nullable;
 
 public class BlockMachineMixer extends Block {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
     public BlockMachineMixer() {
         super(Properties.create(Material.IRON));
     }
@@ -30,10 +30,12 @@ public class BlockMachineMixer extends Block {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return ModTiles.MACHINE_MIXER.get().create();
     }
+
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
+
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }

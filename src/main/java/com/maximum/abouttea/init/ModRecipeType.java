@@ -19,21 +19,22 @@ import static com.maximum.abouttea.AboutTea.prefix;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRecipeType {
-    public static IRecipeType<DryerRecipes> DRYER_RECIPE=new RecipeType<>();
-    public static IRecipeSerializer<DryerRecipes> DRYER_SERIALIZER=new DryerRecipes.Serializer();
-    public static IRecipeType<MixerRecipes> MIXER_RECIPE=new RecipeType<>();
-    public static IRecipeSerializer<MixerRecipes> MIXER_SERIALIZER=new MixerRecipes.Serializer();
-    public static IRecipeType<TeaStoneWorkStationRecipe> TEA_STONE_WORKSTATION_RECIPE=new RecipeType<>();
+    public static IRecipeType<DryerRecipes> DRYER_RECIPE = new RecipeType<>();
+    public static IRecipeSerializer<DryerRecipes> DRYER_SERIALIZER = new DryerRecipes.Serializer();
+    public static IRecipeType<MixerRecipes> MIXER_RECIPE = new RecipeType<>();
+    public static IRecipeSerializer<MixerRecipes> MIXER_SERIALIZER = new MixerRecipes.Serializer();
+    public static IRecipeType<TeaStoneWorkStationRecipe> TEA_STONE_WORKSTATION_RECIPE = new RecipeType<>();
     public static IRecipeSerializer<TeaStoneWorkStationRecipe> TEA_STONE_SERIALIZER = new TeaStoneWorkStationRecipe.Serializer();
     public static SpecialRecipeSerializer<TeaCupRecipes> TEA_CUP_SERIALIZER = new SpecialRecipeSerializer<>(TeaCupRecipes::new);
+
     @SubscribeEvent
-    public static void register(RegistryEvent.Register<IRecipeSerializer<?>> event){
+    public static void register(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         AboutTea.LOGGER.info("register recipe types");
-        ResourceLocation id=prefix("dryer");
-        Registry.register(Registry.RECIPE_TYPE,id,DRYER_RECIPE);
+        ResourceLocation id = prefix("dryer");
+        Registry.register(Registry.RECIPE_TYPE, id, DRYER_RECIPE);
         event.getRegistry().register(DRYER_SERIALIZER.setRegistryName(id));
-        id=prefix("mixer");
-        Registry.register(Registry.RECIPE_TYPE,id,MIXER_RECIPE);
+        id = prefix("mixer");
+        Registry.register(Registry.RECIPE_TYPE, id, MIXER_RECIPE);
         event.getRegistry().register(MIXER_SERIALIZER.setRegistryName(id));
         id = prefix("teastone_workstation");
         Registry.register(Registry.RECIPE_TYPE, id, TEA_STONE_WORKSTATION_RECIPE);
@@ -41,7 +42,8 @@ public class ModRecipeType {
         id = prefix("tea_cup");
         event.getRegistry().register(TEA_CUP_SERIALIZER.setRegistryName(id));
     }
-    private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T>{
+
+    private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
         @Override
         public String toString() {
             return Registry.RECIPE_TYPE.getKey(this).toString();

@@ -1,15 +1,10 @@
 package com.maximum.abouttea.gui;
 
-import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.init.ModContainer;
-import com.maximum.abouttea.tile.TileBase;
 import com.maximum.abouttea.tile.machine.TileMachineDryer;
-import com.maximum.abouttea.tile.machine.TileTeaStoneWorkstation;
-import com.maximum.abouttea.tile.manual.TileTeaMixer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -17,13 +12,12 @@ import net.minecraft.util.IIntArray;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-import javax.annotation.Nullable;
-
 public class ContainerMachineDryer extends Container {
     private final TileMachineDryer tile;
     private final IIntArray data;
-    public ContainerMachineDryer(int id, PlayerInventory playerInv, PacketBuffer buffer){
-        this(id, playerInv, (TileMachineDryer) playerInv.player.world.getTileEntity(buffer.readBlockPos()),((TileMachineDryer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
+
+    public ContainerMachineDryer(int id, PlayerInventory playerInv, PacketBuffer buffer) {
+        this(id, playerInv, (TileMachineDryer) playerInv.player.world.getTileEntity(buffer.readBlockPos()), ((TileMachineDryer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());
     }
 
     public ContainerMachineDryer(int id, PlayerInventory playerInv, TileMachineDryer tile, IIntArray data) {
@@ -45,16 +39,18 @@ public class ContainerMachineDryer extends Container {
             }
         }
     }
-    private void addTileSlots(){
+
+    private void addTileSlots() {
         addSlotPair(0, 20, 13);
         addSlotPair(1, 50, 13);
         addSlotPair(2, 89, 13);
         addSlotPair(3, 119, 13);
     }
-    private void addSlotPair(int index, int x, int y){
-        tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(inv ->{
+
+    private void addSlotPair(int index, int x, int y) {
+        tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(inv -> {
             addSlot(new SlotItemHandler(tile.getInv(), index, x, y));
-            addSlot(new SlotItemHandler(tile.getInv(), index+4, x, y+46));
+            addSlot(new SlotItemHandler(tile.getInv(), index + 4, x, y + 46));
         });
     }
 
@@ -65,7 +61,7 @@ public class ContainerMachineDryer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack slotStack = slot.getStack();
             itemstack = slotStack.copy();
-            if(index <= 7){
+            if (index <= 7) {
                 if (!this.mergeItemStack(itemstack, 8, 44, true)) {
                     return ItemStack.EMPTY;
                 }

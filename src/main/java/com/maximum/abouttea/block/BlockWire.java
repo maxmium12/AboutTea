@@ -24,9 +24,10 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Map;
+
 /*
-* 来自4z大佬的教程
-*/
+ * 来自4z大佬的教程
+ */
 public class BlockWire extends Block {
     public static final Map<Direction, BooleanProperty> PROPERTY_MAP;
 
@@ -40,9 +41,11 @@ public class BlockWire extends Block {
         map.put(Direction.DOWN, BlockStateProperties.DOWN);
         PROPERTY_MAP = Collections.unmodifiableMap(map);
     }
+
     public BlockWire() {
         super(Properties.create(Material.ROCK).notSolid());
     }
+
     @Override
     public boolean hasTileEntity(@Nonnull BlockState state) {
         return true;
@@ -54,18 +57,15 @@ public class BlockWire extends Block {
     }
 
     @Override
-    protected void fillStateContainer(@Nonnull StateContainer.Builder<Block, BlockState> builder)
-    {
+    protected void fillStateContainer(@Nonnull StateContainer.Builder<Block, BlockState> builder) {
         builder.add(PROPERTY_MAP.values().toArray(new IProperty<?>[0]));
         super.fillStateContainer(builder);
     }
 
     @Override
-    public BlockState getStateForPlacement(@Nonnull BlockItemUseContext context)
-    {
+    public BlockState getStateForPlacement(@Nonnull BlockItemUseContext context) {
         BlockState state = this.getDefaultState();
-        for (Direction facing : Direction.values())
-        {
+        for (Direction facing : Direction.values()) {
             World world = context.getWorld();
             BlockPos facingPos = context.getPos().offset(facing);
             BlockState facingState = world.getBlockState(facingPos);
@@ -77,15 +77,12 @@ public class BlockWire extends Block {
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos)
-    {
+    public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
         return state.with(PROPERTY_MAP.get(facing), this.canConnect(world, facing.getOpposite(), facingPos, facingState));
     }
 
-    private boolean canConnect(@Nonnull IWorld world, @Nonnull Direction facing, @Nonnull BlockPos pos, @Nonnull BlockState state)
-    {
-        if (!state.getBlock().equals(ModBlock.blockWire.get()))
-        {
+    private boolean canConnect(@Nonnull IWorld world, @Nonnull Direction facing, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+        if (!state.getBlock().equals(ModBlock.blockWire.get())) {
             TileEntity tileEntity = world.getTileEntity(pos);
             return tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, facing).isPresent();
         }
@@ -94,13 +91,10 @@ public class BlockWire extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block fromBlock, @Nonnull BlockPos fromPos, boolean isMoving)
-    {
-        if (!world.isRemote)
-        {
+    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block fromBlock, @Nonnull BlockPos fromPos, boolean isMoving) {
+        if (!world.isRemote) {
             TileEntity te = world.getTileEntity(pos);
-            if (te instanceof TileWire)
-            {
+            if (te instanceof TileWire) {
                 SimpleEnergyNetwork.Factory.get(world).enableBlock(pos, te::markDirty);
             }
         }

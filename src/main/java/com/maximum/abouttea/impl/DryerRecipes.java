@@ -19,10 +19,11 @@ public class DryerRecipes implements IDryerRecipe {
     private final Ingredient input;
     private final int ticks;
     private final ItemStack output;
-    public DryerRecipes(int ticks,Ingredient input,ItemStack output){
-        this.ticks=ticks;
-        this.input=input;
-        this.output=output;
+
+    public DryerRecipes(int ticks, Ingredient input, ItemStack output) {
+        this.ticks = ticks;
+        this.input = input;
+        this.output = output;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class DryerRecipes implements IDryerRecipe {
 
     @Override
     public ResourceLocation getId() {
-        return new ResourceLocation(AboutTea.MODID,"dryer_recipes");
+        return new ResourceLocation(AboutTea.MODID, "dryer_recipes");
     }
 
     public Ingredient getInput() {
@@ -52,23 +53,24 @@ public class DryerRecipes implements IDryerRecipe {
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipeType.DRYER_SERIALIZER;
     }
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DryerRecipes>{
+
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DryerRecipes> {
 
         @Override
         public DryerRecipes read(ResourceLocation recipeId, JsonObject json) {
-            Ingredient input=Ingredient.deserialize(json.get("input"));
-            ItemStack output= CraftingHelper.getItemStack(json.get("output").getAsJsonObject(),true);
-            int ticks=JSONUtils.getInt(json,"time");
-            return new DryerRecipes(ticks,input,output);
+            Ingredient input = Ingredient.deserialize(json.get("input"));
+            ItemStack output = CraftingHelper.getItemStack(json.get("output").getAsJsonObject(), true);
+            int ticks = JSONUtils.getInt(json, "time");
+            return new DryerRecipes(ticks, input, output);
         }
 
         @Nullable
         @Override
         public DryerRecipes read(ResourceLocation recipeId, PacketBuffer buffer) {
-            Ingredient input=Ingredient.read(buffer);
-            ItemStack output=buffer.readItemStack();
-            int ticks=buffer.readVarInt();
-            return new DryerRecipes(ticks,input,output);
+            Ingredient input = Ingredient.read(buffer);
+            ItemStack output = buffer.readItemStack();
+            int ticks = buffer.readVarInt();
+            return new DryerRecipes(ticks, input, output);
         }
 
         @Override

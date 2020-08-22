@@ -2,8 +2,8 @@ package com.maximum.abouttea.client.gui;
 
 import com.maximum.abouttea.gui.ContainerTeaGenerator;
 import com.maximum.abouttea.tile.TileTeaGenerator;
+import com.maximum.abouttea.util.EnergyArray;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.ResourceLocation;
@@ -12,9 +12,9 @@ import net.minecraft.util.text.ITextComponent;
 import static com.maximum.abouttea.AboutTea.prefix;
 
 public class GuiTeaGenerator extends GuiEnergyBar<ContainerTeaGenerator> {
-    private final ResourceLocation GENERATOR=prefix("textures/gui/generator.png");
-    private final int textureWidth=256;
-    private final int textureHeight=256;
+    private final ResourceLocation GENERATOR = prefix("textures/gui/generator.png");
+    private final int textureWidth = 256;
+    private final int textureHeight = 256;
     private ContainerTeaGenerator container;
 
     public GuiTeaGenerator(ContainerTeaGenerator screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -41,10 +41,10 @@ public class GuiTeaGenerator extends GuiEnergyBar<ContainerTeaGenerator> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        drawFrontBar(154, 10, mouseX, mouseY, container.getData().get(1));
+        drawFrontBar(154, 10, mouseX, mouseY, ((EnergyArray) container.getData()).getEnergy());
     }
 
-    private int getBarHeight(){
+    private int getBarHeight() {
         IIntArray data = container.getData();
         return data.get(1) * 61 / TileTeaGenerator.getMaxEnergy();
     }

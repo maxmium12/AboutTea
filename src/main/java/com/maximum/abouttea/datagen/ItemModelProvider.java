@@ -1,7 +1,6 @@
 package com.maximum.abouttea.datagen;
 
 import com.maximum.abouttea.AboutTea;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -18,19 +17,19 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
     @Override
     protected void registerModels() {
-       for(Item item: ForgeRegistries.ITEMS){
-           ResourceLocation registryName=item.getRegistryName();
-           if(registryName.getNamespace().equals(AboutTea.MODID)){
-               if(item instanceof BlockItem){
-                   getBuilder(item.getRegistryName().getPath())
-                           .parent(getExistingFile(prefix("block/"+registryName.getPath())));
-               }
-           }
-       }
+        for (Item item : ForgeRegistries.ITEMS) {
+            ResourceLocation registryName = item.getRegistryName();
+            if (registryName.getNamespace().equals(AboutTea.MODID)) {
+                if (item instanceof BlockItem) {
+                    getBuilder(item.getRegistryName().getPath())
+                            .parent(getExistingFile(prefix("block/" + registryName.getPath())));
+                }
+            }
+        }
     }
 
     @Override
     public String getName() {
-        return AboutTea.MODID+"Item Model Provider";
+        return AboutTea.MODID + "Item Model Provider";
     }
 }

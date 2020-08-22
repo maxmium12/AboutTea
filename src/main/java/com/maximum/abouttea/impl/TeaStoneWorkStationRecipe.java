@@ -3,7 +3,6 @@ package com.maximum.abouttea.impl;
 import com.google.gson.JsonObject;
 import com.maximum.abouttea.api.recipes.ITeaStoneCraftingTableRecipe;
 import com.maximum.abouttea.init.ModRecipeType;
-import com.mojang.realmsclient.util.JsonUtils;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -14,11 +13,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 
 import static com.maximum.abouttea.AboutTea.prefix;
@@ -27,16 +24,28 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
     private final Ingredient[][] inputs;
     private final ItemStack output;
     private final int ticks;
-    public TeaStoneWorkStationRecipe(Ingredient[][] inputs, ItemStack output, int ticks){
+
+    public TeaStoneWorkStationRecipe(Ingredient[][] inputs, ItemStack output, int ticks) {
         this.inputs = inputs;
         this.output = output;
         this.ticks = ticks;
     }
+
+    public static Ingredient[][] getArrayFromList(NonNullList<Ingredient> inputs, int width, int height) {
+        Ingredient[][] inputArray = new Ingredient[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                inputArray[i][j] = inputs.get(i * 3 + j);
+            }
+        }
+        return inputArray;
+    }
+
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        for(int i = 0;i < inputs.length;i++){
-            for(int j = 0;j < inputs[i].length;j++){
-                if(!inputs[i][j].test(inv.getStackInSlot(i * 3 + j))) return false;
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[i].length; j++) {
+                if (!inputs[i][j].test(inv.getStackInSlot(i * 3 + j))) return false;
             }
         }
         return true;
@@ -62,18 +71,8 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
         return prefix("tea_stone_workstation_recipe");
     }
 
-    public Ingredient[][] getInputs(){
+    public Ingredient[][] getInputs() {
         return inputs;
-    }
-
-    public static Ingredient[][] getArrayFromList(NonNullList<Ingredient> inputs, int width, int height){
-        Ingredient[][] inputArray = new Ingredient[height][width];
-        for(int i =0;i < height; i++){
-            for(int j = 0;j < width;j++){
-                inputArray[i][j] = inputs.get(i * 3 + j);
-            }
-        }
-        return inputArray;
     }
 
     public int getTicks() {
@@ -84,17 +83,18 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipeType.TEA_STONE_SERIALIZER;
     }
+
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<TeaStoneWorkStationRecipe> {
 
         @Override
         public TeaStoneWorkStationRecipe read(ResourceLocation recipeId, JsonObject json) {
-            Map<String, Ingredient> key = ShapedRecipe.deserializeKey(JSONUtils.getJsonObject(json,"key"));
+            Map<String, Ingredient> key = ShapedRecipe.deserializeKey(JSONUtils.getJsonObject(json, "key"));
             String[] patterns = ShapedRecipe.shrink(ShapedRecipe.patternFromJson(JSONUtils.getJsonArray(json, "pattern")));
             int width = patterns[0].length();
             int height = patterns.length;
             NonNullList<Ingredient> inputs = ShapedRecipe.deserializeIngredients(patterns, key, width, height);
-            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json,"result"));
-            int ticks = JSONUtils.getInt(json,"ticks");
+            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
+            int ticks = JSONUtils.getInt(json, "ticks");
             Ingredient[][] inputArray = getArrayFromList(inputs, width, height);
             return new TeaStoneWorkStationRecipe(inputArray, output, ticks);
         }
@@ -105,11 +105,11 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
             int width = buffer.readVarInt();
             int height = buffer.readVarInt();
             int length = buffer.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(length,Ingredient.EMPTY);
-            for(int i = 0;i < length; i++){
+            NonNullList<Ingredient> inputs = NonNullList.withSize(length, Ingredient.EMPTY);
+            for (int i = 0; i < length; i++) {
                 inputs.set(i, Ingredient.read(buffer));
             }
-            Ingredient[][] inputArray = getArrayFromList(inputs,width, height);
+            Ingredient[][] inputArray = getArrayFromList(inputs, width, height);
             ItemStack output = buffer.readItemStack();
             int ticks = buffer.readVarInt();
             return new TeaStoneWorkStationRecipe(inputArray, output, ticks);
@@ -122,8 +122,8 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
             buffer.writeVarInt(width);
             buffer.writeVarInt(height);
             buffer.writeVarInt(width * height);
-            for(Ingredient[] inputs1:recipe.inputs){
-                for(Ingredient input:inputs1){
+            for (Ingredient[] inputs1 : recipe.inputs) {
+                for (Ingredient input : inputs1) {
                     input.write(buffer);
                 }
             }

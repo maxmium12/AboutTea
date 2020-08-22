@@ -9,13 +9,12 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public interface IMixerRecipe extends IRecipe<IInventory> {
-    ResourceLocation TYPE_ID=new ResourceLocation(AboutTea.MODID,"mixer");
+    ResourceLocation TYPE_ID = new ResourceLocation(AboutTea.MODID, "mixer");
 
     boolean matches(ItemStack[] input);
 
@@ -28,6 +27,7 @@ public interface IMixerRecipe extends IRecipe<IInventory> {
     }
 
     int getTicks();
+
     //忽略下面的方法
     @Nonnull
     @Override

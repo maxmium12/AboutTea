@@ -27,5 +27,6 @@
   "block.abouttea.machine_dryer": "干燥器",
   "block.abouttea.wire": "导线",
   "item.abouttea.tech_book": "远古科技手册",
-  "block.abouttea.tea_stone_workstation": "茶叶石工作台"
+  "block.abouttea.tea_stone_workstation": "茶叶石工作台",
+  "abouttea.teacup.water": "有水"
 }

@@ -21,38 +21,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TileTeaStoneWorkstation extends TileMachineBase implements INamedContainerProvider {
-    public TileTeaStoneWorkstation() {
-        super(ModTiles.TEA_STONE_WORKSTATION.get(), 24000, 800, 0, false, true);
-    }
     private ITeaStoneCraftingTableRecipe currentRecipe;
     private int ticks = 0;
     private int maxTicks;
-    private IIntArray data = new EnergyArray(ticks, energy, maxTicks);
+    private EnergyArray data = new EnergyArray(ticks, energy, maxTicks);
+    public TileTeaStoneWorkstation() {
+        super(ModTiles.TEA_STONE_WORKSTATION.get(), 24000, 800, 0, false, true);
+    }
+
+    public static int getMaxEnergy() {
+        return 24000;
+    }
+
     @Override
     public void doWork() {
         maxTicks = currentRecipe.getTicks();
-        if(ticks >= currentRecipe.getTicks()){
+        if (ticks >= currentRecipe.getTicks()) {
             ItemStack currentOutput = inv.getStackInSlot(9).copy();
-            if(currentOutput.getMaxStackSize() <= currentOutput.getCount()) return;
-            for(int i = 0;i < 9;i++){
+            if (currentOutput.getMaxStackSize() <= currentOutput.getCount()) return;
+            for (int i = 0; i < 9; i++) {
                 inv.extractItem(i, 1, false);
             }
             inv.insertItem(9, currentRecipe.getRecipeOutput(), false);
             ticks = 0;
-        }else {
-            if(energy >= 40){
-                energy-=40;
-            }else {
+        } else {
+            if (energy >= 40) {
+                energy -= 40;
+            } else {
                 return;
             }
             ticks++;
+        }
+        if (!world.isRemote) {
+            data.setEnergy(energy);
+            data.set(0, ticks);
+            data.set(2, maxTicks);
         }
     }
 
     @Override
     public boolean canWork() {
         ITeaStoneCraftingTableRecipe recipe = findRecipe(new RecipeWrapper(inv));
-        if(recipe != null) {
+        if (recipe != null) {
             currentRecipe = recipe;
             return true;
         }
@@ -63,18 +73,20 @@ public class TileTeaStoneWorkstation extends TileMachineBase implements INamedCo
     public void stop() {
         ticks = 0;
     }
-    private ITeaStoneCraftingTableRecipe findRecipe(RecipeWrapper wrapper){
+
+    private ITeaStoneCraftingTableRecipe findRecipe(RecipeWrapper wrapper) {
         List<ITeaStoneCraftingTableRecipe> recipes = world.getRecipeManager().getRecipes(ModRecipeType.TEA_STONE_WORKSTATION_RECIPE).values().stream()
                 .filter(r -> r instanceof ITeaStoneCraftingTableRecipe)
-                .map(r -> (ITeaStoneCraftingTableRecipe)r)
+                .map(r -> (ITeaStoneCraftingTableRecipe) r)
                 .collect(Collectors.toList());
-        for(ITeaStoneCraftingTableRecipe recipe:recipes){
-            if (recipe.matches(wrapper,world)){
+        for (ITeaStoneCraftingTableRecipe recipe : recipes) {
+            if (recipe.matches(wrapper, world)) {
                 return recipe;
             }
         }
         return null;
     }
+
     @Override
     public int getInvSize() {
         return 10;
@@ -89,10 +101,6 @@ public class TileTeaStoneWorkstation extends TileMachineBase implements INamedCo
     @Override
     public Container createMenu(int id, PlayerInventory playerInv, PlayerEntity player) {
         return new ContainerTeaStoneWorkStation(id, playerInv, this, data);
-    }
-
-    public static int getMaxEnergy(){
-        return 24000;
     }
 
     public IIntArray getData() {

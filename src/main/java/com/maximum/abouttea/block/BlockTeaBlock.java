@@ -7,11 +7,13 @@ import net.minecraft.block.material.Material;
 
 public class BlockTeaBlock extends Block {
     private final String name;
+
     public BlockTeaBlock(String name) {
         super(Properties.create(Material.LEAVES));
-        this.name=name;
+        this.name = name;
     }
-    public ItemTea getTea(){
+
+    public ItemTea getTea() {
         return ModTea.getTeas().get(name);
     }
 }

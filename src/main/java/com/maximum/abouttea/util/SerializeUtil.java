@@ -9,7 +9,7 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
 
 public class SerializeUtil {
-    public static JsonObject serializeStack(ItemStack stack){
+    public static JsonObject serializeStack(ItemStack stack) {
         CompoundNBT nbt = stack.serializeNBT();
         byte c = nbt.getByte("Count");
         if (c != 1) {
@@ -21,11 +21,12 @@ public class SerializeUtil {
         Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
         return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
     }
-    public static void renameNBT(CompoundNBT nbt,String prev, String newname){
-        INBT storage=nbt.get(prev);
-        if(storage!=null){
+
+    public static void renameNBT(CompoundNBT nbt, String prev, String newname) {
+        INBT storage = nbt.get(prev);
+        if (storage != null) {
             nbt.remove(prev);
-            nbt.put(newname,storage);
+            nbt.put(newname, storage);
         }
     }
 }
