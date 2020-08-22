@@ -13,8 +13,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerMixer extends Container {
-    private TileTeaMixer tile;
-    private IIntArray data;
+    private final TileTeaMixer tile;
+    private final IIntArray data;
 
     public ContainerMixer(int id, PlayerInventory playerInv, PacketBuffer buffer) {
         this(id, playerInv, (TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos()), ((TileTeaMixer) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());

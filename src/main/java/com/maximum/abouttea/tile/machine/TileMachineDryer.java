@@ -71,7 +71,7 @@ public class TileMachineDryer extends TileTeaDryer implements ITickableTileEntit
             return true;
         }
     });
-    private IIntArray data = new IIntArray() {
+    private final IIntArray data = new IIntArray() {
         @Override
         public int get(int index) {
             switch (index) {

@@ -11,6 +11,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,5 +75,9 @@ public abstract class TileBase extends TileEntity {
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         super.onDataPacket(net, pkt);
         readPacketNBT(pkt.getNbtCompound());
+    }
+
+    public RecipeWrapper getRecipeWrapper() {
+        return new RecipeWrapper(inv);
     }
 }

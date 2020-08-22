@@ -3,7 +3,6 @@ package com.maximum.abouttea.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.maximum.abouttea.init.ModItems;
 import com.maximum.abouttea.init.ModRecipeType;
 import com.maximum.abouttea.init.ModTea;
 import com.maximum.abouttea.util.SerializeUtil;
@@ -11,6 +10,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -29,7 +29,12 @@ public class MixerRecipeProvider extends RecipeProvider {
 
     @Override
     public void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        consumer.accept(new FinishRecipe(prefix("dry_green_tea"), 300, new ItemStack(ModItems.itemDryGreenTea.get()), Ingredient.fromItems(ModTea.getTea("green_tea"))));
+        consumer.accept(new FinishRecipe(prefix("lightning_tea_1"),
+                400, new ItemStack(ModTea.getTea("lightning_tea")),
+                Ingredient.fromItems(ModTea.getTea("lightning_tea")),
+                Ingredient.fromItems(Items.GLOWSTONE_DUST),
+                Ingredient.fromItems(Items.GLOWSTONE_DUST),
+                Ingredient.fromItems(Items.GLOWSTONE_DUST)));
     }
 
     private static class FinishRecipe implements IFinishedRecipe {

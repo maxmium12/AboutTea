@@ -1,0 +1,16 @@
+{
+  "type": "abouttea:teastone_workstation",
+  "pattern": [
+    "TTT",
+    "T T"
+  ],
+  "key": {
+    "T": {
+      "item": "abouttea:tea_stone"
+    }
+  },
+  "result": {
+    "item": "abouttea:tea_helmet"
+  },
+  "ticks": 500
+}

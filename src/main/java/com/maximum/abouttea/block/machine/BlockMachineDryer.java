@@ -7,6 +7,7 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -63,5 +64,18 @@ public class BlockMachineDryer extends Block {
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (newState.getBlock() != state.getBlock()) {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TileMachineDryer) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, ((TileMachineDryer) tileentity).getRecipeWrapper());
+                worldIn.updateComparatorOutputLevel(pos, this);
+            }
+        }
+
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 }

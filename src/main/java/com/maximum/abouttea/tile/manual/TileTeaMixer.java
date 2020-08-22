@@ -29,7 +29,7 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity, IName
     private int tick = 0;
     private int hasFire = 0;
     private int maxTick;
-    private IIntArray data = new IIntArray() {
+    private final IIntArray data = new IIntArray() {
         @Override
         public int get(int index) {
             switch (index) {
@@ -118,7 +118,6 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity, IName
                 tick = 0;
                 return;
             }
-            ;
         } else hasFire = 0;
     }
 
@@ -135,9 +134,7 @@ public class TileTeaMixer extends TileBase implements ITickableTileEntity, IName
             ItemStack stack = recipe.getRecipeOutput();
             if ((stack.getItem() instanceof ItemTea && ((ItemTea) stack.getItem()).getTier() <= 1)) {
                 return true;
-            } else if (!(stack.getItem() instanceof ItemTea) && !stack.isEmpty()) {
-                return true;
-            }
+            } else return !(stack.getItem() instanceof ItemTea) && !stack.isEmpty();
         }
         return false;
     }

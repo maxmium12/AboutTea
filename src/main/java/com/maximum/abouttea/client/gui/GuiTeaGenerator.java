@@ -5,7 +5,6 @@ import com.maximum.abouttea.tile.TileTeaGenerator;
 import com.maximum.abouttea.util.EnergyArray;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.IIntArray;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -15,7 +14,7 @@ public class GuiTeaGenerator extends GuiEnergyBar<ContainerTeaGenerator> {
     private final ResourceLocation GENERATOR = prefix("textures/gui/generator.png");
     private final int textureWidth = 256;
     private final int textureHeight = 256;
-    private ContainerTeaGenerator container;
+    private final ContainerTeaGenerator container;
 
     public GuiTeaGenerator(ContainerTeaGenerator screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn, TileTeaGenerator.getMaxEnergy());
@@ -45,7 +44,7 @@ public class GuiTeaGenerator extends GuiEnergyBar<ContainerTeaGenerator> {
     }
 
     private int getBarHeight() {
-        IIntArray data = container.getData();
-        return data.get(1) * 61 / TileTeaGenerator.getMaxEnergy();
+        EnergyArray data = (EnergyArray) container.getData();
+        return data.getEnergy() * 61 / TileTeaGenerator.getMaxEnergy();
     }
 }

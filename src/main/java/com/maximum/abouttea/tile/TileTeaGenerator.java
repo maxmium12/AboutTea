@@ -74,7 +74,7 @@ public class TileTeaGenerator extends TileBase implements ITickableTileEntity, I
     private int ticks;
     private int maxTicks;
     private ItemTea currentTea;
-    private EnergyArray data = new EnergyArray(ticks, energy, maxTicks);
+    private final EnergyArray data = new EnergyArray(ticks, energy, maxTicks);
 
     public TileTeaGenerator() {
         super(ModTiles.TEA_GENERATOR_TILE.get());

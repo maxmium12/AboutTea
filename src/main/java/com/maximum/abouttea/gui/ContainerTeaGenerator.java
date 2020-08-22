@@ -13,8 +13,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerTeaGenerator extends Container {
-    private TileTeaGenerator tile;
-    private IIntArray data;
+    private final TileTeaGenerator tile;
+    private final IIntArray data;
 
     public ContainerTeaGenerator(int id, PlayerInventory playerInv, PacketBuffer buffer) {
         this(id, playerInv, (TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos()), ((TileTeaGenerator) playerInv.player.world.getTileEntity(buffer.readBlockPos())).getData());

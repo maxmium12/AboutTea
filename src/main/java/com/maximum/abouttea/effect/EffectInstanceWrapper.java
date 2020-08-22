@@ -18,8 +18,8 @@ public class EffectInstanceWrapper {
 
     public EffectInstance getEffectInstance() {
         Effect effect = ForgeRegistries.POTIONS.getValue(this.effect);
-        if (effect == null) throw new IllegalArgumentException("Minecraft don't have this effect");
-        ;
+        if (effect == null)
+            throw new IllegalArgumentException("Minecraft don't have this effect " + this.effect.toString());
         return new EffectInstance(effect, duration, amplifier);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -70,5 +71,18 @@ public class BlockTeaDryer extends Block {
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return shape;
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (newState.getBlock() != state.getBlock()) {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TileTeaDryer) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, ((TileTeaDryer) tileentity).getRecipeWrapper());
+                worldIn.updateComparatorOutputLevel(pos, this);
+            }
+        }
+
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 }

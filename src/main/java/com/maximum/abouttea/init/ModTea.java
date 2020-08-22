@@ -24,6 +24,13 @@ public class ModTea {
     public ModTea() {
         registry("green_tea", 0x30cbba, 1);
         registry("golden_tea", 0xffd700, 1, new EffectInstanceWrapper(Effects.HASTE.getRegistryName(), 800, 2));
+        registry("explosive_tea", 0xdc143c, 1, new EffectInstanceWrapper(ModEffect.EFFECT_EXPLOSIVE.getRegistryName(), 1, 1));
+        registry("lightning_tea", 0x0000dc, 1, new EffectInstanceWrapper(ModEffect.EFFECT_LIGHTNING.getRegistryName(), 1, 1));
+        registry("explosive_tea_2", 0xdc143c, 2, new EffectInstanceWrapper(ModEffect.EFFECT_EXPLOSIVE.getRegistryName(), 1, 2));
+        registry("lightning_tea_2", 0x0000dc, 2, new EffectInstanceWrapper(ModEffect.EFFECT_LIGHTNING.getRegistryName(), 3, 1));
+        registry("explosive_tea_3", 0xdc143c, 3, new EffectInstanceWrapper(ModEffect.EFFECT_EXPLOSIVE.getRegistryName(), 1, 3));
+        registry("lightning_tea_3", 0x0000dc, 3, new EffectInstanceWrapper(ModEffect.EFFECT_LIGHTNING.getRegistryName(), 5, 1));
+
         File teadir = new File(".", "teas");
         if (!teadir.exists()) {
             teadir.mkdir();

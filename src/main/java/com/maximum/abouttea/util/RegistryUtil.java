@@ -7,6 +7,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
@@ -26,6 +27,7 @@ public class RegistryUtil {
     private static final DeferredRegister<ContainerType<?>> CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, AboutTea.MODID);
     private static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
     private static final DeferredRegister<IRecipeSerializer<?>> RECIPE_TYPEs = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
+    private static final DeferredRegister<Effect> EFFECT = new DeferredRegister<>(ForgeRegistries.POTIONS, MODID);
 
     public static <T extends Block> RegistryObject<T> registryBlockWithItem(String name, Supplier<T> block) {
         RegistryObject<T> object = registryBlock(name, block);
@@ -51,6 +53,10 @@ public class RegistryUtil {
 
     public static <T extends TileEntityType<?>> RegistryObject<T> registryTile(String name, Supplier<T> tile) {
         return TILES.register(name, tile);
+    }
+
+    public static <T extends Effect> RegistryObject<T> registryEffect(String name, Supplier<T> effect) {
+        return EFFECT.register(name, effect);
     }
 
     public static void register() {

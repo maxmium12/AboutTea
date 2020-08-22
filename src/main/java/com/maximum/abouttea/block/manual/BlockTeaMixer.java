@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -44,5 +45,18 @@ public class BlockTeaMixer extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileTeaMixer();
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (newState.getBlock() != state.getBlock()) {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TileTeaMixer) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, ((TileTeaMixer) tileentity).getRecipeWrapper());
+                worldIn.updateComparatorOutputLevel(pos, this);
+            }
+        }
+
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 }

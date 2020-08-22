@@ -21,6 +21,7 @@ public class AboutTea {
         new ModItems();
         new ModTea();
         new ModContainer();
+        new ModEffect();
         RegistryUtil.register();
     }
 

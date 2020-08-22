@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -54,5 +56,6 @@ public class ItemTea extends Item implements IItemTea {
             list.add(wrapper.getEffectInstance());
         }
         RenderUtil.addPotionToolTips(list, tooltip, 1.0f);
+        tooltip.add(new StringTextComponent("Tier: " + tier).applyTextStyles(TextFormatting.GRAY, TextFormatting.ITALIC));
     }
 }
