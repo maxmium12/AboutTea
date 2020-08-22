@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.maximum.abouttea.api.recipes.IMixerRecipe;
+import com.maximum.abouttea.init.ModRecipeType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -65,7 +66,7 @@ public class MixerRecipes implements IMixerRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return ModRecipeType.MIXER_SERIALIZER;
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<MixerRecipes>{
 
@@ -94,11 +95,11 @@ public class MixerRecipes implements IMixerRecipe {
 
         @Override
         public void write(PacketBuffer buffer, MixerRecipes recipe) {
+            buffer.writeItemStack(recipe.getRecipeOutput());
             buffer.writeVarInt(recipe.getInputs().size());
             for(Ingredient input:recipe.getInputs()){
                 input.write(buffer);
             }
-            buffer.writeItemStack(recipe.getRecipeOutput());
             buffer.writeVarInt(recipe.getTicks());
         }
     }

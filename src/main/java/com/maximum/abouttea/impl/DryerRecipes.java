@@ -3,6 +3,7 @@ package com.maximum.abouttea.impl;
 import com.google.gson.JsonObject;
 import com.maximum.abouttea.AboutTea;
 import com.maximum.abouttea.api.recipes.IDryerRecipe;
+import com.maximum.abouttea.init.ModRecipeType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -49,7 +50,7 @@ public class DryerRecipes implements IDryerRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return ModRecipeType.DRYER_SERIALIZER;
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DryerRecipes>{
 

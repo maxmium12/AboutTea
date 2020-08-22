@@ -2,6 +2,7 @@ package com.maximum.abouttea.impl;
 
 import com.google.gson.JsonObject;
 import com.maximum.abouttea.api.recipes.ITeaStoneCraftingTableRecipe;
+import com.maximum.abouttea.init.ModRecipeType;
 import com.mojang.realmsclient.util.JsonUtils;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -81,7 +82,7 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return null;
+        return ModRecipeType.TEA_STONE_SERIALIZER;
     }
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<TeaStoneWorkStationRecipe> {
 
