@@ -8,6 +8,10 @@ import com.maximum.abouttea.item.ItemTea;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nonnull;
 
 public class ItemTeaHelmet extends ArmorItem implements ISpecialModel {
     public ItemTeaHelmet() {
@@ -30,6 +34,8 @@ public class ItemTeaHelmet extends ArmorItem implements ISpecialModel {
     }
 
     @Override
+    @Nonnull
+    @OnlyIn(Dist.CLIENT)
     public CustomArmor getModel() {
         return new TeaHelmet(0.0625f);
     }
