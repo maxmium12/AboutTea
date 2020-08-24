@@ -27,10 +27,12 @@ public class MsgCapabilitySync {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
+        if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             Minecraft.getInstance().player.getCapability(CapabilityHandler.ABOUTTEACAP).ifPresent(iAboutTeaCap -> {
                 Capability.IStorage<IAboutTeaCap> storage = CapabilityHandler.ABOUTTEACAP.getStorage();
                 storage.readNBT(CapabilityHandler.ABOUTTEACAP, iAboutTeaCap, null, cap);
             });
+        }
         });
         ctx.get().setPacketHandled(true);
     }
