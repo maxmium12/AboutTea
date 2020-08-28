@@ -24,11 +24,13 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
     private final Ingredient[][] inputs;
     private final ItemStack output;
     private final int ticks;
+	private final ResourceLocation id;
 
-    public TeaStoneWorkStationRecipe(Ingredient[][] inputs, ItemStack output, int ticks) {
+    public TeaStoneWorkStationRecipe(ResourceLocation id,Ingredient[][] inputs, ItemStack output, int ticks) {
         this.inputs = inputs;
         this.output = output;
         this.ticks = ticks;
+		this.id = id;
     }
 
     public static Ingredient[][] getArrayFromList(NonNullList<Ingredient> inputs, int width, int height) {
@@ -96,7 +98,7 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
             int ticks = JSONUtils.getInt(json, "ticks");
             Ingredient[][] inputArray = getArrayFromList(inputs, width, height);
-            return new TeaStoneWorkStationRecipe(inputArray, output, ticks);
+            return new TeaStoneWorkStationRecipe(recipeId,inputArray, output, ticks);
         }
 
         @Nullable
@@ -112,7 +114,7 @@ public class TeaStoneWorkStationRecipe implements ITeaStoneCraftingTableRecipe {
             Ingredient[][] inputArray = getArrayFromList(inputs, width, height);
             ItemStack output = buffer.readItemStack();
             int ticks = buffer.readVarInt();
-            return new TeaStoneWorkStationRecipe(inputArray, output, ticks);
+            return new TeaStoneWorkStationRecipe(recipeId,inputArray, output, ticks);
         }
 
         @Override

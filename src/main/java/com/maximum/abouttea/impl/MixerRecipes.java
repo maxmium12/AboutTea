@@ -23,15 +23,17 @@ import static com.maximum.abouttea.AboutTea.prefix;
 public class MixerRecipes implements IMixerRecipe {
     private final List<Ingredient> inputs;
     private final ItemStack output;
+	private final ResourceLocation id;
     int ticks;
 
-    public MixerRecipes(ItemStack output, int ticks, Ingredient[] inputs) {
+    public MixerRecipes(ResourceLocation id,ItemStack output, int ticks, Ingredient[] inputs) {
         if (inputs.length > 4) {
             throw new IllegalArgumentException("Input must lower than 4");
         }
         this.inputs = Lists.newArrayList(inputs);
         this.ticks = ticks;
         this.output = output;
+		this.id = id;
     }
 
     @Override
@@ -63,7 +65,7 @@ public class MixerRecipes implements IMixerRecipe {
 
     @Override
     public ResourceLocation getId() {
-        return prefix("mixer_recipe");
+        return id;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class MixerRecipes implements IMixerRecipe {
                 inputs.add(Ingredient.deserialize(in));
             }
             int ticks = JSONUtils.getInt(json, "time");
-            return new MixerRecipes(output, ticks, inputs.toArray(new Ingredient[0]));
+            return new MixerRecipes(recipeId,output, ticks, inputs.toArray(new Ingredient[0]));
         }
 
         @Nullable
@@ -93,7 +95,7 @@ public class MixerRecipes implements IMixerRecipe {
                 inputs[i] = Ingredient.read(buffer);
             }
             int ticks = buffer.readVarInt();
-            return new MixerRecipes(output, ticks, inputs);
+            return new MixerRecipes(recipeId,output, ticks, inputs);
         }
 
         @Override

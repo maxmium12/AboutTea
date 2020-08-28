@@ -19,11 +19,13 @@ public class DryerRecipes implements IDryerRecipe {
     private final Ingredient input;
     private final int ticks;
     private final ItemStack output;
+	private final ResourceLocation id;
 
-    public DryerRecipes(int ticks, Ingredient input, ItemStack output) {
+    public DryerRecipes(ResourceLocation id, int ticks, Ingredient input, ItemStack output) {
         this.ticks = ticks;
         this.input = input;
         this.output = output;
+		this.id = id;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class DryerRecipes implements IDryerRecipe {
 
     @Override
     public ResourceLocation getId() {
-        return new ResourceLocation(AboutTea.MODID, "dryer_recipes");
+        return id;
     }
 
     public Ingredient getInput() {
@@ -61,7 +63,7 @@ public class DryerRecipes implements IDryerRecipe {
             Ingredient input = Ingredient.deserialize(json.get("input"));
             ItemStack output = CraftingHelper.getItemStack(json.get("output").getAsJsonObject(), true);
             int ticks = JSONUtils.getInt(json, "time");
-            return new DryerRecipes(ticks, input, output);
+            return new DryerRecipes(recipeId, ticks, input, output);
         }
 
         @Nullable
@@ -70,7 +72,7 @@ public class DryerRecipes implements IDryerRecipe {
             Ingredient input = Ingredient.read(buffer);
             ItemStack output = buffer.readItemStack();
             int ticks = buffer.readVarInt();
-            return new DryerRecipes(ticks, input, output);
+            return new DryerRecipes(recipeId,ticks, input, output);
         }
 
         @Override
