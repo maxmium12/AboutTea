@@ -12,12 +12,14 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 
+import static com.maximum.abouttea.AboutTea.prefix;
+
 @ZenRegister
 @ZenCodeType.Name("mods.maxseth.abouttea.dryrecipe")
 public class DryerRecipeTweak implements IRecipeManager {
     @ZenCodeType.Method
-    public void addDryRecipe(IItemStack input, IItemStack output, int time) {
-        CraftTweakerAPI.apply(new ActionAddRecipe(this, new DryerRecipes(time, Ingredient.fromStacks(input.getInternal()), output.getInternal()), "dryer_recipe"));
+    public void addDryRecipe(String name,IItemStack input, IItemStack output, int time) {
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, new DryerRecipes(prefix(name),time, Ingredient.fromStacks(input.getInternal()), output.getInternal()), "dryer_recipe"));
     }
 
     @ZenCodeType.Method

@@ -16,14 +16,16 @@ import org.openzen.zencode.java.ZenCodeType;
 
 import java.util.List;
 
+import static com.maximum.abouttea.AboutTea.prefix;
+
 @ZenRegister
 @ZenCodeType.Name("mods.maxseth.abouttea.mixerrecipe")
 public class MixerRecipeTweak implements IRecipeManager {
     @ZenCodeType.Method
-    public void addMixRecipe(IIngredient[] input, IItemStack output, int time) {
+    public void addMixRecipe(String name,IIngredient[] input, IItemStack output, int time) {
         List<IIngredient> in = Lists.newArrayList(input);
         in.forEach(IIngredient::asVanillaIngredient);
-        CraftTweakerAPI.apply(new ActionAddRecipe(this, new MixerRecipes(output.getInternal(), time, in.toArray(new Ingredient[0])), "mixer_recipe"));
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, new MixerRecipes(prefix(name),output.getInternal(), time, in.toArray(new Ingredient[0])), "mixer_recipe"));
     }
 
     @ZenCodeType.Method

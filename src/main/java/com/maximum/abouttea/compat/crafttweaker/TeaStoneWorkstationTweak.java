@@ -13,18 +13,20 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 
+import static com.maximum.abouttea.AboutTea.prefix;
+
 @ZenRegister
 @ZenCodeType.Name("mods.maxseth.abouttea.tea_stone_workstation_recipe")
 public class TeaStoneWorkstationTweak implements IRecipeManager {
     @ZenCodeType.Method
-    public void addTeaStoneWorkstationRecipe(IIngredient[][] inputs, IItemStack output, int tick) {
+    public void addTeaStoneWorkstationRecipe(String name,IIngredient[][] inputs, IItemStack output, int tick) {
         Ingredient[][] ingredients = new Ingredient[inputs.length][inputs[0].length];
         for (int i = 0; i < inputs.length; i++) {
             for (int j = 0; j < inputs[0].length; j++) {
                 ingredients[i][j] = inputs[i][j].asVanillaIngredient();
             }
         }
-        CraftTweakerAPI.apply(new ActionAddRecipe(this, new TeaStoneWorkStationRecipe(ingredients, output.getInternal(), tick), "tea_stone_workstation_recipe"));
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, new TeaStoneWorkStationRecipe(prefix(name),ingredients, output.getInternal(), tick), "tea_stone_workstation_recipe"));
     }
 
     @ZenCodeType.Method
